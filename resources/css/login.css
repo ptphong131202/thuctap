@@ -1,0 +1,104 @@
+.login-page {
+    background-color: #fff;
+}
+.login-page .login-logo a {
+    color: aliceblue;
+}
+.login-page .login-box {
+    padding-top: 7%;
+}
+.login-page .login-box, .register-box {
+    margin: auto;
+}
+
+.login-page .login-form {
+    padding: 20px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #d8d8d8;
+}
+
+.login-page .cms-info-box .text-content {
+    font-size: 1.1em;
+    color: gray
+}
+
+.login-page .cms-info-box .privacy-box {
+    font-size: 1.1em; color: gray
+}
+
+.login-page .header-logo {
+    position: fixed;
+    border-top: 10px solid #605ca8;
+    width: 100%;
+    z-index: 999;
+}
+
+.login-page .header-triangle {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 40px solid #605ca8;
+    margin: auto;
+    position: fixed; top: 4px; left: calc(50% - 50px);
+    z-index: 999;
+}
+
+.login-page .header-triangle-logo {
+    position: fixed;
+    top: 4px;
+    left: calc(50% - 13px);
+    z-index: 999;
+}
+
+.login-footer {
+    background-color: #605ca8;
+    color: #fff !important;
+    width: 100%;
+    margin-top: 20px;
+    /* position: fixed;
+    bottom: 0; */
+}
+
+/* Custom container */
+@media (max-width: 768px){
+    .login-page .container {
+        padding-top: 50px;
+    }
+
+    .login-page .cms-info-box .text-content {
+        margin-bottom: 20px;
+    }
+    
+    .login-page .cms-info-box .privacy-box {
+        display: none;
+    }
+}
+@media (min-width: 768px){
+    .login-page .container {
+        padding-top: 50px;
+        width: 600px;
+    }
+}
+@media (min-width: 992px) {
+    .login-page.container {
+        padding-top: 70px;
+        width: 870px;
+    }
+    .login-page .login-form {
+        margin-top: 70px;
+    }
+}
+@media (min-width: 1200px) {
+    .login-page .container {
+        padding-top: 100px;
+        width: 1000px;
+    }
+    .login-page .login-form {
+        margin-top: 70px;
+    }
+    .login-page .login-footer {
+        position: fixed;
+        bottom: 0;
+    }
+}

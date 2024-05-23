@@ -1,0 +1,105 @@
+.w-1 {
+	width: 1px;
+}
+.w-3 {
+    width: 3%;
+}
+.w-5 {
+	width: 5%;
+}
+.w-7 {
+	width: 7%;
+}
+.w-10 {
+	width: 10%;
+}
+.w-15 {
+    width: 15%;
+}
+.w-20 {
+    width: 20%;
+}
+.w-30 {
+    width: 30%;
+}
+.w-40 {
+    width: 40%;
+}
+.w-50 {
+    width: 50%;
+}
+.w-60 {
+    width: 60%;
+}
+.w-65 {
+    width: 65%;
+}
+.mw-70-p {
+	min-width: 70px;
+}
+.maw-40 {
+    max-width: 40%;
+}
+.maw-200-p {
+    max-width: 200px;
+}
+.maw-400-p {
+    max-width: 400px;
+}
+.w-90-p {
+    width: 90px;
+}
+.w-100-p {
+    width: 100px;
+}
+.w-150-p {
+    width: 150px;
+}
+
+.input-require, .input-require:focus {
+	border-left: solid red 2px;
+}
+
+.drag-area {
+    cursor: grab;
+}
+
+.btn-link:hover {
+    text-decoration: none !important;
+}
+.mini-label {
+    font-size: 0.6em;
+}
+.text-middle {
+    vertical-align: middle;
+}
+.no-wrap {
+    white-space: nowrap;
+}
+tr.text-middle td {
+    vertical-align: middle !important;
+}
+.cursor-help {
+    cursor: help;
+}
+.content-header > h1{
+    max-width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media (max-width: 991px){
+    .content-header > h1{
+        max-width: 100%;
+    }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

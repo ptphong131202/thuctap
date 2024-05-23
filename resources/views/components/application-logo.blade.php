@@ -1,0 +1,1 @@
+<img src="{{ assetv('images/favicon/apple-touch-icon.png') }}" />
