@@ -17,7 +17,7 @@
     <!-- Main content -->
     <section class="content">
       <div style="margin-bottom: 6px">
-        <a :href="'/nhap-diem/' + lh_id" class="btn btn-default">
+        <a :href="'/tthl/public/nhap-diem/' + lh_id" class="btn btn-default">
           <i class="fa fa-share"></i> Trở về danh sách
         </a>
         <button type="button" class="btn bg-purple" v-on:click="actionSave">
@@ -374,7 +374,7 @@
               </div>
             </div>
             <div class="box-footer">
-              <a :href="'/nhap-diem/' + lh_id" class="btn btn-default">
+              <a :href="'/tthl/public/nhap-diem/' + lh_id" class="btn btn-default">
                 <i class="fa fa-share"></i> Trở về danh sách
               </a>
               <input
@@ -431,15 +431,15 @@
 <script>
 const consumer = {
   getLopHoc: function (lh_id) {
-    const url = "/api/lop-hoc/" + lh_id;
+    const url = "'http://localhost/tthl/public/api/lop-hoc/" + lh_id;
     return axios.get(url).then((response) => response.data);
   },
   getMonHoc: function (mh_id) {
-    const url = "/api/mon-hoc/" + mh_id;
+    const url = "'http://localhost/tthl/public/api/mon-hoc/" + mh_id;
     return axios.get(url).then((response) => response.data);
   },
   getDanhSachHocKy: function (kdt_id) {
-    const url = "/api/khoa-dao-tao/" + kdt_id + "/hoc-ky";
+    const url = "'http://localhost/tthl/public/api/khoa-dao-tao/" + kdt_id + "/hoc-ky";
     return axios
       .get(url)
       .then((response) => response.data)
@@ -475,11 +475,11 @@ const consumer = {
   },
   getBangDiem: function (lh_id, mh_id, hocKy, type) {
     // bd_type = 1 là bảng điểm môn học
-    const url = `/api/nhap-diem/${lh_id}/bang-diem?mh_id=${mh_id}&hocky=${hocKy}&bd_type=${type}`;
+    const url = `http://localhost/tthl/public/api/nhap-diem/${lh_id}/bang-diem?mh_id=${mh_id}&hocky=${hocKy}&bd_type=${type}`;
     return axios.get(url).then((response) => response.data);
   },
   saveBangDiem: function (formData) {
-    const url = `/api/nhap-diem/${formData.lh_id}/bang-diem`;
+    const url = `http://localhost/tthl/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
     return axios.post(url, formData);
   },
   uploadFile: function (file, quyChe2022, hasCal) {
@@ -491,9 +491,9 @@ const consumer = {
     };
     formData.append("excel_file", file);
     formData.append("quy_che_2022", quyChe2022);
-    let url = "/api/excel/import-raw-score";
+    let url = "http://localhost/tthl/public/api/excel/import-raw-score";
     if (hasCal) {
-      url = "/api/excel/import-score";
+      url = "http://localhost/tthl/public/api/excel/import-score";
     }
     return axios.post(url, formData, headers);
   },

@@ -353,24 +353,24 @@
         },
         saveOrUpdate: function (formData) {
             if (formData.sv_id == null) {
-                return axios.post('http://localhost/tthl/public/apisinh-vien', formData);
+                return axios.post('http://localhost/tthl/public/api/sinh-vien', formData);
             } else {
-                return axios.put('http://localhost/tthl/public/apisinh-vien/' + formData.sv_id, formData);
+                return axios.put('http://localhost/tthl/public/api/sinh-vien/' + formData.sv_id, formData);
             }
         },
         destroy: function (sv_id) {
-            return axios.delete('http://localhost/tthl/public/apisinh-vien/' + sv_id);
+            return axios.delete('http://localhost/tthl/public/api/sinh-vien/' + sv_id);
         },
         getListLopHoc: function () {
-            const url = 'http://localhost/tthl/public/apilop-hoc/all';
+            const url = 'http://localhost/tthl/public/api/lop-hoc/all';
             return axios.get(url).then(response => response.data);
         },
         getListQuyetDinh: function (loai) {
-            const url = 'http://localhost/tthl/public/apiquyet-dinh/all/'+loai;
+            const url = 'http://localhost/tthl/public/api/quyet-dinh/all/'+loai;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdateQuyetDinh: function (formData) {
-            return axios.put('http://localhost/tthl/public/apisinh-vien/cap-nhat-quyet-dinh-sinh-vien', formData);
+            return axios.put('http://localhost/tthl/public/api/sinh-vien/cap-nhat-quyet-dinh-sinh-vien', formData);
         },
     }
 
