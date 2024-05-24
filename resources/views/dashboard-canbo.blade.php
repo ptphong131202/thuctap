@@ -9,7 +9,7 @@
         <div class="small-box bg-aqua">
             <div class="inner">
                 <h3>{{ $thongKe['slLopHoc'] }}</h3>
-                <p>Lớp học</p>
+                <p>Lớp học 1</p>
             </div>
             <div class="icon">
                 <i class="fa fa-users"></i>
@@ -17,6 +17,59 @@
             <a href="{{ route('lop-hoc.index') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
+    <div class="col-lg-6 col-xs-6">
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>{{ $thongKe['slMonHoc'] }}</h3>
+                <p>Môn học</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+            <a href="{{ route('mon-hoc.index') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-6 col-xs-6">
+        <div class="small-box bg-aqua">
+            <div class="inner">
+            <h3>{{ $dsNganhNghe->filter(function($item) {
+                    return $item->hdt_id === 4;
+                })->count() }} Ngành, nghề - trung cấp
+            </h3>
+            <h3>{{ $dsNganhNghe->filter(function($item) {
+                    return $item->hdt_id === 5;
+                })->count() }} Ngành, nghề - Cao đẵng
+            </h3>
+            <h3>{{$dsNganhNghe->count() }} Tổng cộng
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+            <a href="{{ route('nganh-nghe.index') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-6">
+        <div class="small-box bg-aqua">
+            <div class="inner">
+            <h3>{{ $dsDotXetTotNghiepSinhVien->filter(function($item) {
+                    return $item->svxtn_dattn === 1;
+                })->count() }} Đã tốt nghiệp
+            </h3>
+            <h3>{{ $dsDotXetTotNghiepSinhVien->filter(function($item) {
+                    return $item->svxtn_dattn === 0;
+                })->count() }} Chuẩn bị tốt nghiệp
+            </h3>
+            <h3>{{$thongKe['slMonHoc'] - $dsDotXetTotNghiepSinhVien->count() }} Chưa xét
+            </h3>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+            <a href="{{ route('lop-hoc.index') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
     {{-- <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-green">
             <div class="inner">
@@ -96,6 +149,9 @@
         </a>
     </div>
 </div>
+
+<!-- @foreach ($dsSinhVien as $sinhvien)
+@endforeach -->
 
 @endsection
 

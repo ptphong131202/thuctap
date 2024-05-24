@@ -447,42 +447,42 @@ const quyetQinhModal = {
 
 const consumer = {
     getListDotThi: function () {
-        const url = "/api/dot-thi" + window.location.search;
+        const url = "http://localhost/tthl/public/api/dot-thi" + window.location.search;
         return axios.get(url).then((response) => response.data);
     },
     getListDotXet: function (chuongtrinh) {
-        const url = "/api/dot-xet-tot-nghiep/all?chuongtrinh=" + chuongtrinh;
+        const url = "http://localhost/tthl/public/api/dot-xet-tot-nghiep/all?chuongtrinh=" + chuongtrinh;
         return axios.get(url).then((response) => response.data);
     },
     getDotThi: function (dt_id) {
-        const url = "/api/dot-thi/" + dt_id;
+        const url = "http://localhost/tthl/public/api/dot-thi/" + dt_id;
         return axios.get(url).then((response) => response.data);
     },
     saveOrUpdate: function (formData) {
         if (formData.dt_id == null) {
-            return axios.post("/api/dot-thi", formData);
+            return axios.post("http://localhost/tthl/public/api/dot-thi", formData);
         } else {
-            return axios.put("/api/dot-thi/" + formData.dt_id, formData);
+            return axios.put("http://localhost/tthl/public/api/dot-thi/" + formData.dt_id, formData);
         }
     },
     updateQdTrangThai: function (formData) {
-        return axios.put("/api/dot-thi/updateQd-trang-thai/" + formData.dt_id, formData);
+        return axios.put("http://localhost/tthl/public/api/dot-thi/updateQd-trang-thai/" + formData.dt_id, formData);
     },
     destroy: function (dt_id) {
-        return axios.delete("/api/dot-thi/" + dt_id);
+        return axios.delete("http://localhost/tthl/public/api/dot-thi/" + dt_id);
     },
     capNhatDotXet: function (formData) {
-        return axios.post("/api/dot-xet-tot-nghiep/cap-nhat-dot-xet-cho-dot-thi", formData);
+        return axios.post("http://localhost/tthl/public/api/dot-xet-tot-nghiep/cap-nhat-dot-xet-cho-dot-thi", formData);
     },
     getListQuyetDinh: function (loai) {
-        const url = "/api/quyet-dinh/all/" + 3;
+        const url = "http://localhost/tthl/public/api/quyet-dinh/all/" + 3;
         return axios.get(url).then((response) => response.data);
     },
     saveOrAddQuyetDinh: function (formData) {
-        return axios.post("/api/sinh-vien/them-quyet-dinh-thi-tot-nghiep", formData);
+        return axios.post("http://localhost/tthl/public/api/sinh-vien/them-quyet-dinh-thi-tot-nghiep", formData);
     },
     getListHeDaoTao: function () {
-        const url = "/api/he-dao-tao/all";
+        const url = "http://localhost/tthl/public/api/he-dao-tao/all";
         return axios.get(url).then((response) => response.data);
     },
 };
@@ -503,8 +503,8 @@ const store = {
 export default {
     props: ["permissions"],
     mounted() {
-        this.quyenTrungCap = this.permissions.includes("trungcap");
-        this.quyenCaoDang = this.permissions.includes("caodang");
+        /* this.quyenTrungCap = this.permissions.includes("trungcap");
+        this.quyenCaoDang = this.permissions.includes("caodang"); */
         if (new URLSearchParams(window.location.search).get("chuongtrinh") != null) {
             this.filter.chuongtrinh = new URLSearchParams(window.location.search).get(
                 "chuongtrinh"
@@ -519,6 +519,8 @@ export default {
     },
     data() {
         return {
+            quyenTrungCap: true,
+            quyenCaoDang: true,
             loai: Object, //1 là tốt nghiệp 2 là xóa //  3 du thi tn
             dt_id: Object,
             dotThi: {},

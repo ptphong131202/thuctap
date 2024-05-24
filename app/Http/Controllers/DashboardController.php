@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\LopHoc;
 use App\Models\SinhVien;
 use App\Models\KhoaDaoTao;
+use App\Models\HeDaoTao;
 use App\Models\Log;
 use App\Models\MonHoc;
+use App\Models\DotXetTotNghiepSinhVien;
+use App\Models\NganhNghe;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -62,15 +65,29 @@ class DashboardController extends Controller
         return view('dashboard', compact(['infoUser', 'configSv']));
     }
 
+  
+    /// 
+
     public function indexCanBo()
-    {
-        $infoUser = auth()->user()->load(['canBo']);
-        $thongKe = [
-            'slSinhVien'   => SinhVien::count(),
-            'slMonHoc'     => MonHoc::count(),
-            'slKhoaDaoTao' => KhoaDaoTao::count(),
-            'slLopHoc'     => LopHoc::count(),
-        ];
-        return view('dashboard-canbo', compact(['infoUser', 'thongKe']));
-    }
+{
+    $infoUser = auth()->user()->load(['canBo']);
+    $thongKe = [
+        'slSinhVien'   => SinhVien::count(),
+        'slMonHoc'     => MonHoc::count(),
+        'slKhoaDaoTao' => KhoaDaoTao::count(),
+        'slLopHoc'     => LopHoc::count(),
+        'slHeDaoTao'   => HeDaoTao::count(),
+    ];
+
+    // Lấy danh sách hệ đào tạo
+    $dsHeDaoTao = HeDaoTao::all();
+    $dsSinhVien = SinhVien::all();
+    $dsDotXetTotNghiepSinhVien = DotXetTotNghiepSinhVien::all();
+    $dsNganhNghe = NganhNghe::all();
+
+    return view('dashboard-canbo', compact(['infoUser', 'thongKe', 'dsHeDaoTao', 'dsSinhVien', 'dsDotXetTotNghiepSinhVien', 'dsNganhNghe']));
+}
+
+    
+
 }
