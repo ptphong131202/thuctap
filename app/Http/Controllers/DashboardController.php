@@ -79,13 +79,21 @@ class DashboardController extends Controller
         'slHeDaoTao'   => HeDaoTao::count(),
     ];
 
+    $nganhnghe = [
+        'slNganhNghe' => NganhNghe::count(),
+        'slNganhNghe_TrungCap' => NganhNghe::where('hdt_id', '4')->count(),
+        'slNganhNghe_CaoDang' => NganhNghe::where('hdt_id', '5')->count(),
+    ];
+
+    $dotxettotnghiepsinhvien = [
+        'sldotxetnghiepsinh' => DotXetTotNghiepSinhVien::count(),
+        'sldatotnghiep' => DotXetTotNghiepSinhVien::where('svxtn_dattn', '1')->count(),
+        'slchuaxet' => DotXetTotNghiepSinhVien::where('svxtn_dattn', '1')->count(),
+    ];
+
     // Lấy danh sách hệ đào tạo
     $dsHeDaoTao = HeDaoTao::all();
-    $dsSinhVien = SinhVien::all();
-    $dsDotXetTotNghiepSinhVien = DotXetTotNghiepSinhVien::all();
-    $dsNganhNghe = NganhNghe::all();
-
-    return view('dashboard-canbo', compact(['infoUser', 'thongKe', 'dsHeDaoTao', 'dsSinhVien', 'dsDotXetTotNghiepSinhVien', 'dsNganhNghe']));
+    return view('dashboard-canbo', compact(['infoUser', 'thongKe', 'dotxettotnghiepsinhvien', 'nganhnghe']));
 }
 
     

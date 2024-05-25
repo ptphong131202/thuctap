@@ -11,13 +11,8 @@
         <div class="small-box bg-aqua">
         <div class="inner" style="display: flex; with: 50%; justify-content: left; align-items: center; flex-wrap: wrap">
             <?php
-                $trungcap = ($dsNganhNghe->filter(function($item) {
-                    return $item->hdt_id === 4;
-                })->count() / $dsNganhNghe->count()) * 100;
-
-                $caodang = ($dsNganhNghe->filter(function($item) {
-                    return $item->hdt_id === 5;
-                })->count() / $dsNganhNghe->count()) * 100;
+                $trungcap = ($nganhnghe['slNganhNghe_TrungCap']) /  $nganhnghe['slNganhNghe'] * 100;
+                $caodang = ($nganhnghe['slNganhNghe_TrungCap']) /  $nganhnghe['slNganhNghe'] * 100;
                 // Định dạng phần trăm
                 $trungcapFormatted = number_format($trungcap, 2);
                 $caodangFormatted = number_format($caodang, 2);
@@ -52,13 +47,8 @@
         <div class="small-box bg-yellow">
         <div class="inner" style="display: flex; with: 50%; justify-content: left;   align-items: center; flex-wrap: wrap">
             <?php
-                $datotnhiep = ($dsDotXetTotNghiepSinhVien->filter(function($item) {
-                    return $item->svxtn_dattn === 1;
-                })->count() / $dsDotXetTotNghiepSinhVien->count()) * 100;
-
-                $dangxet = ($dsDotXetTotNghiepSinhVien->filter(function($item) {
-                    return $item->svxtn_dattn === 0;
-                })->count() / $dsDotXetTotNghiepSinhVien->count()) * 100;
+                $datotnhiep = $dotxettotnghiepsinhvien['sldatotnghiep'] / $dotxettotnghiepsinhvien['sldotxetnghiepsinh'] * 100;
+                $dangxet = $dotxettotnghiepsinhvien['slchuaxet'] / $dotxettotnghiepsinhvien['sldotxetnghiepsinh'] * 100;
                 // Định dạng phần trăm
                 $datotnhiepFormatted = number_format($datotnhiep, 2);
                 $dangxetFormatted = number_format($dangxet, 2);
@@ -186,8 +176,6 @@
     </div>
 </div>
 
-<!-- @foreach ($dsSinhVien as $sinhvien)
-@endforeach -->
 
 @endsection
 
