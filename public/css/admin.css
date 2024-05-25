@@ -3,7 +3,7 @@
 .icheckbox_minimal-blue,
 .iradio_minimal-blue {
     display: inline-block;
-    display: inline;
+    *display: inline;
     vertical-align: middle;
     margin: 0;
     padding: 0;
@@ -1631,8 +1631,8 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url(http://localhost/tthl/public/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.eot?5be1347c682810f199c7f486f40c5974);
-  src: url(http://localhost/tthl/public/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.eot?5be1347c682810f199c7f486f40c5974?#iefix) format('embedded-opentype'), url(http://localhost/tthl/public/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.woff2?be810be3a3e14c682a257d6eff341fe4) format('woff2'), url(http://localhost/tthl/public/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.woff?82b1212e45a2bc35dd731913b27ad813) format('woff'), url(http://localhost/tthl/public/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.ttf?4692b9ec53fd5972caa2f2372ae20d16) format('truetype'), url(http://localhost/tthl/public/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.svg?060b2710bdbbe3dfe48b58d59bd5f1fb#glyphicons_halflingsregular) format('svg');
+  src: url(/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.eot?5be1347c682810f199c7f486f40c5974);
+  src: url(/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.eot?5be1347c682810f199c7f486f40c5974?#iefix) format('embedded-opentype'), url(/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.woff2?be810be3a3e14c682a257d6eff341fe4) format('woff2'), url(/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.woff?82b1212e45a2bc35dd731913b27ad813) format('woff'), url(/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.ttf?4692b9ec53fd5972caa2f2372ae20d16) format('truetype'), url(/fonts/vendor/bootstrap3/dist/glyphicons-halflings-regular.svg?060b2710bdbbe3dfe48b58d59bd5f1fb#glyphicons_halflingsregular) format('svg');
 }
 .glyphicon {
   position: relative;
@@ -13781,6 +13781,7 @@ input[type=number] {
     }
 }
 
+@charset "UTF-8";
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -13789,8 +13790,8 @@ input[type=number] {
  * -------------------------- */
 @font-face {
   font-family: "FontAwesome";
-  src: url(http://localhost/tthl/public/fonts/vendor/font-awesome/fontawesome-webfont.eot?8b43027f47b20503057dfbbaa9401fef);
-  src: url(http://localhost/tthl/public/fonts/vendor/font-awesome/fontawesome-webfont.eot?8b43027f47b20503057dfbbaa9401fef) format("embedded-opentype"), url(http://localhost/tthl/public/fonts/vendor/font-awesome/fontawesome-webfont.woff2?20fd1704ea223900efa9fd4e869efb08) format("woff2"), url(http://localhost/tthl/public/fonts/vendor/font-awesome/fontawesome-webfont.woff?f691f37e57f04c152e2315ab7dbad881) format("woff"), url(http://localhost/tthl/public/fonts/vendor/font-awesome/fontawesome-webfont.ttf?1e59d2330b4c6deb84b340635ed36249) format("truetype"), url(http://localhost/tthl/public/fonts/vendor/font-awesome/fontawesome-webfont.svg?c1e38fd9e0e74ba58f7a2b77ef29fdd3) format("svg");
+  src: url(/fonts/vendor/font-awesome/fontawesome-webfont.eot?8b43027f47b20503057dfbbaa9401fef);
+  src: url(/fonts/vendor/font-awesome/fontawesome-webfont.eot?8b43027f47b20503057dfbbaa9401fef) format("embedded-opentype"), url(/fonts/vendor/font-awesome/fontawesome-webfont.woff2?20fd1704ea223900efa9fd4e869efb08) format("woff2"), url(/fonts/vendor/font-awesome/fontawesome-webfont.woff?f691f37e57f04c152e2315ab7dbad881) format("woff"), url(/fonts/vendor/font-awesome/fontawesome-webfont.ttf?1e59d2330b4c6deb84b340635ed36249) format("truetype"), url(/fonts/vendor/font-awesome/fontawesome-webfont.svg?c1e38fd9e0e74ba58f7a2b77ef29fdd3) format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -16810,8 +16811,8 @@ input[type=number] {
 */
 @font-face {
   font-family: "Ionicons";
-  src: url(http://localhost/tthl/public/fonts/vendor/ionicons/ionicons.eot?3e10c450f96bf28a640777fc18af2197);
-  src: url(http://localhost/tthl/public/fonts/vendor/ionicons/ionicons.eot?3e10c450f96bf28a640777fc18af2197) format("embedded-opentype"), url(http://localhost/tthl/public/fonts/vendor/ionicons/ionicons.ttf?e9f4c425fc377740601bf321aff5b419) format("truetype"), url(http://localhost/tthl/public/fonts/vendor/ionicons/ionicons.woff?e5a4fae098c926d7f34b15a15969cb7d) format("woff"), url(http://localhost/tthl/public/fonts/vendor/ionicons/ionicons.svg?e9190273f3942224e920e73e1e7ae045) format("svg");
+  src: url(/fonts/vendor/ionicons/ionicons.eot?3e10c450f96bf28a640777fc18af2197);
+  src: url(/fonts/vendor/ionicons/ionicons.eot?3e10c450f96bf28a640777fc18af2197) format("embedded-opentype"), url(/fonts/vendor/ionicons/ionicons.ttf?e9f4c425fc377740601bf321aff5b419) format("truetype"), url(/fonts/vendor/ionicons/ionicons.woff?e5a4fae098c926d7f34b15a15969cb7d) format("woff"), url(/fonts/vendor/ionicons/ionicons.svg?e9190273f3942224e920e73e1e7ae045) format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -20492,10 +20493,4 @@ input[type=number] {
 
 .ion-xbox:before {
   content: "\f30c";
-  
 }
-
-
-
-
-

@@ -123,6 +123,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/mon-hoc/{token}', [NhapDiemController::class, 'nhapDiemMonHoc'])->name('nhap-diem.edit');
         Route::get('/dot-thi/{token}', [NhapDiemController::class, 'nhapDiemDotThi'])->name('nhap-diem.dotthi.edit');
         Route::post('/themdotthi', [NhapDiemController::class, 'nhapDotThi'])->name('themdotthi');
+        Route::post('/', [NhapDiemController::class, 'ThongBaoDiem']);  /// phong url
+
     });
 
 
@@ -317,7 +319,7 @@ Route::middleware([])->prefix('/api')->group(function () {
 
         Route::delete('{lh_id}/bang-diem-dot-thi', [NhapDiemController::class, 'destroyBangDiemDotThi']);
 
-        // Route::get('{dt_id}/bang-diem-dot-thi-full', [NhapDiemController::class, 'getBangDiemByDotThiFull']);
+        Route::get('{dt_id}/bang-diem-dot-thi-full', [NhapDiemController::class, 'getBangDiemByDotThiFull']);
     });
 
     Route::prefix('tra-cuu-diem')->group(function () {

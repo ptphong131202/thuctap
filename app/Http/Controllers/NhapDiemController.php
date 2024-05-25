@@ -11,6 +11,7 @@ use App\Models\DotThi;
 use App\Models\DotThiBangDiem;
 use App\Enums\BangDiemType;
 use App\Excels\KetQuaHocTap;
+use App\Services\ZaloService;
 use DB;
 use Maatwebsite\Excel\Concerns\ToArray;
 
@@ -796,6 +797,41 @@ class NhapDiemController extends Controller
                 );
             }
         }
+    }
+
+    // phong
+    public function ThongBaoDiem(Request $request)
+    {
+        $mh_id = $request->input('mh_id');
+        $lh_ma = $request->input('lh_ma');
+
+        // Ghi nhật ký để kiểm tra dữ liệu nhận được
+        Log::info('Received mh_id: ' . $mh_id);
+        Log::info('Received lh_ma: ' . $lh_ma);
+
+        // Lấy danh sách sinh viên dựa trên lh_ma
+        $lopHoc = LopHoc::where('lh_ma', $lh_ma)->first();
+        if (!$lopHoc) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Lớp học không tồn tại.'
+            ], 404);
+        }
+
+        // Assuming the LopHoc model has a relationship with SinhVien
+        $phoneNumbers = $lopHoc->sinhviens->pluck('zalo_user_id')->toArray(); // lấy số điện thoại của sinh viên
+
+        // Gửi tin nhắn qua Zalo cho từng sinh viên
+        $message = "Thông báo điểm môn học $mh_id cho lớp $lh_ma.";
+        $results = $this->zaloService->sendMessages($phoneNumbers, $message);
+
+        // Trả lại phản hồi chi tiết
+        return response()->json([
+            'success' => true,
+            'mh_id' => $mh_id,
+            'lh_ma' => $lh_ma,
+            'results' => $results
+        ]);
     }
 
     /**

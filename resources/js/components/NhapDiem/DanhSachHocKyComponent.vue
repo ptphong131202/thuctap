@@ -73,19 +73,20 @@
                                                 :title="'Nhập điểm môn ' + mh.mh_ten">
                                                 <i class="fa fa-pencil"></i> Nhập điểm
                                             </a>
-                                            <button type="button" title="Xóa điểm đã nhập" v-if="mh.bd_id && quyenNhapDiem"
-                                                class="btn btn-danger btn-sm" v-on:click="destroyBangDiem(mh.bd_id)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                            <button type="button" title="Thông báo điểm" 
+                                            class="btn btn-warning btn-sm"  v-on:click="shareNotification(mh, model)">
+                                            <i class="fa-solid fa-share"></i>
+                                        </button>
+                                        <button type="button" title="Xóa điểm đã nhập" v-if="mh.bd_id && quyenNhapDiem"
+                                            class="btn btn-danger btn-sm" style="margin-top: 5px;" v-on:click="destroyBangDiem(mh.bd_id)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">{{ semester.monHoc.length + 1 }}</td>
                                         <td colspan="3">Điểm rèn luyện học kỳ {{ semester.semesterByYear }} năm {{
                                             semester.year }}</td>
-                                        <!-- <td colspan="3">Điểm rèn luyện học kỳ {{ semester.semester + 2 -
-                                            (Math.round((semester.semester) / 2) * 2) }} năm {{
-        Math.round((semester.semester) / 2) }}</td> -->
                                         <td class="text-center">
                                             <span v-if="semester.diemRenLuyen">{{ semester.diemRenLuyen.created_at | moment
                                             }}</span>
@@ -236,15 +237,15 @@ export default {
         },
         nhapDiemMonHocUrl: function (monHoc) {
             let baseSixFour = btoa(JSON.stringify({ lh_id: monHoc.lh_id, hoc_ky: monHoc.semester, mh_id: monHoc.mh_id }));
-            return 'http://localhost/tthl/public/nhap-diem/mon-hoc/' + baseSixFour;
+            return 'http://localhost/tthl/public/api/nhap-diem/mon-hoc/' + baseSixFour;
         },
         nhapDiemDotThiUrl: function (monHoc) {
             let baseSixFour = btoa(JSON.stringify({ lh_id: monHoc.lh_id, dot_thi: monHoc.dotthi, mh_id: monHoc.mh_id }));
-            return 'http://localhost/tthl/public/nhap-diem/dot-thi/' + baseSixFour;
+            return 'http://localhost/tthl/public/api/nhap-diem/dot-thi/' + baseSixFour;
         },
         nhapDiemRenLuyenUrl: function (semester) {
             let baseSixFour = btoa(JSON.stringify({ lh_id: semester.lh_id, hoc_ky: semester.semester }));
-            return 'http://localhost/tthl/public/nhap-diem/ren-luyen/' + baseSixFour;
+            return 'http://localhost/tthl/public/api/nhap-diem/ren-luyen/' + baseSixFour;
         }
     },
     methods: {
@@ -266,6 +267,20 @@ export default {
         },
         semesterChange: function () {
             this.init(this.lh_id);
+        },
+        shareNotification: function(mh, model) {
+            alert(`Chia sẻ điểm môn ${mh.mh_id  }, lớp ${model.lh_id}`);
+            
+            /* const url = `http://localhost/tthl/public/api/nhap-diem/`;
+            return axios.post(url, { mh_id: mh.mh_id, lh_ma: model.lh_ma })
+                .then(response => {
+            // Hiển thị thông tin chi tiết trả về trong alert
+            alert('Thông báo đã được gửi đi thành công!\n' + JSON.stringify(response.data, null, 2));
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Gửi thông báo thất bại!');
+                }); */
         },
         destroyBangDiem: function (bd_id) {
             var vm = this;
@@ -299,3 +314,14 @@ export default {
     }
 }
 </script>
+
+
+
+<!-- SELECT sv.sv_sdt, COUNT(*)
+SELECT sv.*
+FROM qlsv_lophoc AS lh
+JOIN qlsv_lophoc_monhoc AS lh_mh ON lh.lh_id = lh_mh.lh_id
+JOIN qlsv_sinhvien_lophoc AS lhs ON lh.lh_id = lhs.lh_id
+JOIN qlsv_sinhvien AS sv ON lhs.sv_id = sv.sv_id
+WHERE lh.lh_ma = 'C-NTS15A' AND lh_mh.mh_id = 1518;
+ -->
