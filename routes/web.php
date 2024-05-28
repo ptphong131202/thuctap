@@ -31,7 +31,7 @@ use App\Http\Controllers\LogController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/chart', [ChartController::class, 'index']); // phong url
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -344,11 +344,11 @@
 
     const consumer = {
         getListSinhVien: function () {
-            const url = 'http://localhost/tthl/public/apisinh-vien' + window.location.search;
+            const url = 'http://localhost/tthl/public/api/sinh-vien' + window.location.search;
             return axios.get(url).then(response => response.data);
         },
         getSinhVien: function (sv_id) {
-            const url = 'http://localhost/tthl/public/apisinh-vien/' + sv_id;
+            const url = 'http://localhost/tthl/public/api/sinh-vien/' + sv_id;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
