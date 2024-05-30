@@ -52,8 +52,23 @@ class NganhNgheController extends Controller
                 'hedaotao' => $hdt_id
             ])
             ->onEachSide(2);
+            // P.Dinh
+            foreach ($danhSachNganhNghe as $nganhNghe) {
+                $monhoc_url = route('nganh-nghe.monhoc', [$nganhNghe->nn_id, $nganhNghe->heDaoTao->hdt_id]);
+                $nganhNghe->monhoc_url = $monhoc_url;
+            }
+
         return response()
             ->json($danhSachNganhNghe);
+    }
+
+    // P.Dinh
+    public function monhoc( $nn_id, $hdt_id)
+    {
+
+        $parentUrl = session('parent_url:nganh-nghe', '/nganh-nghe');
+        return view('qlsv.nganhnghe.nganhnghe_monhoc', compact(['nn_id', 'hdt_id', 'parentUrl']));
+
     }
 
     public function getAllNganhNghe(Request $request)

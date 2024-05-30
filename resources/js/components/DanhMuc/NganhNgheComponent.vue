@@ -94,6 +94,14 @@
                     <td>{{ nn.nn_ten }}</td>
                     <td>{{ nn.he_dao_tao.hdt_ten }}</td>
                     <td class="text-center">
+                      <!-- P.Dinh -->
+                      <a
+                                                :href="nn.monhoc_url"
+                                                class="btn bg-purple btn-sm"
+                                                title="Chi tiết môn học"
+                                            >
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                       <button
                         type="button"
                         class="btn bg-orange btn-sm pull-left"

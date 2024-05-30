@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('admin.index')->prefix('nganh-nghe')->group(function () {
         Route::get('/', [NganhNgheController::class, 'index'])->name('nganh-nghe.index');
+        Route::get('{nn_id}/{hdt_id}/mon-hoc', [NganhNgheController::class, 'monhoc'])->name('nganh-nghe.monhoc'); // P.Dinh
     });
 
     Route::prefix('user')->group(function () {

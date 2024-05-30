@@ -3,7 +3,7 @@
 .icheckbox_minimal-blue,
 .iradio_minimal-blue {
     display: inline-block;
-    display: inline;
+    *display: inline;
     vertical-align: middle;
     margin: 0;
     padding: 0;
@@ -12,7 +12,6 @@
     background: url(/images/vendor/icheck/skins/minimal/blue.png?df373daa3475c7beac5ab63e6f75e64d) no-repeat;
     border: none;
     cursor: pointer;
-    
 }
 
 .icheckbox_minimal-blue {
@@ -12867,7 +12866,6 @@ table.text-center th {
   padding: 0;
   font-weight: 600;
   font-size: 16px;
-
 }
 .description-block > .description-text {
   text-transform: uppercase;
@@ -13783,7 +13781,7 @@ input[type=number] {
     }
 }
 
-
+@charset "UTF-8";
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
