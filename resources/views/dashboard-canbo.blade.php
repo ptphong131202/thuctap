@@ -117,7 +117,7 @@
                                 <p style="    padding: 3px;    font-size: 14px;    margin: 0px;    display: -webkit-box;  
                                 line-height: 20px;    -webkit-box-orient: vertical;    -webkit-line-clamp: 1; 
                                 overflow: hidden;">
-                                <a style="color: white;" href="http://localhost/tthl/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                <a style="color: white;" href="http://localhost/tthl11/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                     {{ $caodang->kdt_ten }}
                                 </a>
                                     </p>
@@ -135,7 +135,7 @@
                                 <p style="    padding: 3px;    font-size: 14px;    margin: 0px;    display: -webkit-box;
                                 line-height: 20px;    -webkit-box-orient: vertical;    -webkit-line-clamp: 1; 
                                 overflow: hidden;">
-                                <a style="color: white;" href="http://localhost/tthl/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                <a style="color: white;" href="http://localhost/tthl11/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                     {{ $caodang->kdt_ten }}
                                 </a>
                                     </p>

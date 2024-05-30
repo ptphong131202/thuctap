@@ -335,12 +335,12 @@ const ayncMonHocModal = {
 
 const consumer = {
     getLopHoc: function (lh_id) {
-        const url = 'http://localhost/tthl/public/api/lop-hoc/' + lh_id;
+        const url = 'http://localhost/tthl11/public/api/lop-hoc/' + lh_id;
         return axios.get(url)
             .then(response => response.data);
     },
     getDanhSachHocKy: function (lh_id) {
-        const url = 'http://localhost/tthl/public/api/lop-hoc/' + lh_id + '/hoc-ky';
+        const url = 'http://localhost/tthl11/public/api/lop-hoc/' + lh_id + '/hoc-ky';
         return axios.get(url)
             .then(response => response.data)
             .then(data => {
@@ -378,7 +378,7 @@ const consumer = {
 
     },
     getDanhSachHocKyTab0: function (lh_id) {
-        const url = 'http://localhost/tthl/public/api/lop-hoc/' + lh_id + '/hoc-ky';
+        const url = 'http://localhost/tthl11/public/api/lop-hoc/' + lh_id + '/hoc-ky';
         return axios.get(url)
             .then(response => response.data)
             .then(data => {
@@ -386,27 +386,27 @@ const consumer = {
             });
     },
     getDanhSachMonHoc: function (kdt_id) {
-        // const url = 'http://localhost/tthl/public/api/mon-hoc/all?hdt_id=' + hdt_id + '&nn_id=' + nn_id;
+        // const url = 'http://localhost/tthl11/public/api/mon-hoc/all?hdt_id=' + hdt_id + '&nn_id=' + nn_id;
         // return axios.get(url)
         //         .then(response => response.data);
-        const url = 'http://localhost/tthl/public/api/mon-hoc/all-by-khoa-dao-tao?kdt_id=' + kdt_id;
+        const url = 'http://localhost/tthl11/public/api/mon-hoc/all-by-khoa-dao-tao?kdt_id=' + kdt_id;
         return axios.get(url)
             .then(response => response.data);
     },
     getListHeDaoTao: function () {
-        const url = 'http://localhost/tthl/public/api/he-dao-tao/all';
+        const url = 'http://localhost/tthl11/public/api/he-dao-tao/all';
         return axios.get(url).then(response => response.data);
     },
     getMonHoc: function (mh_id) {
-        const url = 'http://localhost/tthl/public/api/mon-hoc/' + mh_id;
+        const url = 'http://localhost/tthl11/public/api/mon-hoc/' + mh_id;
         return axios.get(url)
             .then(response => response.data);
     },
     saveOrUpdateMonHoc: function (formData) {
         if (formData.mh_id == null) {
-            return axios.post('http://localhost/tthl/public/api/mon-hoc', formData);
+            return axios.post('http://localhost/tthl11/public/api/mon-hoc', formData);
         } else {
-            return axios.put('http://localhost/tthl/public/api/mon-hoc/' + formData.mh_id, formData);
+            return axios.put('http://localhost/tthl11/public/api/mon-hoc/' + formData.mh_id, formData);
         }
     },
     saveOrUpdateHocKy: function (lh_id, danhSachHocKy) {

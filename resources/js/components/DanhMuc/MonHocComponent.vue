@@ -246,33 +246,33 @@ const editModal = {
 
 const consumer = {
   getListHeDaoTao: function () {
-    const url = "http://localhost/tthl/public/api/he-dao-tao/all";
+    const url = "http://localhost/tthl11/public/api/he-dao-tao/all";
     return axios.get(url).then((response) => response.data);
   },
   getListNganhNghe: function (hdt_id) {
-    const url = "http://localhost/tthl/public/api/nganh-nghe/all?hedaotao=" + hdt_id;
+    const url = "http://localhost/tthl11/public/api/nganh-nghe/all?hedaotao=" + hdt_id;
     return axios.get(url).then((response) => response.data);
   },
   getListMonHoc: function () {
-    const url = "http://localhost/tthl/public/api/mon-hoc" + window.location.search;
+    const url = "http://localhost/tthl11/public/api/mon-hoc" + window.location.search;
     return axios.get(url).then((response) => response.data);
   },
   getMonHoc: function (mh_id) {
-    const url = "http://localhost/tthl/public/api/mon-hoc/" + mh_id;
+    const url = "http://localhost/tthl11/public/api/mon-hoc/" + mh_id;
     return axios.get(url).then((response) => response.data);
   },
   saveOrUpdate: function (formData) {
     if (formData.mh_id == null) {
-      return axios.post("http://localhost/tthl/public/api/mon-hoc", formData);
+      return axios.post("http://localhost/tthl11/public/api/mon-hoc", formData);
     } else {
-      return axios.put("http://localhost/tthl/public/api/mon-hoc/" + formData.mh_id, formData);
+      return axios.put("http://localhost/tthl11/public/api/mon-hoc/" + formData.mh_id, formData);
     }
   },
   destroy: function (mh_id) {
-    return axios.delete("http://localhost/tthl/public/api/mon-hoc/" + mh_id);
+    return axios.delete("http://localhost/tthl11/public/api/mon-hoc/" + mh_id);
   },
   restore: function (mh_id) {
-    return axios.put("http://localhost/tthl/public/api/mon-hoc/restore/" + mh_id);
+    return axios.put("http://localhost/tthl11/public/api/mon-hoc/restore/" + mh_id);
   },
 };
 

@@ -252,7 +252,7 @@
 
     const consumer = {
         save: function (formData, lh_id) {
-            return axios.post('http://localhost/tthl/public/api/lop-hoc/'+lh_id+'/them-sinh-vien-excel', formData);
+            return axios.post('http://localhost/tthl11/public/api/lop-hoc/'+lh_id+'/them-sinh-vien-excel', formData);
         },
         uploadFile: function (file) {
             var formData = new FormData();
@@ -262,7 +262,7 @@
                 }
             }
             formData.append('excel_file', file);
-            return axios.post('http://localhost/tthl/public/api/excel/import-user', formData, headers);
+            return axios.post('http://localhost/tthl11/public/api/excel/import-user', formData, headers);
         }
     }
 

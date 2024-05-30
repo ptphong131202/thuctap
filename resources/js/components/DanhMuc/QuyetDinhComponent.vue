@@ -152,26 +152,26 @@
 
     const consumer = {
         getListQuyetDinh: function () {
-            const url = 'http://localhost/tthl/public/api/quyet-dinh' + window.location.search; /** Phong */
+            const url = 'http://localhost/tthl11/public/api/quyet-dinh' + window.location.search; /** Phong */
             return axios.get(url).then(response => response.data);
         },
         getQuyetDinh: function (qd_id) {
-            const url = 'http://localhost/tthl/public/api/quyet-dinh/' + qd_id;/** Phong */
+            const url = 'http://localhost/tthl11/public/api/quyet-dinh/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         checkUsed: function (qd_id) {
-            const url = 'http://localhost/tthl/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
+            const url = 'http://localhost/tthl11/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.qd_id == null) {
-                return axios.post('http://localhost/tthl/public/api/quyet-dinh', formData);/** Phong */
+                return axios.post('http://localhost/tthl11/public/api/quyet-dinh', formData);/** Phong */
             } else {
-                return axios.put('http://localhost/tthl/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
+                return axios.put('http://localhost/tthl11/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
             }
         },
         destroy: function (qd_id) {
-            return axios.delete('http://localhost/tthl/public/api/quyet-dinh/' + qd_id);/** Phong */
+            return axios.delete('http://localhost/tthl11/public/api/quyet-dinh/' + qd_id);/** Phong */
         }
     }
 

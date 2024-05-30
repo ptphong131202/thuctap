@@ -201,26 +201,26 @@ const editModal = {
 
 const consumer = {
   getListNganhNghe: function () {
-    const url = "http://localhost/tthl/public/api/nganh-nghe" + window.location.search;/** Phong API */
+    const url = "http://localhost/tthl11/public/api/nganh-nghe" + window.location.search;/** Phong API */
     return axios.get(url).then((response) => response.data);
   },
   getNganhNghe: function (nn_id) {
-    const url = "http://localhost/tthl/public/api/nganh-nghe/" + nn_id;/** Phong API */
+    const url = "http://localhost/tthl11/public/api/nganh-nghe/" + nn_id;/** Phong API */
     return axios.get(url).then((response) => response.data);
   },
   getListHeDaoTao: function () {
-    const url = "http://localhost/tthl/public/api/he-dao-tao/all";/** Phong API */
+    const url = "http://localhost/tthl11/public/api/he-dao-tao/all";/** Phong API */
     return axios.get(url).then((response) => response.data);
   },
   saveOrUpdate: function (formData) {
     if (formData.nn_id == null) {
-      return axios.post("http://localhost/tthl/public/api/nganh-nghe", formData);/** Phong API */
+      return axios.post("http://localhost/tthl11/public/api/nganh-nghe", formData);/** Phong API */
     } else {
-      return axios.put("http://localhost/tthl/public/api/nganh-nghe/" + formData.nn_id, formData);/** Phong API */
+      return axios.put("http://localhost/tthl11/public/api/nganh-nghe/" + formData.nn_id, formData);/** Phong API */
     }
   },
   destroy: function (nn_id) {
-    return axios.delete("http://localhost/tthl/public/api/nganh-nghe/" + nn_id); /** Phong API */
+    return axios.delete("http://localhost/tthl11/public/api/nganh-nghe/" + nn_id); /** Phong API */
   },
 };
 

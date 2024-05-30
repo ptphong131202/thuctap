@@ -86,19 +86,19 @@
 <script>
     const consumer = {
         getDanhSachMonHoc: function (lh_id, dt_id) {
-            const url = 'http://localhost/tthl/public/api/dot-thi/'+dt_id+'/dsmon?lh_id=' + lh_id+'&dt_id='+dt_id;
+            const url = 'http://localhost/tthl11/public/api/dot-thi/'+dt_id+'/dsmon?lh_id=' + lh_id+'&dt_id='+dt_id;
             return axios.get(url).then(response => response.data);
         },
         getLopHoc: function (lh_id) {
-            const url = 'http://localhost/tthl/public/api/lop-hoc/' + lh_id;
+            const url = 'http://localhost/tthl11/public/api/lop-hoc/' + lh_id;
             return axios.get(url).then(response => response.data);
         },
         destroyBangDiem: function (bd_id) {
-            const url = `http://localhost/tthl/public/api/nhap-diem/${bd_id}/bang-diem`;
+            const url = `http://localhost/tthl11/public/api/nhap-diem/${bd_id}/bang-diem`;
             return axios.delete(url);
         },
         destroyBangDiemDotThi: function (dt_bd_id) {
-            const url = `http://localhost/tthl/public/api/nhap-diem/${dt_bd_id}/bang-diem-dot-thi`;
+            const url = `http://localhost/tthl11/public/api/nhap-diem/${dt_bd_id}/bang-diem-dot-thi`;
             return axios.delete(url);
         },
     }
@@ -144,7 +144,7 @@
             },
             nhapDiemDotThiUrl: function (monHoc) {
                 let baseSixFour = btoa(JSON.stringify({ lh_id: monHoc.lh_id, dot_thi: monHoc.dotthi, mh_id: monHoc.mh_id }));
-                return 'http://localhost/tthl/public/api/nhap-diem/dot-thi/' + baseSixFour;
+                return 'http://localhost/tthl11/public/api/nhap-diem/dot-thi/' + baseSixFour;
             },
         },
         methods: {

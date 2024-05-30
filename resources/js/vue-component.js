@@ -49,3 +49,6 @@ Vue.component('kiem-tra-diem-box', require('./components/NhapDiem/KiemTraDiemCom
 
 Vue.component('nhatky-box', require('./components/Nhatky/DanhSachLopNhatKyComponent.vue').default);
 Vue.component('nhatky-chitiet-box', require('./components/Nhatky/NhatkyChiTietComponent.vue').default);
+
+
+Vue.component('nganhnghe-monhoc-box', require('./components/DanhMuc/NganhNgheMonHocComponent.vue').default); // P.Dinh

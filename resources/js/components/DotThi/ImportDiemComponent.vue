@@ -320,24 +320,24 @@ const editModal = {
 
 const consumer = {
   getLopHoc: function (lh_id) {
-    const url = "http://localhost/tthl/public/api/lop-hoc/" + lh_id;
+    const url = "http://localhost/tthl11/public/api/lop-hoc/" + lh_id;
     return axios.get(url).then((response) => response.data);
   },
   getMonHoc: function (mh_id) {
-    const url = "http://localhost/tthl/public/api/mon-hoc/" + mh_id;
+    const url = "http://localhost/tthl11/public/api/mon-hoc/" + mh_id;
     return axios.get(url).then((response) => response.data);
   },
   getBangDiem: function (lh_id, mh_id, dt_id) {
     // bd_type = 1 là bảng điểm môn học
-    const url = `http://localhost/tthl/public/api/nhap-diem/${lh_id}/bang-diem-dot-thi?mh_id=${mh_id}&dt_id=${dt_id}`;
+    const url = `http://localhost/tthl11/public/api/nhap-diem/${lh_id}/bang-diem-dot-thi?mh_id=${mh_id}&dt_id=${dt_id}`;
     return axios.get(url).then((response) => response.data);
   },
   saveBangDiem: function (formData) {
-    const url = `http://localhost/tthl/public/api/nhap-diem/${formData.lh_id}/bang-diem-dot-thi-loai0`;
+    const url = `http://localhost/tthl11/public/api/nhap-diem/${formData.lh_id}/bang-diem-dot-thi-loai0`;
     return axios.post(url, formData);
   },
   save: function (formData, dt_id) {
-    return axios.post("http://localhost/tthl/public/api/dot-thi/" + dt_id + "/nhap-diem-excel", formData);
+    return axios.post("http://localhost/tthl11/public/api/dot-thi/" + dt_id + "/nhap-diem-excel", formData);
   },
   uploadFile: function (file, lh_nienche) {
     var formData = new FormData();
@@ -348,7 +348,7 @@ const consumer = {
     };
     formData.append("excel_file", file);
     formData.append("lh_nienche", lh_nienche);
-    return axios.post("http://localhost/tthl/public/api/excel/import-diemdotthi", formData, headers);
+    return axios.post("http://localhost/tthl11/public/api/excel/import-diemdotthi", formData, headers);
   },
 };
 

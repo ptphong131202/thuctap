@@ -27,7 +27,7 @@
                     </small>
                 </h1>
                 <a
-                    :href="'http://localhost/cea-2.0/public' + parent_url"
+                    :href="'http://localhost/tthl11/public' + parent_url"
                     class="btn btn-default"
                 >
                     <i class="fa fa-share"></i> Trở về danh sách
@@ -101,7 +101,7 @@
             </div>
 
             <a
-                :href="'http://localhost/cea-2.0/public' + parent_url"
+                :href="'http://localhost/tthl11/public' + parent_url"
                 class="btn btn-default"
             >
                 <i class="fa fa-share"></i> Trở về danh sách
@@ -250,13 +250,13 @@ const editModal = {
 };
 const consumer = {
     getNganhNge: function (nn_id) {
-        const url = "http://localhost/cea-2.0/public/api/nganh-nghe/" + nn_id;
+        const url = "http://localhost/tthl11/public/api/nganh-nghe/" + nn_id;
         return axios.get(url).then((response) => response.data);
     },
 
     getDanhSachMonHoc: function (hdt_id, nn_id) {
         const url =
-            "http://localhost/cea-2.0/public/api/mon-hoc/all?hdt_id=" +
+            "http://localhost/tthl11/public/api/mon-hoc/all?hdt_id=" +
             hdt_id +
             "&nn_id=" +
             nn_id;
@@ -264,12 +264,12 @@ const consumer = {
         return axios.get(url).then((response) => response.data);
     },
     getListHeDaoTao: function () {
-        const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";
+        const url = "http://localhost/tthl11/public/api/he-dao-tao/all";
         return axios.get(url).then((response) => response.data);
     },
     getListNganhNghe: function (hdt_id) {
         const url =
-            "http://localhost/cea-2.0/public/api/nganh-nghe/all?hedaotao=" +
+            "http://localhost/tthl11/public/api/nganh-nghe/all?hedaotao=" +
             hdt_id;
         return axios.get(url).then((response) => response.data);
     },

@@ -59,12 +59,12 @@
 <script>
     const consumer = {
         getUser: function (user_id) {
-            const url = 'http://localhost/tthl/public/apiuser/' + user_id;
+            const url = 'http://localhost/tthl11/public/apiuser/' + user_id;
             return axios.get(url)
                     .then(response => response.data);
         },
         updatePassword: function (formData) {
-            return axios.put('http://localhost/tthl/public/apiuser/current/password', formData);
+            return axios.put('http://localhost/tthl11/public/apiuser/current/password', formData);
         }
     }
 

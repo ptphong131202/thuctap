@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'http://localhost/tthl/public/apiexcel/*'
+        'http://localhost/tthl11/public/apiexcel/*'
     ];
 }
