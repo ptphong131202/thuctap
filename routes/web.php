@@ -31,7 +31,6 @@ use App\Http\Controllers\LogController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/chart', [ChartController::class, 'index']); // phong url
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -123,7 +122,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/mon-hoc/{token}', [NhapDiemController::class, 'nhapDiemMonHoc'])->name('nhap-diem.edit');
         Route::get('/dot-thi/{token}', [NhapDiemController::class, 'nhapDiemDotThi'])->name('nhap-diem.dotthi.edit');
         Route::post('/themdotthi', [NhapDiemController::class, 'nhapDotThi'])->name('themdotthi');
-        Route::post('/', [NhapDiemController::class, 'ThongBaoDiem']);  /// phong url
+        Route::post('/', [NhapDiemController::class, 'ThongBaoDiem']);  /// T.Phong router thông báo điểm qua zalo oa
 
     });
 
