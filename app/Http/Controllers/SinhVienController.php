@@ -28,20 +28,24 @@ class SinhVienController extends Controller
     public function paginate(Request $request)
     {
         $search = $request->search;
-        $danhSachSinhVien = SinhVien::orderBy('sv_ma')->with(['quyetDinhXoaTen','quyetDinhTotNghiep', 'quyetDinhThemLop', 'lopHoc', 'user'])
-                ->withCount(['sinhVienBangDiem' => function ($query) {
-                    $query->whereNotNull('svd_first');
-                }])
-                ->where(function ($builder) use ($search) {
-                    $builder->whereRaw('lower(qlsv_sinhvien.sv_ma) like lower(?)', "%$search%")
-                        ->orWhereRaw('lower(qlsv_sinhvien.sv_ten) like lower(?)', "%$search%");
-                })
-                ->paginate(10)
-                ->setPath(route('sinh-vien.index'))
-                ->appends(['search' => $search])
-                ->onEachSide(2);
+        $danhSachSinhVien = SinhVien::orderBy('sv_ma')
+            ->with(['quyetDinhXoaTen', 'quyetDinhTotNghiep', 'quyetDinhThemLop', 'lopHoc', 'user'])
+            ->withCount(['sinhVienBangDiem' => function ($query) {
+                $query->whereNotNull('svd_first');
+            }])
+            ->where(function ($builder) use ($search) {
+                $builder->whereRaw('lower(qlsv_sinhvien.sv_ma) like lower(?)', ["%$search%"])
+                    ->orWhereRaw('lower(qlsv_sinhvien.sv_ten) like lower(?)', ["%$search%"]);
+            })
+            ->whereHas('quyetDinhXoaTen')
+            ->paginate(10)
+            ->setPath(route('sinh-vien.index'))
+            ->appends(['search' => $search])
+            ->onEachSide(2);
+
         return response()->json($danhSachSinhVien);
     }
+
 
     // public function getAllSinhVien()
     // {

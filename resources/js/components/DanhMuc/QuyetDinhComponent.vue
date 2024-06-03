@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Quyết định
+                Quyết định 
                 <small>
                     <a href="javascript:void(0);" class="btn btn-danger btn-flat btn-xs" v-on:click="create()"><i class="fa fa-plus"></i> Thêm mới</a>
                 </small>
@@ -39,6 +39,7 @@
                                         <th>Mã</th>
                                         <th>Quyết định</th>
                                         <th>Ngày</th>
+                                        <th>Ngày</th>
                                         <th>Loại</th>
                                         <th class="w-100-p text-center">Hành động</th>
                                     </tr>
@@ -49,6 +50,7 @@
                                         <td>{{ qd.qd_ma }}</td>
                                         <td>{{ qd.qd_ten }}</td>
                                         <td>{{ qd.qd_ngay | moment }}</td>
+                                        <td>{{ qd }}</td>
                                         <td>
                                             <span v-if="qd.qd_loai == 0">Quyết định thêm lớp</span>
                                             <span v-if="qd.qd_loai == 1">Quyết định sinh viên tốt nghiệp</span>
@@ -65,6 +67,16 @@
                                                 v-on:click="destroyV2(qd.qd_id)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
+                                            <a v-if="qd.qd_loai === 0" :href="'http://localhost/cea_3.0/public/lop-hoc?search=' + qd.qd_id">
+                                                <button type="button" class="btn bg-purple btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                            </a>
+                                            <a v-else :href="'http://localhost/cea_3.0/public/sinh-vien?search=' + qd.qd_id ">
+                                                <button type="button" class="btn bg-purple btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                            </a>
                                         </td>
                                     </tr>
                                     <tr v-if="table.list.data == null || table.list.data.length == 0">
@@ -152,26 +164,26 @@
 
     const consumer = {
         getListQuyetDinh: function () {
-            const url = 'http://localhost/tthl11/public/api/quyet-dinh' + window.location.search; /** Phong */
+            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh' + window.location.search; /** Phong */
             return axios.get(url).then(response => response.data);
         },
         getQuyetDinh: function (qd_id) {
-            const url = 'http://localhost/tthl11/public/api/quyet-dinh/' + qd_id;/** Phong */
+            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         checkUsed: function (qd_id) {
-            const url = 'http://localhost/tthl11/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
+            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.qd_id == null) {
-                return axios.post('http://localhost/tthl11/public/api/quyet-dinh', formData);/** Phong */
+                return axios.post('http://localhost/cea_3.0/public/api/quyet-dinh', formData);/** Phong */
             } else {
-                return axios.put('http://localhost/tthl11/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
+                return axios.put('http://localhost/cea_3.0/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
             }
         },
         destroy: function (qd_id) {
-            return axios.delete('http://localhost/tthl11/public/api/quyet-dinh/' + qd_id);/** Phong */
+            return axios.delete('http://localhost/cea_3.0/public/api/quyet-dinh/' + qd_id);/** Phong */
         }
     }
 

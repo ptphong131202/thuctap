@@ -58,7 +58,7 @@
 <script>
     const consumer = {
         getListLopHoc: function () {
-            const url = 'http://localhost/tthl11/public/apitra-cuu-diem/danh-sach-lop';
+            const url = 'http://localhost/cea_3.0/public/apitra-cuu-diem/danh-sach-lop';
             return axios.get(url).then(response => response.data);
         }
     }

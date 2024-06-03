@@ -1,47 +1,48 @@
 <!-- NGUYEN PHU DINH -->
 <template>
     <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Ngành {{ nganhNghe.nn_ten.toLowerCase() }}
+               Ngành: {{ nganhNghe.nn_ten }}
                 <small v-if="hdt_id == 5"> Hệ trung cấp </small>
                 <small v-else> Hệ cao đẳng </small>
             </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a>
+                </li>
+                <li>
+                    <a :href="'http://localhost/cea_3.0/public' + parent_url"
+                        >Ngành nghề</a
+                    >
+                </li>
+                <li class="active">{{ nganhNghe.nn_ma }}</li>
+            </ol>
+        </section>
+
+        <section class="content">
             <div style="margin-bottom: 6px">
-                <h1>
-                    <small>
-                        <a
-                            href="javascript:void(0);"
-                            class="btn btn-danger btn-flat btn-xs"
-                            title="Thêm mới"
-                            v-on:click="create()"
-                        >
-                            <i class="fa fa-plus"></i> Thêm mới
-                        </a>
-                        <a
-                            v-bind:href="excel"
-                            class="btn btn-success btn-flat btn-xs"
-                            ><i class="fa fa-file-excel-o"></i> Thêm môn học
-                            bằng Excel</a
-                        >
-                    </small>
-                </h1>
                 <a
-                    :href="'http://localhost/tthl11/public' + parent_url"
+                    href="javascript:void(0);"
+                    class="btn btn-danger btn-flat"
+                    title="Thêm mới"
+                    v-on:click="create()"
+                >
+                    <i class="fa fa-plus"></i> Thêm mới
+                </a>
+                <a v-bind:href="excel" class="btn btn-success btn-flat"
+                    ><i class="fa fa-file-excel-o"></i> Thêm môn học bằng
+                    Excel</a
+                >
+
+                <a
+                    :href="'http://localhost/cea_3.0/public' + parent_url"
                     class="btn btn-default"
                 >
                     <i class="fa fa-share"></i> Trở về danh sách
                 </a>
             </div>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a>
-                </li>
-                <li class="active">Ngành nghề</li>
-            </ol>
-        </section>
-
-        <section class="content">
             <div class="row semester-item">
                 <div class="col-md-12 col-sm-12">
                     <div class="box box-widget">
@@ -52,6 +53,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center w-3">STT</th>
+                                        <th>Mã</th>
                                         <th>Môn học</th>
                                         <th class="w-10">Số tín chỉ</th>
                                         <th class="w-10">Số tiết/giờ</th>
@@ -61,22 +63,23 @@
                                 <tbody>
                                     <tr
                                         v-for="(
-                                            item, index
+                                            mh, semesterIndex
                                         ) in listMonHoc.original"
-                                        :key="item.id"
+                                        :key="semesterIndex"
                                     >
                                         <td class="text-center">
-                                            {{ index + 1 }}
+                                            {{ semesterIndex + 1 }}
                                         </td>
+                                        <td>{{ mh.mh_ma }}</td>
                                         <td>
-                                            {{ item.mh_ten }}
+                                            <span v-if="!mh.bang_diem_exists">{{
+                                                mh.mh_ten
+                                            }}</span>
                                         </td>
-                                        <td>{{ item.mh_sodonvihoctrinh }}</td>
-                                        <td>{{ item.mh_sotiet }}</td>
+                                        <td>{{ mh.mh_sodonvihoctrinh }}</td>
+                                        <td>{{ mh.mh_sotiet }}</td>
                                         <td>
-                                            {{
-                                                item.mh_tichluy ? "Có" : "Không"
-                                            }}
+                                            {{ mh.mh_tichluy ? "Có" : "Không" }}
                                         </td>
                                     </tr>
                                     <tr
@@ -99,15 +102,15 @@
                     </div>
                 </div>
             </div>
-
             <a
-                :href="'http://localhost/tthl11/public' + parent_url"
+                :href="'http://localhost/cea_3.0/public' + parent_url"
                 class="btn btn-default"
             >
                 <i class="fa fa-share"></i> Trở về danh sách
             </a>
         </section>
         <!-- /.content -->
+
         <div class="modal fade" id="mon-hoc-edit-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -235,7 +238,6 @@
 </template>
 
 <script>
-import { lowerCase } from "lodash";
 import draggable from "vuedraggable";
 const editModal = {
     modal: function () {
@@ -248,15 +250,16 @@ const editModal = {
         this.modal().modal("hide");
     },
 };
+
 const consumer = {
     getNganhNge: function (nn_id) {
-        const url = "http://localhost/tthl11/public/api/nganh-nghe/" + nn_id;
+        const url = "http://localhost/cea_3.0/public/api/nganh-nghe/" + nn_id;
         return axios.get(url).then((response) => response.data);
     },
 
     getDanhSachMonHoc: function (hdt_id, nn_id) {
         const url =
-            "http://localhost/tthl11/public/api/mon-hoc/all?hdt_id=" +
+            "http://localhost/cea_3.0/public/api/mon-hoc/all?hdt_id=" +
             hdt_id +
             "&nn_id=" +
             nn_id;
@@ -264,20 +267,21 @@ const consumer = {
         return axios.get(url).then((response) => response.data);
     },
     getListHeDaoTao: function () {
-        const url = "http://localhost/tthl11/public/api/he-dao-tao/all";
+        const url = "http://localhost/cea_3.0/public/api/he-dao-tao/all";
         return axios.get(url).then((response) => response.data);
     },
     getListNganhNghe: function (hdt_id) {
         const url =
-            "http://localhost/tthl11/public/api/nganh-nghe/all?hedaotao=" +
+            "http://localhost/cea_3.0/public/api/nganh-nghe/all?hedaotao=" +
             hdt_id;
         return axios.get(url).then((response) => response.data);
     },
-    saveOrUpdate: function (formData) {
+    save: function (formData) {
         if (formData.mh_id == null) {
-            return axios.post("/api/mon-hoc", formData);
-        } else {
-            return axios.put("/api/mon-hoc/" + formData.mh_id, formData);
+            return axios.post(
+                "http://localhost/cea_3.0/public/api/mon-hoc",
+                formData
+            );
         }
     },
 };
@@ -289,15 +293,15 @@ export default {
     },
     data() {
         return {
-            listMonHoc: {
-                original: [],
-                select2: [],
-            },
             nganhNghe: {},
             editForm: {
                 reference: Object,
                 model: Object,
                 errors: Object,
+            },
+            listMonHoc: {
+                original: [],
+                select2: [],
             },
             listHeDaoTao: {
                 select2Form: [],
@@ -309,55 +313,16 @@ export default {
         };
     },
     methods: {
-        resetEditForm: function () {
-            this.editForm = {
-                reference: Object,
-                model: {
-                    hdt_id: this.hdt_id,
-                    nn_id: this.nn_id,
-                    mh_loai: 1,
-                    mh_tichluy: true,
-                },
-            };
-            Vue.set(this.editForm, "errors", {});
+        loadDanhSachMonHoc: function (hdt_id, nn_id) {
+            consumer.getDanhSachMonHoc(hdt_id, nn_id).then((data) => {
+                data.sort((a, b) => a.mh_loai - b.mh_loai);
+                this.listMonHoc.original = data;
+            });
         },
-        create: function () {
-            this.resetEditForm();
-            editModal.show();
-        },
-        save: function () {
-            if (this.editForm.model.mh_id == null) {
-                this.store();
-            } else {
-                this.update();
-            }
-        },
-        store: function () {
-            var vm = this;
-            consumer
-                .saveOrUpdate(this.editForm.model)
-                .then((response) => {
-                    if (response.status == 200) {
-                        vm.resetEditForm();
-                        vm.init();
-                        editModal.hide();
-                        AlertBox.Notify.Success("Thêm thành công");
-                    }
-                })
-                .catch((error) => {
-                    if (error.response.status == 422) {
-                        Vue.set(
-                            vm.editForm,
-                            "errors",
-                            error.response.data.errors
-                        );
-                    }
-                });
-        },
-
         loadNganhNghe: function (nn_id) {
             consumer.getNganhNge(nn_id).then((data) => {
                 this.nganhNghe = data;
+                this.loadDanhSachMonHoc(data.hdt_id, data.nn_id);
             });
             consumer.getListHeDaoTao().then((data) => {
                 let dataSelect = data.map((item) => {
@@ -391,15 +356,51 @@ export default {
                 });
             });
         },
-        loadDanhSachMonHoc: function (hdt_id, nn_id) {
-            consumer.getDanhSachMonHoc(hdt_id, nn_id).then((data) => {
-                data.sort((a, b) => a.mh_loai - b.mh_loai);
-                this.listMonHoc.original = data;
-                this.loadNganhNghe(nn_id);
-            });
-        },
         init: function () {
-            this.loadDanhSachMonHoc(this.hdt_id, this.nn_id);
+            this.loadNganhNghe(this.nn_id);
+        },
+        resetEditForm: function () {
+            this.editForm = {
+                reference: Object,
+                model: {
+                    hdt_id: this.hdt_id,
+                    nn_id: this.nn_id,
+                    mh_loai: 1,
+                    mh_tichluy: true,
+                },
+            };
+            Vue.set(this.editForm, "errors", {});
+        },
+        create: function () {
+            this.resetEditForm();
+            editModal.show();
+        },
+        save: function () {
+            if (this.editForm.model.mh_id == null) {
+                this.store();
+            }
+        },
+        store: function () {
+            var vm = this;
+            consumer
+                .save(this.editForm.model)
+                .then((response) => {
+                    if (response.status == 200) {
+                        vm.resetEditForm();
+                        vm.init();
+                        editModal.hide();
+                        AlertBox.Notify.Success("Thêm thành công");
+                    }
+                })
+                .catch((error) => {
+                    if (error.response.status == 422) {
+                        Vue.set(
+                            vm.editForm,
+                            "errors",
+                            error.response.data.errors
+                        );
+                    }
+                });
         },
     },
 };

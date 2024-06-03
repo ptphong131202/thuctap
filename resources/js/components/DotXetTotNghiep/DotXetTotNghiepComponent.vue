@@ -381,43 +381,43 @@
 
     const consumer = {
         getListDotXetTotNghiep: function () {
-            const url = 'http://localhost/tthl11/public/api/dot-xet-tot-nghiep' + window.location.search;
+            const url = 'http://localhost/cea_3.0/public/api/dot-xet-tot-nghiep' + window.location.search;
             return axios.get(url).then(response => response.data);
         },
         getListDotXet: function (chuongtrinh) {
-            const url = "http://localhost/tthl11/public/api/dot-thi/all/dot-xet-tn?chuongtrinh=" + chuongtrinh;
+            const url = "http://localhost/cea_3.0/public/api/dot-thi/all/dot-xet-tn?chuongtrinh=" + chuongtrinh;
             return axios.get(url).then((response) => response.data);
         },
         getDotXetTotNghiep: function (dxtn_id) {
-            const url = 'http://localhost/tthl11/public/api/dot-xet-tot-nghiep/' + dxtn_id;
+            const url = 'http://localhost/cea_3.0/public/api/dot-xet-tot-nghiep/' + dxtn_id;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.dxtn_id == null) {
-                return axios.post('http://localhost/tthl11/public/api/dot-xet-tot-nghiep', formData);
+                return axios.post('http://localhost/cea_3.0/public/api/dot-xet-tot-nghiep', formData);
             } else {
-                return axios.put('http://localhost/tthl11/public/api/dot-xet-tot-nghiep/' + formData.dxtn_id, formData);
+                return axios.put('http://localhost/cea_3.0/public/api/dot-xet-tot-nghiep/' + formData.dxtn_id, formData);
             }
         },
         destroy: function (dxtn_id) {
-            return axios.delete('http://localhost/tthl11/public/api/dot-xet-tot-nghiep/' + dxtn_id);
+            return axios.delete('http://localhost/cea_3.0/public/api/dot-xet-tot-nghiep/' + dxtn_id);
         },
         capNhatDotXet: function (formData) {
-            return axios.post("http://localhost/tthl11/public/api/dot-xet-tot-nghiep/cap-nhat-dot-xet-cho-dot-thi", formData);
+            return axios.post("http://localhost/cea_3.0/public/api/dot-xet-tot-nghiep/cap-nhat-dot-xet-cho-dot-thi", formData);
         },
         getListQuyetDinh: function (loai) {
-            const url = 'http://localhost/tthl11/public/api/quyet-dinh/all/'+ 1;
+            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh/all/'+ 1;
             return axios.get(url).then(response => response.data);
         },
         saveOrAddQuyetDinh: function (formData) {
-            return axios.post('http://localhost/tthl11/public/api/sinh-vien/them-quyet-dinh-tot-nghiep', formData);
+            return axios.post('http://localhost/cea_3.0/public/api/sinh-vien/them-quyet-dinh-tot-nghiep', formData);
         },
         getListHeDaoTao: function () {
-            const url = "http://localhost/tthl11/public/api/he-dao-tao/all";
+            const url = "http://localhost/cea_3.0/public/api/he-dao-tao/all";
             return axios.get(url).then((response) => response.data);
         },
         updateQdTrangThai: function (formData) {
-            return axios.put("http://localhost/tthl11/public/api/dot-xet-tot-nghiep/updateQd-trang-thai/" + formData.dxtn_id, formData);
+            return axios.put("http://localhost/cea_3.0/public/api/dot-xet-tot-nghiep/updateQd-trang-thai/" + formData.dxtn_id, formData);
         },
     }
 

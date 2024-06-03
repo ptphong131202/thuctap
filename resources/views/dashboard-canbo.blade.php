@@ -18,75 +18,75 @@
                     style="border: 1px solid white;
                     height: 130px; width: 75%; margin-left: 28px;  border-right: none; border-top: none; margin-top: -5px; display: flex; margin-bottom: 19px;">
                     <span style="width: 30px; height: 130px; position: absolute;  left: 8px;">
-                        <div style="position: absolute; top: -5%; left: 37%">{{$lophoc['maxlh']}}</div>
-                        <div style="position: absolute; top: 45%; left: 37%">{{ round($lophoc['maxlh'] / 2, 2) }}</div>
+                        <div style="position: absolute; top: -5%; left: 37%">{{$maxLopHoc}}</div>
+                        <div style="position: absolute; top: 45%; left: 37%">{{ round($maxLopHoc / 2) }}</div>
                         <div style="position: absolute; bottom: -5px; left: 37%">0</div>
                     </span>
                     <span style="width: calc(100% / 5); flex: 1;    position: relative;">
                         @php
-                        $heightPercentage = ($lophoc['data'][4]->class_count / $lophoc['maxlh']) * 100;
+                        $heightPercentage = ($lophocs[0]['sllop'] / $maxLopHoc) * 100;
                         @endphp
                         <div
                             style=" width: 50%; height: {{$heightPercentage}}% ; background: #00ff29;  position: absolute; bottom: 0; left: 23%;">
-                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophoc['data'][4]->class_count}}
+                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophocs[0]['sllop']}}
                             </span>
                         </div>
                         <span style="                        position: absolute;                        bottom: -22px;                        right: 12px;                        font-size: 13px;
-                        ">{{$lophoc['data'][4]->ten}}</span>
+                        ">{{$lophocs[0]['nk_ten']}}</span>
                     </span>
                     <span style="width: calc(100% / 5); flex: 1; position: relative;">
                         @php
-                        $heightPercentage = ($lophoc['data'][3]->class_count / $lophoc['maxlh']) * 100;
+                        $heightPercentage = ($lophocs[1]['sllop'] / $maxLopHoc) * 100;
                         @endphp
                         <div
                             style=" width: 50%; height: {{$heightPercentage}}% ; background: #00ff29;  position: absolute; bottom: 0; left: 23%;">
-                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophoc['data'][3]->class_count}}
+                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophocs[1]['sllop']}}
                             </span>
                         </div>
 
                         <span style="                        position: absolute;                        bottom: -22px;                        right: 12px;                        font-size: 13px;
-                        ">{{$lophoc['data'][3]->ten}}</span>
+                        ">{{$lophocs[1]['nk_ten']}}</span>
                     </span>
                     <span style="width: calc(100% / 5); flex: 1; position: relative;">
                         @php
-                        $heightPercentage2 = ($lophoc['data'][2]->class_count / $lophoc['maxlh']) * 100;
+                        $heightPercentage2 = ($lophocs[2]['sllop'] / $maxLopHoc) * 100;
                         @endphp
                         <div
                             style=" width: 50%; height: {{$heightPercentage2}}% ; background: #00ff29;  position: absolute; bottom: 0; left: 23%;">
-                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophoc['data'][2]->class_count}}
+                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophocs[2]['sllop']}}
                             </span>
 
                         </div>
 
                         <span style="
                         position: absolute;                        bottom: -22px;                        right: 12px;                        font-size: 13px;
-                        ">{{$lophoc['data'][2]->ten}}</span>
+                        ">{{$lophocs[2]['nk_ten']}}</span>
                     </span>
                     <span style="width: calc(100% / 5); flex: 1; position: relative;">
                         @php
-                        $heightPercentage1 = ($lophoc['data'][1]->class_count / $lophoc['maxlh']) * 100;
+                        $heightPercentage1 = ($lophocs[3]['sllop'] / $maxLopHoc) * 100;
                         @endphp
                         <div
                             style=" width: 50%; height: {{$heightPercentage1}}% ; background: #00ff29;  position: absolute; bottom: 0; left: 23%;">
-                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophoc['data'][1]->class_count}}
+                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophocs[3]['sllop']}}
                             </span>
                         </div>
 
                         <span style="                        position: absolute;                        bottom: -22px;                        right: 12px;                        font-size: 13px;
-                        ">{{$lophoc['data'][1]->ten}}</span>
+                        ">{{$lophocs[3]['nk_ten']}}</span>
                     </span>
                     <span style="width: calc(100% / 5); flex: 1; position: relative;">
                         @php
-                        $heightPercentage0 = ($lophoc['data'][0]->class_count / $lophoc['maxlh']) * 100;
+                        $heightPercentage0 = ($lophocs[4]['sllop'] / $maxLopHoc) * 100;
                         @endphp
                         <div
                             style=" width: 50%; height: {{$heightPercentage0}}% ; background: #00ff29;  position: absolute; bottom: 0; left: 23%;">
-                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophoc['data'][0]->class_count}}
+                            <span style="position: absolute; top:-17px; left: 31%;">{{$lophocs[4]['sllop']}}
                             </span>
                         </div>
 
                         <span style="                        position: absolute;                        bottom: -22px;                        right: 12px;                        font-size: 13px;
-                        ">{{$lophoc['data'][0]->ten}}</span>
+                        ">{{$lophocs[4]['nk_ten']}}</span>
                     </span>
                     <span style="position: absolute;    right: 8%;    bottom: 16%;">Niên khóa</span>
                 </div>
@@ -117,7 +117,7 @@
                                 <p style="    padding: 3px;    font-size: 14px;    margin: 0px;    display: -webkit-box;  
                                 line-height: 20px;    -webkit-box-orient: vertical;    -webkit-line-clamp: 1; 
                                 overflow: hidden;">
-                                <a style="color: white;" href="http://localhost/tthl11/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                <a style="color: white;" href="http://localhost/cea_3.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                     {{ $caodang->kdt_ten }}
                                 </a>
                                     </p>
@@ -135,7 +135,7 @@
                                 <p style="    padding: 3px;    font-size: 14px;    margin: 0px;    display: -webkit-box;
                                 line-height: 20px;    -webkit-box-orient: vertical;    -webkit-line-clamp: 1; 
                                 overflow: hidden;">
-                                <a style="color: white;" href="http://localhost/tthl11/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                <a style="color: white;" href="http://localhost/cea_3.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                     {{ $caodang->kdt_ten }}
                                 </a>
                                     </p>
@@ -158,43 +158,14 @@
         <div class="small-box bg-purple">
             <div class="inner">
                 <h3  class="d-block d-sm-none" style="">{{ $nganhnghe['slNganhNghe'] }}</h3>
-            <div class="hidden-xs"
-            style="display: flex; with: 50%; justify-content: left; align-items: center; flex-wrap: wrap">
-                <?php
-                $trungcap = ($nganhnghe['slNganhNghe_TrungCap']) /  $nganhnghe['slNganhNghe'] * 100;
-                $caodang = ($nganhnghe['slNganhNghe_CaoDang']) /  $nganhnghe['slNganhNghe'] * 100;
-                // Định dạng phần trăm
-                $trungcapFormatted = number_format($trungcap, 2);
-                $caodangFormatted = number_format($caodang, 2);
-                $backgroundStyle = "conic-gradient(rgb(60 245 68) 0% {$trungcapFormatted}%, #f44336 {$trungcapFormatted}% 100%)";
-
-            ?>
-                <!-- <div class="col-lg-3 col-sm-12"><div style="width: 120px; height: 120px; border-radius: 50%; background: {{ $backgroundStyle }};"></div></div> -->
-                <div class="col-lg-3 col-sm-12" style="padding: 0;">
-                    <div
-                        style="position: relative; width: 124px; height: 124px; border-radius: 50%; background: {{ $backgroundStyle }};">
-                        <span style="position: absolute;
-                        top: 42%;
-                        left: 10%;">{{$nganhnghe['slNganhNghe_TrungCap']}} NN</span>
-                        <span style="position: absolute;
-                        top: 42%;
-                        right: 15%;">{{$nganhnghe['slNganhNghe_CaoDang']}} NN</span>
-                    </div>
+            
+                <h4 style="margin: 0 0 5px 5px; font-size: 18px; justify-content: space-between;">Ngành, nghề đào tạo</h4>
+                <div class="hidden-xs" style="display: flex;    width: 100%;">
+                    <p style="width: 50%;    text-align: center; font-size: 20px;">Trung cấp <span
+                    style="display: block; font-size: 41px;">{{ $nganhnghe['slNganhNghe_TrungCap'] }}</span> Ngành, nghề</p>
+                    <p style="width: 50%;  text-align: center;  font-size: 20px;">Cao đẳng <span
+                    style="display: block; font-size: 41px;">{{ $nganhnghe['slNganhNghe_CaoDang'] }}</span> Ngành, nghề</p>
                 </div>
-                <div style="margin-top: 10px; margin: 10px auto; " class="col-lg-6 col-sm-12">
-                    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                        <span
-                            style="display: inline-block; width: 20px; height: 20px; margin-right: 10px; background: rgb(60 245 68);"></span>Trung
-                        cấp - {{$trungcapFormatted}}%
-                    </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                        <span
-                            style="display: inline-block; width: 20px; height: 20px; margin-right: 10px; background: #f44336;"></span>Cao
-                        đẳng - {{$caodangFormatted}}%
-                    </div>
-                </div>
-            </div>
-            <h4 style="margin: 0 0 5px 5px; font-size: 20px">Ngành, nghề đào tạo</h4>
             </div>
             <!-- icon (Phong)-->
             <div class="icon">
@@ -213,7 +184,7 @@
                 <p class="d-none d-sm-block">Đợt thi, xét tốt nghiệp</p>
                 <div class="hidden-xs"
                     style="border: 1px solid white;
-                    height: 158px; width: 75%; margin-left: 28px;  border-right: none; border-top: none; margin-top: -5px; display: flex; margin-bottom: 19px;">
+                    height: 158px; width: 70%; margin-left: 28px;  border-right: none; border-top: none; margin-top: -5px; display: flex; margin-bottom: 19px;">
                     <span style="width: 30px; height: 158px; position: absolute;  left: 8px;">
                         <div style="position: absolute; top: -5%; left: 37%">{{$dsdotxettotnghiep['maxtotnhghiep']}}</div>
                         <div style="position: absolute; top: 45%; left: 37%">{{ round($dsdotxettotnghiep['maxtotnhghiep'] / 2) }}</div>
@@ -317,7 +288,14 @@
                         <span style="                        position: absolute;                        bottom: -22px;                        right: 27px;                        font-size: 13px;
                         ">{{$dsdotxettotnghiep['maxnamxettotnghiep']}}</span>
                     </span>
-                    <span style="position: absolute;    right: 14%;    bottom: 16%;">Năm</span>
+                    <span style="position: absolute;    right: 19%;    bottom: 16%;">Năm</span>
+
+                    <div style="position: absolute;    right: 2%;    bottom: 34%;  width: 125px;">
+                            <div style="    display: flex; justify-content: left; margin-bottom: 5px;"> <div style="    width: 20px;    height: 20px;    background: red;"></div> - Trung cấp </div>
+                            <div style="   display: flex; justify-content: left; margin-bottom: 5px;"> <div style="    width: 20px;    height: 20px;    background: #00ff29;"></div> - Cao đẳng</div>
+                    </div>
+
+
                 </div>
             </div>
             <div class="icon">
@@ -330,71 +308,81 @@
     
 
    
-    <!-- Số lượng sinh viên -->
+   <!-- Số lượng sinh viên -->
     <div class="col-lg-6 col-xs-6">
-        <div class="small-box bg-red">
-            <div class="inner">
-                <h3>{{ $thongKe['slSinhVien'] }}</h3>
-                <div class="hidden-xs"
-            style="display: flex; with: 50%; justify-content: left; align-items: center; flex-wrap: wrap">
-                <?php
-                $totnghiep = $soSinhVienTotNghiep /  $thongKe['slSinhVien'] * 100;
-                $xoaten = $soSinhVienXoaTen /  $thongKe['slSinhVien'] * 100;
-                $conlai = ($thongKe['slSinhVien'] - $soSinhVienTotNghiep - $soSinhVienXoaTen) /  $thongKe['slSinhVien'] * 100;
-                // Định dạng phần trăm
-                $totnghiepFormatted = number_format($totnghiep, 2);
-                $xoatenFormatted = number_format($xoaten, 2) ;
-                $conlaiFormatted = number_format($conlai, 2);
-                $totnghiep1 = $totnghiepFormatted + $xoatenFormatted;
-                $backgroundStyle1 = "conic-gradient(blue 0% {$totnghiepFormatted}%, green {$totnghiepFormatted}% {$totnghiep1}%, red {$totnghiep1}% 100%)";
+        <div class="small-box bg-olive text-black">
+            @foreach ($kqnienkhoa as $nienKhoaInfo)
+                <p style="padding: 10px 0 0 10px;     margin: 0;    font-size: 16px;">Khóa {{ $nienKhoaInfo['nk_ten'] }}</p>
+                <div style="    font-size: 16px;    display: flex;    width: 100%;    height: 12px;    justify-content: center;    align-items: center;"><div style="width: 25px;
+                    height: 15px; margin-right: 5px;    background: blue;"></div> - Tốt nghiệp  <div style="width: 25px;    height: 15px; margin-right: 5px;  margin-left: 10px;  background: green;"></div> - Nghỉ  <div style="width: 25px; margin-left: 10px;   height: 15px; margin-right: 5px;
+                    background: red;"></div> - Đang học </div>
+                <p style="padding: 0 0 0 10px;     margin: 0;    font-size: 16px;">Sinh viên</p>
+    
+                <div class="inner" style="padding: 0px 30px; height: 250px; ">
+                       <!--  <p>&emsp;Số lượng lớp: {{ $nienKhoaInfo['số lượng lớp'] }}</p>
+                        @foreach ($nienKhoaInfo['lophocs'] as $lopInfo)
+                            <p>&emsp;&emsp;Lớp {{ $lopInfo['lop_ma'] }}:</p>
+                            <p>&emsp;&emsp;Lớp {{ $lopInfo['lop_ten'] }}:</p>
+                            <p>&emsp;&emsp;&emsp;Số lượng sinh viên tốt nghiệp: {{ $lopInfo['số lượng sinh viên tốt nghiệp'] }}</p>
+                            <p>&emsp;&emsp;&emsp;Số lượng sinh viên xóa tên: {{ $lopInfo['số lượng sinh viên xóa tên'] }}</p>
+                            <p>&emsp;&emsp;&emsp;Số lượng còn lại: {{ $lopInfo['số lượng còn lại'] }}</p>
+                        @endforeach -->
+                        <div style="width: 100%;  display: flex; height: 150px;  border: 1px solid black;   border-top: none;    border-right: none; position: relative;">
+                        <div style="position: absolute;    top: 0;    left: -22px; height: 100%;">
+                            <div style="padding: 0; margin: 0; width: 100%; height: calc(100% / 3);text-align: center;">{{ $nienKhoaInfo['max_số lượng sinh viên'] }}</div>
+                            <div style="padding: 0; margin: 0; width: 100%; height: calc(100% / 3);text-align: center; display: flex; align-items: center;">{{ round($nienKhoaInfo['max_số lượng sinh viên']  / 2)}}</div>
+                            <div style="padding: 0; margin: 0; width: 100%; height: calc(100% / 3);text-align: center; display: flex;
+    align-items: end;">0</div>
+                        </div>
+                        @foreach ($nienKhoaInfo['lophocs'] as $lopInfo)
+                            @php
+                                $widthColumn = (100 / $nienKhoaInfo['số lượng lớp']);
+                                $sltong = $lopInfo['số lượng sinh viên tốt nghiệp'] + $lopInfo['số lượng sinh viên xóa tên'] + $lopInfo['số lượng còn lại'];
+                                $phantramtonghiep = $lopInfo['số lượng sinh viên tốt nghiệp'] / $nienKhoaInfo['max_số lượng sinh viên'] * 100;
+                                $phantramtonghiep = $phantramtonghiep > 0 ? $phantramtonghiep : 1;
+                                $phantramxoa = $lopInfo['số lượng sinh viên xóa tên']  / $nienKhoaInfo['max_số lượng sinh viên'] * 100;
+                                $phantramxoa = $phantramxoa > 0 ? $phantramxoa : 1;
+                                $phantramconlai =  $lopInfo['số lượng còn lại']  / $nienKhoaInfo['max_số lượng sinh viên'] * 100;
+                                $phantramconlai = $phantramconlai > 0 ? $phantramconlai : 1;
+                            @endphp
+                            <div style="width: {{$widthColumn}}%; position: relative;">
+                                <a href="http://localhost/cea_3.0/public/lop-hoc/{{$lopInfo['lop_id']}}" style="color: black;">
+                                    <div style="width: 80%; height: 100%; margin: 0 auto; display: flex; align-items: flex-end;" title="{{ $lopInfo['lop_ten'] }} tổng cộng có {{$sltong}} sinh viên trong đó: &#10; - {{$lopInfo['số lượng sinh viên tốt nghiệp']}} sinh viêntốt nghiệp  &#10; - {{$lopInfo['số lượng sinh viên xóa tên']}} sinh viên tạm nghỉ &#10; - {{$lopInfo['số lượng còn lại']}} sinh viên đang học
+                                    ">
+                                        <p style="margin: 0; padding: 0; background: blue; width: calc(100% / 3); height: {{$phantramtonghiep}}%;"><span style="writing-mode: vertical-rl;
+                                        font-size: 10px;
+                                        transform: translateX(-5px) translateY(-18px); ">{{$lopInfo['số lượng sinh viên tốt nghiệp']}}</span></p>
+                                                                        <p style="margin: 0; padding: 0; background: green; width: calc(100% / 3); height: {{$phantramxoa}}%;"><span style="writing-mode: vertical-rl;
+                                        font-size: 10px;
+                                        transform: translateX(-5px) translateY(-18px); ">{{$lopInfo['số lượng sinh viên xóa tên']}}</span></p>
+                                                                        <p style="margin: 0; padding: 0; background: red; width: calc(100% / 3); height: {{$phantramconlai}}%;"><span style="writing-mode: vertical-rl;
+                                        font-size: 10px;
+                                        transform: translateX(-5px) translateY(-18px); ">{{$lopInfo['số lượng còn lại'] }}</span></p>
+                                    </div>
+                                </a>
+                                <span title="{{ $lopInfo['lop_ten'] }}" style=" writing-mode: vertical-rl; position: absolute; bottom: -85px; height: 80px;">
+                                    <a style="color: black;" href="http://localhost/cea_3.0/public/lop-hoc/{{$lopInfo['lop_id']}}">{{ $lopInfo['lop_ma'] }}</a>
+                                </span>
+                            </div>
+                            @endforeach
+                            <p style="padding: 0 0 0 10px;     margin: 0;    font-size: 14px; position: absolute;    top: 100%;    right: -20px;">Lớp</p>
+                        </div>
+                    </div>
+            @endforeach
 
-            ?>
-                <div class="col-lg-3 col-sm-12" style="padding: 0;">
-                    <div
-                        style="position: relative; width: 124px; height: 124px; border-radius: 50%; background: {{ $backgroundStyle1 }};">
-                        <span style="position: absolute;
-                        top: 10%;
-                        left: 52%;
-                        font-size: 12px;
-                        ">{{$soSinhVienTotNghiep}} sv</span>
-                        <span style="position: absolute;
-                        top: 42%;
-                        right: 10%;
-                        font-size: 12px;">{{$soSinhVienXoaTen}} sv</span>
-                        <span style="position: absolute;
-                        top: 42%;
-                        left: 5%;
-                        font-size: 12px;">{{$thongKe['slSinhVien'] - $soSinhVienTotNghiep - $soSinhVienXoaTen}} sv</span>
-                    </div>
-                </div>
-                <div style="margin-top: 10px; margin: 10px auto; " class="col-lg-6 col-sm-12">
-                    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                        <span
-                            style="display: inline-block; width: 20px; height: 20px; margin-right: 10px; background: blue"></span>Tốt nghiệp - {{$totnghiepFormatted}}%
-                    </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                        <span
-                            style="display: inline-block; width: 20px; height: 20px; margin-right: 10px; background: green;"></span>Nghỉ - {{$xoatenFormatted}}%
-                    </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                        <span
-                            style="display: inline-block; width: 20px; height: 20px; margin-right: 10px; background: red;"></span>Đang học - {{$conlaiFormatted}}%
-                    </div>
-                </div>
-            </div>
-                <p>Sinh Viên</p>
-            </div>
             <div class="icon">
                 <i class="fa fa-child"></i>
             </div>
-            <a href="{{ route('sinh-vien.index') }}" class="small-box-footer">Chi tiết <i
-                    class="fa fa-arrow-circle-right"></i></a>
+            <a href="http://localhost/cea_3.0/public/lop-hoc/" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
+
+
+
 </div>
 
-<!-- Thông tin cán bộ -->
 <div class="row">
+    <!-- Thông tin cán bộ -->
     <div class="col-md-6">
         <div class="box box-default" style="max-width: 650px;border: 2px solid #605ca8;border-radius: 6px;">
             <div class="box-body">
@@ -432,7 +420,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+        <div class="col-md-6">
         <a class="btn btn-block btn-social btn-twitter btn-lg"
             href="{{ assetv('/TaiLieuHDSD_QuanLyDiemSinhVien_v2.doc') }}" target="_blank" download>
             <i class="fa fa-download"></i> Tài liệu hướng dẫn

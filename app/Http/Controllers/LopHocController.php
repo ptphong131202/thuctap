@@ -266,7 +266,8 @@ class LopHocController extends Controller
             ->withCount('sinhVien')
             ->where(function ($builder) use ($search) {
                 $builder->whereRaw('lower(qlsv_lophoc.lh_ma) like lower(?)', "%$search%")
-                    ->orWhereRaw('lower(qlsv_lophoc.lh_ten) like lower(?)', "%$search%");
+                    ->orWhereRaw('lower(qlsv_lophoc.lh_ten) like lower(?)', "%$search%")
+                    ->orWhere('qd_id', $search);
             })
             ->where(function ($builder) use ($nk_id) {
                 if (isset($nk_id) && $nk_id != -1) {

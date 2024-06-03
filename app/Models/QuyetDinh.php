@@ -47,4 +47,10 @@ class QuyetDinh extends Model
     {
         return $this->hasMany(LopHoc::class, 'qd_id', 'qd_id');
     }
+
+     // Thêm phương thức này để lấy ID đợt xét tốt nghiệp nếu qd_loai = 1
+     public function dotXetTotNghiep()
+     {
+         return $this->hasOne(DotXetTotNghiep::class, 'qd_id', 'qd_id')->where('qd_loai', 1);
+     }
 }
