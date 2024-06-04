@@ -138,37 +138,37 @@ import Label from '../../../../vendor/laravel/breeze/stubs/inertia-vue/resources
 
     const consumer = {
         getListLopHoc: function (dt_id) {
-            const url = 'http://localhost/cea_3.0/public/api/lop-hoc/dot-thi-lop-hoc/'+dt_id+'/'+ window.location.search;
+            const url = 'http://localhost/cea_4.0/public/api/lop-hoc/dot-thi-lop-hoc/'+dt_id+'/'+ window.location.search;
             return axios.get(url).then(response => response.data);
         },
         getLopHoc: function (lh_id) {
-            const url = 'http://localhost/cea_3.0/public/api/lop-hoc/' + lh_id;
+            const url = 'http://localhost/cea_4.0/public/api/lop-hoc/' + lh_id;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.lh_id == null) {
-                return axios.post('http://localhost/cea_3.0/public/api/lop-hoc', formData);
+                return axios.post('http://localhost/cea_4.0/public/api/lop-hoc', formData);
             } else {
-                return axios.put('http://localhost/cea_3.0/public/api/lop-hoc/' + formData.lh_id, formData);
+                return axios.put('http://localhost/cea_4.0/public/api/lop-hoc/' + formData.lh_id, formData);
             }
         },
         destroy: function (lh_id) {
-            return axios.delete('http://localhost/cea_3.0/public/api/lop-hoc/' + lh_id);
+            return axios.delete('http://localhost/cea_4.0/public/api/lop-hoc/' + lh_id);
         },
         getListKhoaDaoTao: function () {
-            const url = 'http://localhost/cea_3.0/public/api/khoa-dao-tao/all';
+            const url = 'http://localhost/cea_4.0/public/api/khoa-dao-tao/all';
             return axios.get(url).then(response => response.data);
         },
         getListQuyetDinh: function () {
-            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh/all/0';
+            const url = 'http://localhost/cea_4.0/public/api/quyet-dinh/all/0';
             return axios.get(url).then(response => response.data);
         },
         getListNienKhoa: function () {
-            const url = 'http://localhost/cea_3.0/public/api/nien-khoa/all';
+            const url = 'http://localhost/cea_4.0/public/api/nien-khoa/all';
             return axios.get(url).then(response => response.data);
         },
         getListHeDaoTao: function () {
-            const url = 'http://localhost/cea_3.0/public/api/he-dao-tao/all';
+            const url = 'http://localhost/cea_4.0/public/api/he-dao-tao/all';
             return axios.get(url).then(response => response.data);
         },
     }

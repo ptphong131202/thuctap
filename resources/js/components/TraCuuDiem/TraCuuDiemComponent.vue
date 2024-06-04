@@ -125,11 +125,11 @@
 <script>
     const consumer = {
         getLopHoc: function (lh_id) {
-            const url = 'http://localhost/cea_3.0/public/api/lop-hoc/' + lh_id;
+            const url = 'http://localhost/cea_4.0/public/api/lop-hoc/' + lh_id;
             return axios.get(url).then(response => response.data);
         },
         getDanhSachHocKy: function (kdt_id) {
-            const url = 'http://localhost/cea_3.0/public/api/khoa-dao-tao/' + kdt_id + '/hoc-ky';
+            const url = 'http://localhost/cea_4.0/public/api/khoa-dao-tao/' + kdt_id + '/hoc-ky';
             return axios.get(url)
                 .then(response => response.data)
                 .then(data => {
@@ -163,11 +163,11 @@
                 });
         },
         getBangDiem: function(lh_id, mh_id, hocKy) {
-            const url = `http://localhost/cea_3.0/public/api/nhap-diem/${lh_id}/bang-diem?mh_id=${mh_id}&hocky=${hocKy}`;
+            const url = `http://localhost/cea_4.0/public/api/nhap-diem/${lh_id}/bang-diem?mh_id=${mh_id}&hocky=${hocKy}`;
             return axios.get(url).then(response => response.data);
         },
         saveBangDiem: function (formData) {
-            const url = `http://localhost/cea_3.0/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
+            const url = `http://localhost/cea_4.0/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
             return axios.post(url, formData);
         }
     }

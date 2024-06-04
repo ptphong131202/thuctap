@@ -132,21 +132,21 @@
 <script>
     const consumer = {
         getLopHoc: function (lh_id) {
-            const url = 'http://localhost/cea_3.0/public/api/lop-hoc/' + lh_id;
+            const url = 'http://localhost/cea_4.0/public/api/lop-hoc/' + lh_id;
             return axios.get(url).then(response => response.data);
         },
         getMonHoc: function (mh_id) {
-            const url = 'http://localhost/cea_3.0/public/api/mon-hoc/' + mh_id;
+            const url = 'http://localhost/cea_4.0/public/api/mon-hoc/' + mh_id;
             return axios.get(url)
                     .then(response => response.data);
         },
         getBangDiem: function(lh_id, mh_id, dt_id) {
             // bd_type = 1 là bảng điểm môn học
-            const url = `http://localhost/cea_3.0/public/api/nhap-diem/${lh_id}/bang-diem-dot-thi?mh_id=${mh_id}&dt_id=${dt_id}`;
+            const url = `http://localhost/cea_4.0/public/api/nhap-diem/${lh_id}/bang-diem-dot-thi?mh_id=${mh_id}&dt_id=${dt_id}`;
             return axios.get(url).then(response => response.data);
         },
         saveBangDiem: function (formData) {
-            const url = `http://localhost/cea_3.0/public/api/nhap-diem/${formData.lh_id}/bang-diem-dot-thi`;
+            const url = `http://localhost/cea_4.0/public/api/nhap-diem/${formData.lh_id}/bang-diem-dot-thi`;
             return axios.post(url, formData);
         },
         uploadFile: function (file) {
@@ -157,7 +157,7 @@
                 }
             }
             formData.append('excel_file', file);
-            const url = 'http://localhost/cea_3.0/public/apiexcel/import-diemdotthi-theomon';
+            const url = 'http://localhost/cea_4.0/public/apiexcel/import-diemdotthi-theomon';
             return axios.post(url, formData, headers);
         }
     }

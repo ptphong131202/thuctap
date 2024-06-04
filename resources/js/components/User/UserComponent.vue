@@ -192,24 +192,24 @@
 
     const consumer = {
         getListUser: function () {
-            const url = 'http://localhost/cea_3.0/public/api/user/paginate' + window.location.search; /** Phong API */
+            const url = 'http://localhost/cea_4.0/public/api/user/paginate' + window.location.search; /** Phong API */
             return axios.get(url)
                     .then(response => response.data);
         },
         getUser: function (hdt_id) {
-            const url = 'http://localhost/cea_3.0/public/api/user/' + hdt_id;/** Phong API */
+            const url = 'http://localhost/cea_4.0/public/api/user/' + hdt_id;/** Phong API */
             return axios.get(url)
                     .then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.user_id == null) {
-                return axios.post('http://localhost/cea_3.0/public/api/user', formData);/** Phong API */
+                return axios.post('http://localhost/cea_4.0/public/api/user', formData);/** Phong API */
             } else {
-                return axios.put('http://localhost/cea_3.0/public/api/user/' + formData.user_id, formData);/** Phong API */
+                return axios.put('http://localhost/cea_4.0/public/api/user/' + formData.user_id, formData);/** Phong API */
             }
         },
         destroy: function (user_id) {
-            return axios.delete('http://localhost/cea_3.0/public/api/user/' + user_id);/** Phong API */
+            return axios.delete('http://localhost/cea_4.0/public/api/user/' + user_id);/** Phong API */
         },
         getListPermission: function () {
             return [

@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Quyết định 
+                Quyết định
                 <small>
                     <a href="javascript:void(0);" class="btn btn-danger btn-flat btn-xs" v-on:click="create()"><i class="fa fa-plus"></i> Thêm mới</a>
                 </small>
@@ -20,6 +20,18 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="box box-widget">
                         <div class="box-header">
+
+                            <div class="box-tool pull-left">
+                                <form method="get" style="max-width:300px">
+                                    <div class="input-group">
+                                        <input type="text" name="search" v-model="filter.search" class="form-control" placeholder="Tìm kiếm..">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default">Tìm</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+
                             <div class="box-tool pull-right">
                                 <form method="get" style="max-width:300px">
                                     <div class="input-group">
@@ -66,22 +78,22 @@
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                             <!-- T.Phong thêm nút xem chi tiết quyết định -->
-                                            <a v-if="qd.qd_loai === 0 && qd.checklophoc === true" :href="'http://localhost/cea_3.0/public/lop-hoc?search=' + qd.qd_id">
+                                            <a v-if="qd.qd_loai === 0 && qd.checklophoc === true" :href="'http://localhost/cea_4.0/public/lop-hoc?search=' + qd.qd_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
-                                            <a v-if="qd.qd_loai === 1 && qd.dxtn_id !== null"  :href="'http://localhost/cea_3.0/public/dot-xet-tot-nghiep/' + qd.dxtn_id">
+                                            <a v-if="qd.qd_loai === 1 && qd.dxtn_id !== null"  :href="'http://localhost/cea_4.0/public/dot-xet-tot-nghiep/' + qd.dxtn_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
-                                            <a v-if="qd.qd_loai === 3 && qd.dt_id !== null"  :href="'http://localhost/cea_3.0/public/dot-thi/' + qd.dt_id">
+                                            <a v-if="qd.qd_loai === 3 && qd.dt_id !== null"  :href="'http://localhost/cea_4.0/public/dot-thi/' + qd.dt_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
-                                            <a v-if="qd.qd_loai === 2 && qd.checkusser === true" :href="'http://localhost/cea_3.0/public/sinh-vien?search=' + qd.qd_id ">
+                                            <a v-if="qd.qd_loai === 2 && qd.checkusser === true" :href="'http://localhost/cea_4.0/public/sinh-vien?search=' + qd.qd_id ">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
@@ -174,26 +186,26 @@
 
     const consumer = {
         getListQuyetDinh: function () {
-            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh' + window.location.search; /** Phong */
+            const url = 'http://localhost/cea_4.0/public/api/quyet-dinh' + window.location.search; /** Phong */
             return axios.get(url).then(response => response.data);
         },
         getQuyetDinh: function (qd_id) {
-            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh/' + qd_id;/** Phong */
+            const url = 'http://localhost/cea_4.0/public/api/quyet-dinh/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         checkUsed: function (qd_id) {
-            const url = 'http://localhost/cea_3.0/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
+            const url = 'http://localhost/cea_4.0/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.qd_id == null) {
-                return axios.post('http://localhost/cea_3.0/public/api/quyet-dinh', formData);/** Phong */
+                return axios.post('http://localhost/cea_4.0/public/api/quyet-dinh', formData);/** Phong */
             } else {
-                return axios.put('http://localhost/cea_3.0/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
+                return axios.put('http://localhost/cea_4.0/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
             }
         },
         destroy: function (qd_id) {
-            return axios.delete('http://localhost/cea_3.0/public/api/quyet-dinh/' + qd_id);/** Phong */
+            return axios.delete('http://localhost/cea_4.0/public/api/quyet-dinh/' + qd_id);/** Phong */
         }
     }
 

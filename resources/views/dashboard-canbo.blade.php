@@ -117,7 +117,7 @@
                                 <p style="    padding: 3px;    font-size: 14px;    margin: 0px;    display: -webkit-box;  
                                 line-height: 20px;    -webkit-box-orient: vertical;    -webkit-line-clamp: 1; 
                                 overflow: hidden;">
-                                <a style="color: white;" href="http://localhost/cea_3.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                <a style="color: white;" href="http://localhost/cea_4.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                     {{ $caodang->kdt_ten }}
                                 </a>
                                     </p>
@@ -135,7 +135,7 @@
                                 <p style="    padding: 3px;    font-size: 14px;    margin: 0px;    display: -webkit-box;
                                 line-height: 20px;    -webkit-box-orient: vertical;    -webkit-line-clamp: 1; 
                                 overflow: hidden;">
-                                <a style="color: white;" href="http://localhost/cea_3.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                <a style="color: white;" href="http://localhost/cea_4.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                     {{ $caodang->kdt_ten }}
                                 </a>
                                     </p>
@@ -346,7 +346,7 @@
                                 $phantramconlai = $phantramconlai > 0 ? $phantramconlai : 1;
                             @endphp
                             <div style="width: {{$widthColumn}}%; position: relative;">
-                                <a href="http://localhost/cea_3.0/public/lop-hoc/{{$lopInfo['lop_id']}}" style="color: black;">
+                                <a href="http://localhost/cea_4.0/public/lop-hoc/{{$lopInfo['lop_id']}}" style="color: black;">
                                     <div style="width: 80%; height: 100%; margin: 0 auto; display: flex; align-items: flex-end;" title="{{ $lopInfo['lop_ten'] }} tổng cộng có {{$sltong}} sinh viên trong đó: &#10; - {{$lopInfo['số lượng sinh viên tốt nghiệp']}} sinh viêntốt nghiệp  &#10; - {{$lopInfo['số lượng sinh viên xóa tên']}} sinh viên tạm nghỉ &#10; - {{$lopInfo['số lượng còn lại']}} sinh viên đang học
                                     ">
                                         <p style="margin: 0; padding: 0; background: blue; width: calc(100% / 3); height: {{$phantramtonghiep}}%;"><span style="writing-mode: vertical-rl;
@@ -361,7 +361,7 @@
                                     </div>
                                 </a>
                                 <span title="{{ $lopInfo['lop_ten'] }}" style=" writing-mode: vertical-rl; position: absolute; bottom: -85px; height: 80px;">
-                                    <a style="color: black;" href="http://localhost/cea_3.0/public/lop-hoc/{{$lopInfo['lop_id']}}">{{ $lopInfo['lop_ma'] }}</a>
+                                    <a style="color: black;" href="http://localhost/cea_4.0/public/lop-hoc/{{$lopInfo['lop_id']}}">{{ $lopInfo['lop_ma'] }}</a>
                                 </span>
                             </div>
                             @endforeach
@@ -373,7 +373,7 @@
             <div class="icon">
                 <i class="fa fa-child"></i>
             </div>
-            <a href="http://localhost/cea_3.0/public/lop-hoc/" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="http://localhost/cea_4.0/public/lop-hoc/" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
