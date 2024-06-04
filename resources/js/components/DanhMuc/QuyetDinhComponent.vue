@@ -23,12 +23,15 @@
 
                             <div class="box-tool pull-left">
                                 <form method="get" style="max-width:300px">
-                                    <div class="input-group">
-                                        <input type="text" name="search" v-model="filter.search" class="form-control" placeholder="Tìm kiếm..">
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default">Tìm</button>
-                                        </span>
-                                    </div>
+                                    <div class="form-group">
+                                        <label>Hệ đào tạo</label>
+                                        <select name="qd_loai" id="qd_loai" >
+                                            <option value="0" > 0</option>
+                                            <option value="1" > 1</option>
+                                            <option value="2" > 2</option>
+                                            <option value="4" > 3</option>
+                                        </select>
+                                        </div>
                                 </form>
                             </div>
 

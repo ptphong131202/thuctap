@@ -35,6 +35,15 @@ class QuyetDinhController extends Controller
                 ->appends(['search' => $search])
                 ->onEachSide(2);
 
+        // Tạo danh sách các quyết định đã được nhóm theo qd_loai
+        $dsquyetdinh_loai = [];
+        // Nhóm các quyết định theo qd_loai
+        if (!isset($dsquyetdinh_loai[$quyetDinh->qd_loai])) {
+            $dsquyetdinh_loai[$quyetDinh->qd_loai] = [];
+        }
+        $dsquyetdinh_loai[$quyetDinh->qd_loai][] = $quyetDinh->qd_ten;
+
+
         // Kiểm tra từng phần tử và thêm dxtn_id nếu qd_loai == 1
         foreach ($danhSachquyetdinh->items() as $quyetDinh) {
             if ($quyetDinh->qd_loai == 0) {
@@ -80,7 +89,21 @@ class QuyetDinhController extends Controller
             }
         }
 
-        return response()->json($danhSachquyetdinh);
+        // Chuyển danh sách nhóm thành dạng mảng có key là qd_loai và value là danh sách qd_ten
+        $groupedDanhSachquyetdinh = [];
+        foreach ($dsquyetdinh_loai as $qd_loai => $qd_ten_list) {
+            $groupedDanhSachquyetdinh[] = [
+                'qd_loai' => $qd_loai,
+                'qd_ten' => $qd_ten_list
+            ];
+        }
+
+        dd($dsquyetdinh_loai);
+
+        return response()->json([
+            'danhSachquyetdinh' => $danhSachquyetdinh,
+            'dsquyetdinh_loai' => $groupedDanhSachquyetdinh
+        ]);
     }
 
     public function getAllQuyetDinh($loai)
