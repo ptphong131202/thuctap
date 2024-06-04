@@ -24,7 +24,9 @@ class QuyetDinhController extends Controller
     public function paginate(Request $request)
     {
         $search = $request->search;
-        $danhSachquyetdinh = QuyetDinh::orderBy('qd_id', 'desc')
+        $qd_loai = $request->qd_loai;
+        if($qd_loai === null || $qd_loai === ''){
+            $danhSachquyetdinh = QuyetDinh::orderBy('qd_id', 'desc')
                 ->withExists(['sinhVien', 'lopHoc'])
                 ->where(function ($builder) use ($search) {
                     $builder->whereRaw('lower(qlsv_quyetdinh.qd_ma) like lower(?)', "%$search%")
@@ -34,15 +36,18 @@ class QuyetDinhController extends Controller
                 ->setPath(route('quyet-dinh.index'))
                 ->appends(['search' => $search])
                 ->onEachSide(2);
-
-        // Tạo danh sách các quyết định đã được nhóm theo qd_loai
-        $dsquyetdinh_loai = [];
-        // Nhóm các quyết định theo qd_loai
-        if (!isset($dsquyetdinh_loai[$quyetDinh->qd_loai])) {
-            $dsquyetdinh_loai[$quyetDinh->qd_loai] = [];
         }
-        $dsquyetdinh_loai[$quyetDinh->qd_loai][] = $quyetDinh->qd_ten;
-
+        else {
+            $danhSachquyetdinh = QuyetDinh::orderBy('qd_id', 'desc')
+                ->withExists(['sinhVien', 'lopHoc'])
+                ->where(function ($builder) use ($qd_loai) {
+                    $builder->orWhereRaw('lower(qlsv_quyetdinh.qd_loai) like lower(?)', "%$qd_loai%");
+                })
+                ->paginate(10)
+                ->setPath(route('quyet-dinh.index'))
+                ->appends(['qd_loai' => $qd_loai])
+                ->onEachSide(2);
+        }
 
         // Kiểm tra từng phần tử và thêm dxtn_id nếu qd_loai == 1
         foreach ($danhSachquyetdinh->items() as $quyetDinh) {
@@ -89,21 +94,7 @@ class QuyetDinhController extends Controller
             }
         }
 
-        // Chuyển danh sách nhóm thành dạng mảng có key là qd_loai và value là danh sách qd_ten
-        $groupedDanhSachquyetdinh = [];
-        foreach ($dsquyetdinh_loai as $qd_loai => $qd_ten_list) {
-            $groupedDanhSachquyetdinh[] = [
-                'qd_loai' => $qd_loai,
-                'qd_ten' => $qd_ten_list
-            ];
-        }
-
-        dd($dsquyetdinh_loai);
-
-        return response()->json([
-            'danhSachquyetdinh' => $danhSachquyetdinh,
-            'dsquyetdinh_loai' => $groupedDanhSachquyetdinh
-        ]);
+        return response()->json($danhSachquyetdinh);
     }
 
     public function getAllQuyetDinh($loai)

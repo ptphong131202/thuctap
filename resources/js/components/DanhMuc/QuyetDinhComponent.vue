@@ -21,20 +21,23 @@
                     <div class="box box-widget">
                         <div class="box-header">
 
+                            <!-- T.Phong -->
                             <div class="box-tool pull-left">
                                 <form method="get" style="max-width:300px">
-                                    <div class="form-group">
-                                        <label>Hệ đào tạo</label>
-                                        <select name="qd_loai" id="qd_loai" >
-                                            <option value="0" > 0</option>
-                                            <option value="1" > 1</option>
-                                            <option value="2" > 2</option>
-                                            <option value="4" > 3</option>
+                                    <div class="input-group">
+                                        <select style="height: 33px;" name="qd_loai" v-model="filter.qd_loai"> 
+                                                <option value="0">Quyết định thêm lớp</option>
+                                                <option value="1">Quyết định sinh viên tốt nghiệp</option>
+                                                <option value="2">Quyết định xóa tên sinh viên</option>
+                                                <option value="3">Quyết định tổ chức đợt xét thi tốt nghiệp</option>
                                         </select>
-                                        </div>
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default">Lọc</button>
+                                        </span>
+                                    </div>
                                 </form>
                             </div>
-
+                            <!--  -->
                             <div class="box-tool pull-right">
                                 <form method="get" style="max-width:300px">
                                     <div class="input-group">
@@ -230,7 +233,9 @@
         data() {
             return {
                 filter: {
-                    search: new URLSearchParams(window.location.search).get('search')
+                    search: new URLSearchParams(window.location.search).get('search'),
+                    // T.Phong thêm filter
+                    qd_loai: new URLSearchParams(window.location.search).get('qd_loai'), 
                 },
                 editForm: {
                     reference: Object,
@@ -256,6 +261,7 @@
                 consumer.getListQuyetDinh().then(data => {
                     Vue.set(vm.table, 'list', data);
                     store.table.list = data;
+                    console.log(data)
                 });
             },
             resetEditForm: function () {
