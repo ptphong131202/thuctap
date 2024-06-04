@@ -25,9 +25,11 @@ class SinhVienController extends Controller
         return view('qlsv.sinhvien.sinhvien_list');
     }
 
+    // T.Phong chỉnh sửa hàm paginate()
     public function paginate(Request $request)
     {
         $search = $request->search;
+
         $danhSachSinhVien = SinhVien::orderBy('sv_ma')
             ->with(['quyetDinhXoaTen', 'quyetDinhTotNghiep', 'quyetDinhThemLop', 'lopHoc', 'user'])
             ->withCount(['sinhVienBangDiem' => function ($query) {
@@ -35,9 +37,11 @@ class SinhVienController extends Controller
             }])
             ->where(function ($builder) use ($search) {
                 $builder->whereRaw('lower(qlsv_sinhvien.sv_ma) like lower(?)', ["%$search%"])
-                    ->orWhereRaw('lower(qlsv_sinhvien.sv_ten) like lower(?)', ["%$search%"]);
+                    ->orWhereRaw('lower(qlsv_sinhvien.sv_ten) like lower(?)', ["%$search%"])
+                    ->orWhereRaw('lower(qlsv_sinhvien_quyetdinh.qd_id) like lower(?)', ["%$search%"]);
             })
-            ->whereHas('quyetDinhXoaTen')
+            ->whereHas('quyetDinhXoaTen') // Chỉ lấy sinh viên có quyết định xóa tên
+            ->join('qlsv_sinhvien_quyetdinh', 'qlsv_sinhvien.sv_id', '=', 'qlsv_sinhvien_quyetdinh.sv_id') // Nối bảng quyết định
             ->paginate(10)
             ->setPath(route('sinh-vien.index'))
             ->appends(['search' => $search])

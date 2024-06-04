@@ -20,6 +20,7 @@ class QuyetDinhController extends Controller
         return view('qlsv.quyetdinh.quyetdinh_list');
     }
 
+    // T.Phong chỉnh sửa hàm paginate
     public function paginate(Request $request)
     {
         $search = $request->search;
@@ -33,6 +34,52 @@ class QuyetDinhController extends Controller
                 ->setPath(route('quyet-dinh.index'))
                 ->appends(['search' => $search])
                 ->onEachSide(2);
+
+        // Kiểm tra từng phần tử và thêm dxtn_id nếu qd_loai == 1
+        foreach ($danhSachquyetdinh->items() as $quyetDinh) {
+            if ($quyetDinh->qd_loai == 0) {
+                // Join đến bảng qlsv_sinhvien_quyetdinh để đếm số bản ghi
+                $count = DB::table('qlsv_lophoc')
+                    ->where('qd_id', $quyetDinh->qd_id)
+                    ->count();
+                
+                // Thiết lập giá trị của $checkusser dựa trên kết quả đếm
+                $quyetDinh->checklophoc = $count > 0;
+            }
+
+            if ($quyetDinh->qd_loai == 1) {
+                // Join đến bảng qlsv_dotxettotnghiep để lấy dxtn_id
+                $dotXetTotNghiep = DB::table('qlsv_dotxettotnghiep')
+                    ->where('qd_id', $quyetDinh->qd_id)
+                    ->select('dxtn_id')
+                    ->first();
+                
+                // Thêm dxtn_id vào quyết định
+                $quyetDinh->dxtn_id = $dotXetTotNghiep ? $dotXetTotNghiep->dxtn_id : null;
+            }
+
+            if ($quyetDinh->qd_loai == 2) {
+                // Join đến bảng qlsv_sinhvien_quyetdinh để đếm số bản ghi
+                $count = DB::table('qlsv_sinhvien_quyetdinh')
+                    ->where('qd_id', $quyetDinh->qd_id)
+                    ->count();
+                
+                // Thiết lập giá trị của $checkusser dựa trên kết quả đếm
+                $quyetDinh->checkusser = $count > 0;
+            }
+
+            if ($quyetDinh->qd_loai == 3) {
+                // Join đến bảng qlsv_dotthi để lấy dt_id
+                $dotThi = DB::table('qlsv_dotthi')
+                    ->where('qd_id', $quyetDinh->qd_id)
+                    ->select('dt_id')
+                    ->first();
+                
+                // Thêm dt_id vào quyết định
+                $quyetDinh->dt_id = $dotThi ? $dotThi->dt_id : null;
+            }
+        }
+
         return response()->json($danhSachquyetdinh);
     }
 

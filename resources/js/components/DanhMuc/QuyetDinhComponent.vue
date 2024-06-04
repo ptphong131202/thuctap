@@ -39,7 +39,6 @@
                                         <th>Mã</th>
                                         <th>Quyết định</th>
                                         <th>Ngày</th>
-                                        <th>Ngày</th>
                                         <th>Loại</th>
                                         <th class="w-100-p text-center">Hành động</th>
                                     </tr>
@@ -50,7 +49,6 @@
                                         <td>{{ qd.qd_ma }}</td>
                                         <td>{{ qd.qd_ten }}</td>
                                         <td>{{ qd.qd_ngay | moment }}</td>
-                                        <td>{{ qd }}</td>
                                         <td>
                                             <span v-if="qd.qd_loai == 0">Quyết định thêm lớp</span>
                                             <span v-if="qd.qd_loai == 1">Quyết định sinh viên tốt nghiệp</span>
@@ -67,16 +65,28 @@
                                                 v-on:click="destroyV2(qd.qd_id)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a v-if="qd.qd_loai === 0" :href="'http://localhost/cea_3.0/public/lop-hoc?search=' + qd.qd_id">
+                                            <!-- T.Phong thêm nút xem chi tiết quyết định -->
+                                            <a v-if="qd.qd_loai === 0 && qd.checklophoc === true" :href="'http://localhost/cea_3.0/public/lop-hoc?search=' + qd.qd_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
-                                            <a v-else :href="'http://localhost/cea_3.0/public/sinh-vien?search=' + qd.qd_id ">
+                                            <a v-if="qd.qd_loai === 1 && qd.dxtn_id !== null"  :href="'http://localhost/cea_3.0/public/dot-xet-tot-nghiep/' + qd.dxtn_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
+                                            <a v-if="qd.qd_loai === 3 && qd.dt_id !== null"  :href="'http://localhost/cea_3.0/public/dot-thi/' + qd.dt_id">
+                                                <button type="button" class="btn bg-purple btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                            </a>
+                                            <a v-if="qd.qd_loai === 2 && qd.checkusser === true" :href="'http://localhost/cea_3.0/public/sinh-vien?search=' + qd.qd_id ">
+                                                <button type="button" class="btn bg-purple btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                            </a>
+                                            <!--  -->
                                         </td>
                                     </tr>
                                     <tr v-if="table.list.data == null || table.list.data.length == 0">
