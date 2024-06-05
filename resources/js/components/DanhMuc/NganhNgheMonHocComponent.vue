@@ -4,7 +4,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-               Ngành: {{ nganhNghe.nn_ten }}
+                Ngành: {{ nganhNghe.nn_ten }}
                 <small v-if="hdt_id == 5"> Hệ trung cấp </small>
                 <small v-else> Hệ cao đẳng </small>
             </h1>
@@ -58,6 +58,9 @@
                                         <th class="w-10">Số tín chỉ</th>
                                         <th class="w-10">Số tiết/giờ</th>
                                         <th class="w-10">Tích lũy</th>
+                                        <th class="w-90-p text-center">
+                                            Hành động
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,6 +83,51 @@
                                         <td>{{ mh.mh_sotiet }}</td>
                                         <td>
                                             {{ mh.mh_tichluy ? "Có" : "Không" }}
+                                        </td>
+                                        <td class="text-center">
+                                            <button
+                                                type="button"
+                                                class="btn bg-orange btn-sm pull-left"
+                                                title="Thay đổi"
+                                                v-if="
+                                                    !mh.bang_diem_exists &&
+                                                    mh.deleted_at == null
+                                                "
+                                                v-on:click="edit(mh.mh_id)"
+                                            >
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-danger btn-sm pull-right"
+                                                title="Xóa"
+                                                v-if="
+                                                    !mh.bang_diem_exists &&
+                                                    mh.deleted_at == null
+                                                "
+                                                v-on:click="
+                                                    destroy(mh.mh_id, mh.mh_ten)
+                                                "
+                                            >
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary btn-sm pull-right"
+                                                title="Khôi phục"
+                                                v-if="
+                                                    !mh.bang_diem_exists &&
+                                                    mh.deleted_at != null
+                                                "
+                                                v-on:click="
+                                                    restore(mh.mh_id, mh.mh_ten)
+                                                "
+                                            >
+                                                <i
+                                                    class="fa fa-undo"
+                                                    aria-hidden="true"
+                                                ></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     <tr
@@ -266,6 +314,10 @@ const consumer = {
 
         return axios.get(url).then((response) => response.data);
     },
+    getMonHoc: function (mh_id) {
+        const url = "http://localhost/cea_4.0/public/api/mon-hoc/" + mh_id;
+        return axios.get(url).then((response) => response.data);
+    },
     getListHeDaoTao: function () {
         const url = "http://localhost/cea_4.0/public/api/he-dao-tao/all";
         return axios.get(url).then((response) => response.data);
@@ -282,7 +334,22 @@ const consumer = {
                 "http://localhost/cea_4.0/public/api/mon-hoc",
                 formData
             );
+        } else {
+            return axios.put(
+                "http://localhost/cea_4.0/public/api/mon-hoc/" + formData.mh_id,
+                formData
+            );
         }
+    },
+    destroy: function (mh_id) {
+        return axios.delete(
+            "http://localhost/cea_4.0/public/api/mon-hoc/" + mh_id
+        );
+    },
+    restore: function (mh_id) {
+        return axios.put(
+            "http://localhost/cea_4.0/public/api/mon-hoc/restore/" + mh_id
+        );
     },
 };
 
@@ -401,6 +468,93 @@ export default {
                         );
                     }
                 });
+        },
+        edit: function (mh_id) {
+            this.resetEditForm();
+            consumer.getMonHoc(mh_id).then((data) => {
+                this.editForm.model = data;
+                this.editForm.reference = { ...this.editForm.model };
+                editModal.show();
+            });
+        },
+        update: function () {
+            const newMh_tichluy =
+                typeof this.editForm.model.mh_tichluy === "boolean"
+                    ? this.editForm.model.mh_tichluy
+                    : false;
+            const newModel = {
+                ...this.editForm.model,
+                mh_tichluy: newMh_tichluy,
+            };
+            var vm = this;
+            consumer
+                .saveOrUpdate(newModel)
+                .then((response) => {
+                    if (response.status == 200) {
+                        vm.resetEditForm();
+                        vm.reloadList();
+                        editModal.hide();
+                        AlertBox.Notify.Success("Cập nhật thành công");
+                    }
+                })
+                .catch((error) => {
+                    if (error.response.status == 422) {
+                        Vue.set(
+                            vm.editForm,
+                            "errors",
+                            error.response.data.errors
+                        );
+                    }
+                });
+        },
+        destroy: function (mh_id, mh_ten) {
+            var vm = this;
+            AlertBox.Comfirm(
+                "Xác nhận",
+                `Bạn có đồng ý xóa môn học: "${mh_ten}" không?`,
+
+                function () {
+                    // Ok
+                    consumer
+                        .destroy(mh_id)
+                        .then((response) => {
+                            vm.reloadList();
+                            AlertBox.Notify.Success("Xóa môn học thành công");
+                        })
+                        .catch((error) => {
+                            vm.reloadList();
+                            AlertBox.Notify.Failure(
+                                "Không thể xóa môn học này!"
+                            );
+                        });
+                },
+                function () {}
+            );
+        },
+        restore: function (mh_id, mh_ten) {
+            var vm = this;
+            AlertBox.Comfirm(
+                "Xác nhận",
+                `Bạn có đồng ý khôi phục môn học: "${mh_ten}" không?`,
+                function () {
+                    // Ok
+                    consumer
+                        .restore(mh_id)
+                        .then((response) => {
+                            vm.reloadList();
+                            AlertBox.Notify.Success(
+                                "Khôi phục môn học thành công"
+                            );
+                        })
+                        .catch((error) => {
+                            vm.reloadList();
+                            AlertBox.Notify.Failure(
+                                "Khôi phục môn học thất bại"
+                            );
+                        });
+                },
+                function () {}
+            );
         },
     },
 };

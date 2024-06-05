@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NganhNghe;
+use App\Models\MonHoc;
+
 use App\Http\Requests\NganhNgheEditRequest;
+use Illuminate\Support\Facades\DB; // dinh
 
 class NganhNgheController extends Controller
 {
@@ -20,6 +23,16 @@ class NganhNgheController extends Controller
         });
         return view('qlsv.nganhnghe.nganhnghe_list', compact('permissions'));
     }
+
+    public function monhoc($nn_id, $hdt_id)
+    {
+
+        $parentUrl = session('parent_url:nganh-nghe', '/nganh-nghe');
+        return view('qlsv.nganhnghe.nganhnghe_monhoc', compact(['nn_id', 'hdt_id', 'parentUrl']));
+
+    }
+
+
 
     public function paginate(Request $request)
     {
@@ -52,23 +65,15 @@ class NganhNgheController extends Controller
                 'hedaotao' => $hdt_id
             ])
             ->onEachSide(2);
-            // P.Dinh
-            foreach ($danhSachNganhNghe as $nganhNghe) {
-                $monhoc_url = route('nganh-nghe.monhoc', [$nganhNghe->nn_id, $nganhNghe->heDaoTao->hdt_id]);
-                $nganhNghe->monhoc_url = $monhoc_url;
-            }
+
+        foreach ($danhSachNganhNghe as $nganhNghe) {
+            $monhoc_url = route('nganh-nghe.monhoc', [$nganhNghe->nn_id, $nganhNghe->heDaoTao->hdt_id]);
+            $nganhNghe->monhoc_url = $monhoc_url;
+        }
+
 
         return response()
             ->json($danhSachNganhNghe);
-    }
-
-    // P.Dinh
-    public function monhoc( $nn_id, $hdt_id)
-    {
-
-        $parentUrl = session('parent_url:nganh-nghe', '/nganh-nghe');
-        return view('qlsv.nganhnghe.nganhnghe_monhoc', compact(['nn_id', 'hdt_id', 'parentUrl']));
-
     }
 
     public function getAllNganhNghe(Request $request)
@@ -76,13 +81,15 @@ class NganhNgheController extends Controller
         $hdt_id = intval($request->hedaotao);
         $danhSachNganhNghe = NganhNghe::with('heDaoTao')
             ->where(function ($builder) use ($hdt_id) {
-                if (isset($hdt_id) && $hdt_id != -1  && $hdt_id != 0) {
+                if (isset($hdt_id) && $hdt_id != -1 && $hdt_id != 0) {
                     $builder->whereRaw('qlsv_nganhnghe.hdt_id = ?', "$hdt_id");
                 }
             })
             ->orderBy('nn_id', 'desc')->get();
         return response()->json($danhSachNganhNghe);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -151,4 +158,30 @@ class NganhNgheController extends Controller
         $model->delete();
         return response()->json($model);
     }
+
+
+    public function duplicate(NganhNgheEditRequest $request, $id)
+    {
+        $passedData = $request->only(['nn_ma', 'nn_ten']);
+        $originModel = NganhNghe::find($id);
+        $newModel = null;
+
+        DB::transaction(function () use ($originModel, $passedData, &$newModel) {
+            // Tạo ngành nghề mới
+            $newModel = $originModel->replicate();
+            $newModel->fill($passedData);
+            $newModel->push();
+
+            // Sao chép tất cả các môn học từ ngành nghề hiện có sang ngành nghề mới
+            foreach ($originModel->monHoc as $monhoc) {
+                $newMonHoc = $monhoc->replicate();
+                $newMonHoc->nn_id = $newModel->getKey(); // Cập nhật nn_id cho môn học mới
+                $newMonHoc->push();
+            }
+        });
+
+        return response()->json($newModel);
+    }
+
+
 }

@@ -420,12 +420,15 @@
             </div>
         </div>
     </div>
-        <div class="col-md-6">
-        <a class="btn btn-block btn-social btn-twitter btn-lg"
-            href="{{ assetv('/TaiLieuHDSD_QuanLyDiemSinhVien_v2.doc') }}" target="_blank" download>
-            <i class="fa fa-download"></i> Tài liệu hướng dẫn
-        </a>
-    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+            <a class="btn btn-block btn-social btn-twitter btn-lg"
+                href="{{ assetv('/TaiLieuHDSD_QuanLyDiemSinhVien_v2.doc') }}" target="_blank" download>
+                <i class="fa fa-download"></i> Tài liệu hướng dẫn
+            </a>
+        </div>
 </div>
 
 

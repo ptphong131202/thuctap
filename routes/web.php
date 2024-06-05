@@ -162,6 +162,7 @@ Route::middleware([])->prefix('/api')->group(function () {
         Route::get('{nganh_nghe}', [NganhNgheController::class, 'getNganhNghe']);
         Route::put('{nganh_nghe}', [NganhNgheController::class, 'update']);
         Route::delete('{nganh_nghe}', [NganhNgheController::class, 'destroy']);
+        Route::post('duplicate/{nganh_nghe}', [NganhNgheController::class, 'duplicate']);
     });
 
     Route::prefix('quyet-dinh')->group(function () {
