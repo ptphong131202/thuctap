@@ -4,16 +4,11 @@
       <section class="content-header">
           <h1>
               Quản lý lớp học
-              <small>
-                  <a
-                      href="javascript:void(0);"
-                      class="btn btn-danger btn-flat btn-xs"
-                      title="Thêm mới"
-                      v-on:click="create()"
-                  >
-                      <i class="fa fa-plus"></i> Thêm mới
-                  </a>
-              </small>
+              <button class="btn btn-danger btn-flat btn-xs">
+                <a style="color: white;" href="javascript:void(0);"  title="Thêm mới" v-on:click="create()">
+                <i class="fa fa-plus"></i> Thêm mới
+                </a>
+                </button>
           </h1>
           <ol class="breadcrumb">
               <li>
@@ -490,12 +485,12 @@ const editModal = {
 const consumer = {
   getListLopHoc: function () {
       const url =
-          "http://localhost/cea_4.0/public/api/lop-hoc/paginate" +
+          "http://localhost/cea-2.0/public/api/lop-hoc/paginate" +
           window.location.search;
       return axios.get(url).then((response) => response.data);
   },
   getLopHoc: function (lh_id) {
-      const url = "http://localhost/cea_4.0/public/api/lop-hoc/" + lh_id;
+      const url = "http://localhost/cea-2.0/public/api/lop-hoc/" + lh_id;
       return axios.get(url).then((response) => response.data);
   },
   saveOrUpdate: function (formData) {
@@ -510,20 +505,20 @@ const consumer = {
   },
   getListKhoaDaoTao: function (hdt_id) {
       const url =
-          "http://localhost/cea_4.0/public/api/khoa-dao-tao/all?hedaotao=" +
+          "http://localhost/cea-2.0/public/api/khoa-dao-tao/all?hedaotao=" +
           hdt_id;
       return axios.get(url).then((response) => response.data);
   },
   getListQuyetDinh: function () {
-      const url = "http://localhost/cea_4.0/public/api/quyet-dinh/all/0";
+      const url = "http://localhost/cea-2.0/public/api/quyet-dinh/all/0";
       return axios.get(url).then((response) => response.data);
   },
   getListNienKhoa: function () {
-      const url = "http://localhost/cea_4.0/public/api/nien-khoa/all";
+      const url = "http://localhost/cea-2.0/public/api/nien-khoa/all";
       return axios.get(url).then((response) => response.data);
   },
   getListHeDaoTao: function () {
-      const url = "http://localhost/cea_4.0/public/api/he-dao-tao/all";
+      const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";
       return axios.get(url).then((response) => response.data);
   },
   duplicate: function (formData) {

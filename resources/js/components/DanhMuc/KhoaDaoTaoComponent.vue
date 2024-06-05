@@ -4,16 +4,13 @@
     <section class="content-header">
       <h1>
         Chương trình đào tạo
-        <small>
-          <a
-            href="javascript:void(0);"
-            class="btn btn-danger btn-flat btn-xs"
-            title="Thêm mới"
-            v-on:click="create()"
-          >
-            <i class="fa fa-plus"></i> Thêm mới
-          </a>
-        </small>
+        <button class="btn btn-danger">
+                    <a href="javascript:void(0);"  style="color: white;"
+                            title="Thêm mới"
+                            v-on:click="create()">
+                        <i class="fa fa-plus"></i> Thêm mới
+                    </a>
+                </button>
       </h1>
       <ol class="breadcrumb">
         <li>
@@ -335,33 +332,33 @@ const duplicateModal = {
 
 const consumer = {
   getListNganhNghe: function (hdt_id) {
-    const url = "http://localhost/cea_4.0/public/api/nganh-nghe/all?hedaotao=" + hdt_id; /** Phong api */
+    const url = "http://localhost/cea-2.0/public/api/nganh-nghe/all?hedaotao=" + hdt_id; /** Phong api */
     return axios.get(url).then((response) => response.data);
   },
   getListHeDaoTao: function () {
-    const url = "http://localhost/cea_4.0/public/api/he-dao-tao/all";/** Phong api */
+    const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";/** Phong api */
     return axios.get(url).then((response) => response.data);
   },
   getListKhoaDaoTao: function () {
-    const url = "http://localhost/cea_4.0/public/api/khoa-dao-tao" + window.location.search;/** Phong api */
+    const url = "http://localhost/cea-2.0/public/api/khoa-dao-tao" + window.location.search;/** Phong api */
     return axios.get(url).then((response) => response.data);
   },
   getKhoaDaotao: function (kdt_id) {
-    const url = "http://localhost/cea_4.0/public/api/khoa-dao-tao/" + kdt_id;/** Phong api */
+    const url = "http://localhost/cea-2.0/public/api/khoa-dao-tao/" + kdt_id;/** Phong api */
     return axios.get(url).then((response) => response.data);
   },
   saveOrUpdate: function (formData) {
     if (formData.kdt_id == null) {
-      return axios.post("http://localhost/cea_4.0/public/api/khoa-dao-tao", formData);/** Phong api */
+      return axios.post("http://localhost/cea-2.0/public/api/khoa-dao-tao", formData);/** Phong api */
     } else {
-      return axios.put("http://localhost/cea_4.0/public/api/khoa-dao-tao/" + formData.kdt_id, formData);/** Phong api */
+      return axios.put("http://localhost/cea-2.0/public/api/khoa-dao-tao/" + formData.kdt_id, formData);/** Phong api */
     }
   },
   destroy: function (kdt_id) {
-    return axios.delete("http://localhost/cea_4.0/public/api/khoa-dao-tao/" + kdt_id);/** Phong api */
+    return axios.delete("http://localhost/cea-2.0/public/api/khoa-dao-tao/" + kdt_id);/** Phong api */
   },
   duplicate: function (formData) {
-    return axios.post("http://localhost/cea_4.0/public/api/khoa-dao-tao/duplicate/" + formData.kdt_id, formData);/** Phong api */
+    return axios.post("http://localhost/cea-2.0/public/api/khoa-dao-tao/duplicate/" + formData.kdt_id, formData);/** Phong api */
   },
 };
 

@@ -245,12 +245,12 @@ const ayncMonHocModal = {
 
 const consumer = {
     getKhoaDaotao: function (kdt_id) {
-        const url = 'http://localhost/cea_4.0/public/api/khoa-dao-tao/' + kdt_id;
+        const url = 'http://localhost/cea-2.0/public/api/khoa-dao-tao/' + kdt_id;
         return axios.get(url)
             .then(response => response.data);
     },
     getDanhSachHocKy: function (kdt_id) {
-        const url = 'http://localhost/cea_4.0/public/api/khoa-dao-tao/' + kdt_id + '/hoc-ky';
+        const url = 'http://localhost/cea-2.0/public/api/khoa-dao-tao/' + kdt_id + '/hoc-ky';
         return axios.get(url)
             .then(response => response.data)
             .then(data => {
@@ -288,24 +288,24 @@ const consumer = {
             });
     },
     getDanhSachMonHoc: function (hdt_id, nn_id) {
-        const url = 'http://localhost/cea_4.0/public/api/mon-hoc/all?hdt_id=' + hdt_id + '&nn_id=' + nn_id;
+        const url = 'http://localhost/cea-2.0/public/api/mon-hoc/all?hdt_id=' + hdt_id + '&nn_id=' + nn_id;
         return axios.get(url)
             .then(response => response.data);
     },
     getListHeDaoTao: function () {
-        const url = 'http://localhost/cea_4.0/public/api/he-dao-tao/all';
+        const url = 'http://localhost/cea-2.0/public/api/he-dao-tao/all';
         return axios.get(url).then(response => response.data);
     },
     getMonHoc: function (mh_id) {
-        const url = 'http://localhost/cea_4.0/public/api/mon-hoc/' + mh_id;
+        const url = 'http://localhost/cea-2.0/public/api/mon-hoc/' + mh_id;
         return axios.get(url)
             .then(response => response.data);
     },
     saveOrUpdateMonHoc: function (formData) {
         if (formData.mh_id == null) {
-            return axios.post('http://localhost/cea_4.0/public/api/mon-hoc', formData);
+            return axios.post('http://localhost/cea-2.0/public/api/mon-hoc', formData);
         } else {
-            return axios.put('http://localhost/cea_4.0/public/api/mon-hoc/' + formData.mh_id, formData);
+            return axios.put('http://localhost/cea-2.0/public/api/mon-hoc/' + formData.mh_id, formData);
         }
     },
     saveOrUpdateHocKy: function (kdt_id, danhSachHocKy) {

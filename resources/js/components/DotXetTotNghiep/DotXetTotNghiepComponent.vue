@@ -4,13 +4,11 @@
         <section class="content-header">
             <h1>
                 Đợt xét tốt nghiệp
-                <small>
-                    <a href="javascript:void(0);" class="btn btn-danger btn-flat btn-xs"
-                            title="Thêm mới"
-                            v-on:click="create()">
-                        <i class="fa fa-plus"></i> Thêm mới
+                <button class="btn btn-danger btn-flat btn-xs">
+                    <a style="color: white;" href="javascript:void(0);"  title="Thêm mới" v-on:click="create()">
+                    <i class="fa fa-plus"></i> Thêm mới
                     </a>
-                </small>
+                </button>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
@@ -381,43 +379,43 @@
 
     const consumer = {
         getListDotXetTotNghiep: function () {
-            const url = 'http://localhost/cea_4.0/public/api/dot-xet-tot-nghiep' + window.location.search;
+            const url = 'http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep' + window.location.search;
             return axios.get(url).then(response => response.data);
         },
         getListDotXet: function (chuongtrinh) {
-            const url = "http://localhost/cea_4.0/public/api/dot-thi/all/dot-xet-tn?chuongtrinh=" + chuongtrinh;
+            const url = "http://localhost/cea-2.0/public/api/dot-thi/all/dot-xet-tn?chuongtrinh=" + chuongtrinh;
             return axios.get(url).then((response) => response.data);
         },
         getDotXetTotNghiep: function (dxtn_id) {
-            const url = 'http://localhost/cea_4.0/public/api/dot-xet-tot-nghiep/' + dxtn_id;
+            const url = 'http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep/' + dxtn_id;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.dxtn_id == null) {
-                return axios.post('http://localhost/cea_4.0/public/api/dot-xet-tot-nghiep', formData);
+                return axios.post('http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep', formData);
             } else {
-                return axios.put('http://localhost/cea_4.0/public/api/dot-xet-tot-nghiep/' + formData.dxtn_id, formData);
+                return axios.put('http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep/' + formData.dxtn_id, formData);
             }
         },
         destroy: function (dxtn_id) {
-            return axios.delete('http://localhost/cea_4.0/public/api/dot-xet-tot-nghiep/' + dxtn_id);
+            return axios.delete('http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep/' + dxtn_id);
         },
         capNhatDotXet: function (formData) {
-            return axios.post("http://localhost/cea_4.0/public/api/dot-xet-tot-nghiep/cap-nhat-dot-xet-cho-dot-thi", formData);
+            return axios.post("http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep/cap-nhat-dot-xet-cho-dot-thi", formData);
         },
         getListQuyetDinh: function (loai) {
-            const url = 'http://localhost/cea_4.0/public/api/quyet-dinh/all/'+ 1;
+            const url = 'http://localhost/cea-2.0/public/api/quyet-dinh/all/'+ 1;
             return axios.get(url).then(response => response.data);
         },
         saveOrAddQuyetDinh: function (formData) {
-            return axios.post('http://localhost/cea_4.0/public/api/sinh-vien/them-quyet-dinh-tot-nghiep', formData);
+            return axios.post('http://localhost/cea-2.0/public/api/sinh-vien/them-quyet-dinh-tot-nghiep', formData);
         },
         getListHeDaoTao: function () {
-            const url = "http://localhost/cea_4.0/public/api/he-dao-tao/all";
+            const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";
             return axios.get(url).then((response) => response.data);
         },
         updateQdTrangThai: function (formData) {
-            return axios.put("http://localhost/cea_4.0/public/api/dot-xet-tot-nghiep/updateQd-trang-thai/" + formData.dxtn_id, formData);
+            return axios.put("http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep/updateQd-trang-thai/" + formData.dxtn_id, formData);
         },
     }
 

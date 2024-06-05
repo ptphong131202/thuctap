@@ -125,4 +125,9 @@ class User extends Authenticatable
     {
         $this->notify(new PasswordReset($token));
     }
+
+    public function bangDiemLog()
+    {
+        return $this->hasMany(BangDiemLog::class, 'user_id', 'user_id');
+    }
 }

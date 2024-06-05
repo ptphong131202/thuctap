@@ -32,4 +32,9 @@ class BangDiem extends Model
     {
         return $this->hasOne(LopHoc::class, 'lh_id', 'lh_id');
     }
+
+    public function bangDiemLog()
+    {
+        return $this->hasMany(BangDiemLog::class, 'bd_id', 'bd_id');
+    }
 }

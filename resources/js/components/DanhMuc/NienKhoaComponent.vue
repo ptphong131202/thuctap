@@ -4,13 +4,13 @@
         <section class="content-header">
             <h1>
                 Niên khóa
-                <small>
-                    <a href="javascript:void(0);" class="btn btn-danger btn-flat btn-xs"
+                <button class="btn btn-danger">
+                    <a href="javascript:void(0);"  style="color: white;"
                             title="Thêm mới"
                             v-on:click="create()">
                         <i class="fa fa-plus"></i> Thêm mới
                     </a>
-                </small>
+                </button>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
@@ -103,22 +103,22 @@
 
     const consumer = {
         getListNienKhoa: function () {
-            const url = 'http://localhost/cea_4.0/public/api/nien-khoa' + window.location.search;
+            const url = 'http://localhost/cea-2.0/public/api/nien-khoa' + window.location.search;
             return axios.get(url).then(response => response.data);
         },
         getNienKhoa: function (nk_id) {
-            const url = 'http://localhost/cea_4.0/public/api/nien-khoa/' + nk_id;
+            const url = 'http://localhost/cea-2.0/public/api/nien-khoa/' + nk_id;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.nk_id == null) {
-                return axios.post('http://localhost/cea_4.0/public/api/nien-khoa', formData);
+                return axios.post('http://localhost/cea-2.0/public/api/nien-khoa', formData);
             } else {
-                return axios.put('http://localhost/cea_4.0/public/api/nien-khoa/' + formData.nk_id, formData);
+                return axios.put('http://localhost/cea-2.0/public/api/nien-khoa/' + formData.nk_id, formData);
             }
         },
         destroy: function (nk_id) {
-            return axios.delete('http://localhost/cea_4.0/public/api/nien-khoa/' + nk_id);
+            return axios.delete('http://localhost/cea-2.0/public/api/nien-khoa/' + nk_id);
         }
     }
 

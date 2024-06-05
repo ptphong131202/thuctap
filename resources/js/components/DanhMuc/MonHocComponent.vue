@@ -4,13 +4,16 @@
     <section class="content-header">
       <h1>
         Môn học
-        <small>
-          <a href="javascript:void(0);" class="btn btn-danger btn-flat btn-xs" title="Thêm mới" v-on:click="create()">
-            <i class="fa fa-plus"></i> Thêm mới
-          </a>
-          <a v-bind:href="excel" class="btn btn-success btn-flat btn-xs"><i class="fa fa-file-excel-o"></i> Thêm môn học
+        <button class="btn btn-danger btn-flat btn-xs">
+            <a style="color: white;" href="javascript:void(0);"  title="Thêm mới" v-on:click="create()">
+              <i class="fa fa-plus"></i> Thêm mới
+            </a>
+                </button>
+          
+        <button class="btn btn-success btn-flat btn-xs">
+          <a style="color: white;" v-bind:href="excel" ><i class="fa fa-file-excel-o"></i> Thêm môn học
             bằng Excel</a>
-        </small>
+                </button>
       </h1>
       <ol class="breadcrumb">
         <li>
@@ -246,33 +249,33 @@ const editModal = {
 
 const consumer = {
   getListHeDaoTao: function () {
-    const url = "http://localhost/cea_4.0/public/api/he-dao-tao/all";
+    const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";
     return axios.get(url).then((response) => response.data);
   },
   getListNganhNghe: function (hdt_id) {
-    const url = "http://localhost/cea_4.0/public/api/nganh-nghe/all?hedaotao=" + hdt_id;
+    const url = "http://localhost/cea-2.0/public/api/nganh-nghe/all?hedaotao=" + hdt_id;
     return axios.get(url).then((response) => response.data);
   },
   getListMonHoc: function () {
-    const url = "http://localhost/cea_4.0/public/api/mon-hoc" + window.location.search;
+    const url = "http://localhost/cea-2.0/public/api/mon-hoc" + window.location.search;
     return axios.get(url).then((response) => response.data);
   },
   getMonHoc: function (mh_id) {
-    const url = "http://localhost/cea_4.0/public/api/mon-hoc/" + mh_id;
+    const url = "http://localhost/cea-2.0/public/api/mon-hoc/" + mh_id;
     return axios.get(url).then((response) => response.data);
   },
   saveOrUpdate: function (formData) {
     if (formData.mh_id == null) {
-      return axios.post("http://localhost/cea_4.0/public/api/mon-hoc", formData);
+      return axios.post("http://localhost/cea-2.0/public/api/mon-hoc", formData);
     } else {
-      return axios.put("http://localhost/cea_4.0/public/api/mon-hoc/" + formData.mh_id, formData);
+      return axios.put("http://localhost/cea-2.0/public/api/mon-hoc/" + formData.mh_id, formData);
     }
   },
   destroy: function (mh_id) {
-    return axios.delete("http://localhost/cea_4.0/public/api/mon-hoc/" + mh_id);
+    return axios.delete("http://localhost/cea-2.0/public/api/mon-hoc/" + mh_id);
   },
   restore: function (mh_id) {
-    return axios.put("http://localhost/cea_4.0/public/api/mon-hoc/restore/" + mh_id);
+    return axios.put("http://localhost/cea-2.0/public/api/mon-hoc/restore/" + mh_id);
   },
 };
 
