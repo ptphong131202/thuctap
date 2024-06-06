@@ -51,10 +51,16 @@ class DotXetTotNghiepController extends Controller
         $dxtn_tunam = $request->tunam;
         $dxtn_dennam = $request->dennam;
         $hdt_id = $request->chuongtrinh;
+        $dxtn_id = $request->dxtn_id;
 
         $danhSachDotXetTotNghiep = DotXetTotNghiep::withExists(['dotThi'])
-            ->where(function ($builder) use ($search) {
-                $builder->whereRaw('lower(qlsv_dotxettotnghiep.dxtn_ten) like lower(?)', "%$search%");
+            ->where(function ($builder) use ($search, $dxtn_id) {
+                if($dxtn_id){
+                    $builder->whereRaw('lower(qlsv_dotxettotnghiep.dxtn_id) like lower(?)', "%$dxtn_id%");
+                }
+                else {
+                    $builder->whereRaw('lower(qlsv_dotxettotnghiep.dxtn_ten) like lower(?)', "%$search%");
+                }
             })
             ->where(function ($builder) use ($dxtn_tunam) {
                 if (isset ($dxtn_tunam)) {

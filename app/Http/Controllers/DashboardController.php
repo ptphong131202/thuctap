@@ -206,7 +206,8 @@ class DashboardController extends Controller
         }
 
         // Tạo mảng kết quả
-        $kqnienkhoa = [];
+        $danhsachlophocsinhvien = [];
+        $maxsinvienlop = 0;
 
         // Lặp qua từng lớp học
         foreach ($lopHocs as $lopHoc) {
@@ -218,11 +219,19 @@ class DashboardController extends Controller
 
             // Nếu nk_ten chưa tồn tại trong mảng, khởi tạo nó
             if (!isset($danhsachlophocsinhvien[$nk_ten])) {
-                $danhsachlophocsinhvien[$nk_ten] = [];
+                $danhsachlophocsinhvien[$nk_ten] = [
+                    'max_sinh_vien_lop' => 0,
+                    'so_luong_lop' => 0,
+                    'lops' => []
+                ];
             }
 
             // Lấy số lượng sinh viên của lớp học
             $soLuongSinhVien = $lopHoc->sinhVien->count();
+            // Cập nhật số lượng max sinh viên lớp cho niên khóa
+            if ($soLuongSinhVien > $danhsachlophocsinhvien[$nk_ten]['max_sinh_vien_lop']) {
+                $danhsachlophocsinhvien[$nk_ten]['max_sinh_vien_lop'] = $soLuongSinhVien;
+            }
             $soLuongTotNghiep = $lopHoc->sinhVien->filter(function($sinhVien) {
                 return $sinhVien->quyetDinhTotNghiep->isNotEmpty();
             })->count();
@@ -232,77 +241,26 @@ class DashboardController extends Controller
             $soLuongConLai = $soLuongSinhVien - $soLuongTotNghiep - $soLuongXoaTen;
 
             // Thêm thông tin lớp học và số lượng sinh viên vào mảng kết quả
-            $danhsachlophocsinhvien[$nk_ten][$lop_ma] = [
+            $danhsachlophocsinhvien[$nk_ten]['lops'][$lop_ma] = [
                 'lop_id' => $lopHoc->lh_id,
                 'lop_ma' => $lop_ma,
                 'lop_ten' => $lopHoc->lh_ten,
                 'slsinhvienlop' => $soLuongSinhVien,
-                'số lượng sinh viên tốt nghiệp' => $soLuongTotNghiep,
-                'số lượng sinh viên xóa tên' => $soLuongXoaTen,
-                'số lượng còn lại' => $soLuongConLai,
+                'slsvtotnghiep' => $soLuongTotNghiep,
+                'slsvxoaten' => $soLuongXoaTen,
+                'slsvconlai' => $soLuongConLai,
             ];
+            // Tăng số lượng lớp trong niên khóa
+            $danhsachlophocsinhvien[$nk_ten]['so_luong_lop']++;
         }
 
-        // Đảo ngược danh sách niên khóa
-        $reversedNienKhoas = $NienKhoas->reverse();
+        // Loại bỏ những niên khóa không có lớp
+        $danhsachlophocsinhvien = array_filter($danhsachlophocsinhvien, function($nienKhoa) {
+            return $nienKhoa['so_luong_lop'] > 0;
+        });
 
-        $kqnienkhoa = [];
-
-        foreach ($reversedNienKhoas as $nienKhoa) {
-            $nk_ten = $nienKhoa->nk_ten;
-
-            // Kiểm tra nếu niên khóa có trong danh sách lớp học sinh viên
-            if (isset($danhsachlophocsinhvien[$nk_ten])) {
-                $lopHocs = $danhsachlophocsinhvien[$nk_ten];
-                $lophocInfo = [];
-                $maxSoLuongSinhVien = 0;
-
-                foreach ($lopHocs as $lop_ma => $info) {
-                    $lophocInfo[] = [
-                        'lop_id' => $info['lop_id'],
-                        'lop_ma' => $lop_ma,
-                        'lop_ten' => $info['lop_ten'],
-                        'slsinhvienlop' => $info['slsinhvienlop'],
-                        'số lượng sinh viên tốt nghiệp' => $info['số lượng sinh viên tốt nghiệp'],
-                        'số lượng sinh viên xóa tên' => $info['số lượng sinh viên xóa tên'],
-                        'số lượng còn lại' => $info['số lượng còn lại']
-                    ];
-
-                    // Cập nhật số lượng sinh viên lớn nhất
-                    if ($info['slsinhvienlop'] > $maxSoLuongSinhVien) {
-                        $maxSoLuongSinhVien = $info['slsinhvienlop'];
-                    }
-                }
-
-                // Lưu thông tin niên khóa có dữ liệu
-                $kqnienkhoa[] = [
-                    'nk_ten' => $nk_ten,
-                    'số lượng lớp' => count($lopHocs), // Đếm số lượng lớp học
-                    'max_số lượng sinh viên' => $maxSoLuongSinhVien, // Số lượng sinh viên lớn nhất trong niên khóa
-                    'lophocs' => $lophocInfo
-                ];
-
-                break; // Chỉ lưu niên khóa đầu tiên có dữ liệu và thoát khỏi vòng lặp
-            }
-        }
-
-        // Hiển thị kết quả
-        /* foreach ($kqnienkhoa as $nienKhoaInfo) {
-            echo "Niên khóa {$nienKhoaInfo['nk_ten']}:\n";
-            echo "    Số lượng lớp: {$nienKhoaInfo['số lượng lớp']}\n";
-            foreach ($nienKhoaInfo['lophocs'] as $lopInfo) {
-                echo "        Lớp {$lopInfo['lop_ma']}:\n";
-                echo "            Số lượng sinh viên tốt nghiệp: {$lopInfo['số lượng sinh viên tốt nghiệp']}\n";
-                echo "            Số lượng sinh viên xóa tên: {$lopInfo['số lượng sinh viên xóa tên']}\n";
-                echo "            Số lượng còn lại: {$lopInfo['số lượng còn lại']}\n";
-            }
-            echo "\n";
-        }
- */
-
-
-        return view('dashboard-canbo', compact(['infoUser', 'dsdotxettotnghiep', 'danhsachlophocsinhvien',  'maxLopHoc',
-        'kqnienkhoa', 'NienKhoas', 'lophocs',
+              
+        return view('dashboard-canbo', compact(['infoUser', 'dsdotxettotnghiep', 'danhsachlophocsinhvien',  'maxLopHoc', 'NienKhoas', 'lophocs',
                     'thongKe', 'dotxettotnghiepsinhvien', 'dsDotThi', 'nganhnghe', 'khoadaotaotrungcapQuery', 
                     'khoadaotaocaodangQuery']));
     }

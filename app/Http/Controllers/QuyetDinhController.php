@@ -26,6 +26,7 @@ class QuyetDinhController extends Controller
         $search = $request->search;
         $qd_loai = $request->qd_loai;
         if($qd_loai === null || $qd_loai === ''){
+            $qd_loai = '';
             $danhSachquyetdinh = QuyetDinh::orderBy('qd_id', 'desc')
                 ->withExists(['sinhVien', 'lopHoc'])
                 ->where(function ($builder) use ($search) {
@@ -34,10 +35,11 @@ class QuyetDinhController extends Controller
                 })
                 ->paginate(10)
                 ->setPath(route('quyet-dinh.index'))
-                ->appends(['search' => $search])
+                ->appends(['search' => $search, 'qd_loai' => $qd_loai])
                 ->onEachSide(2);
         }
         else {
+            $search = '';
             $danhSachquyetdinh = QuyetDinh::orderBy('qd_id', 'desc')
                 ->withExists(['sinhVien', 'lopHoc'])
                 ->where(function ($builder) use ($qd_loai) {
@@ -45,7 +47,7 @@ class QuyetDinhController extends Controller
                 })
                 ->paginate(10)
                 ->setPath(route('quyet-dinh.index'))
-                ->appends(['qd_loai' => $qd_loai])
+                ->appends(['qd_loai' => $qd_loai, 'search' => $search])
                 ->onEachSide(2);
         }
 
@@ -65,11 +67,22 @@ class QuyetDinhController extends Controller
                 // Join đến bảng qlsv_dotxettotnghiep để lấy dxtn_id
                 $dotXetTotNghiep = DB::table('qlsv_dotxettotnghiep')
                     ->where('qd_id', $quyetDinh->qd_id)
-                    ->select('dxtn_id')
+                    ->select('dxtn_id', 'dxtn_tunam','dxtn_dennam',  'dxtn_hdt_id', 'dxtn_ten')
                     ->first();
-                
-                // Thêm dxtn_id vào quyết định
-                $quyetDinh->dxtn_id = $dotXetTotNghiep ? $dotXetTotNghiep->dxtn_id : null;
+                // Thêm dt_id và dt_ten vào quyết định
+                if ($dotXetTotNghiep) {
+                    $quyetDinh->dxtn_id = $dotXetTotNghiep->dxtn_id;
+                    $quyetDinh->dxtn_ten = $dotXetTotNghiep->dxtn_ten;
+                    $quyetDinh->dxtn_tunam = $dotXetTotNghiep->dxtn_tunam;
+                    $quyetDinh->dxtn_dennam = $dotXetTotNghiep->dxtn_dennam;
+                    $quyetDinh->dxtn_hdt_id = $dotXetTotNghiep->dxtn_hdt_id;
+                } else {
+                    $quyetDinh->dxtn_id = null;
+                    $quyetDinh->dxtn_ten = null;
+                    $quyetDinh->dxtn_tunam = null;
+                    $quyetDinh->dxtn_dennam = null;
+                    $quyetDinh->dxtn_hdt_id = null;
+                }
             }
 
             if ($quyetDinh->qd_loai == 2) {
@@ -86,12 +99,25 @@ class QuyetDinhController extends Controller
                 // Join đến bảng qlsv_dotthi để lấy dt_id
                 $dotThi = DB::table('qlsv_dotthi')
                     ->where('qd_id', $quyetDinh->qd_id)
-                    ->select('dt_id')
+                    ->select('dt_id', 'dt_ten','dt_tunam', 'dt_dennam', 'dt_hdt_id')
                     ->first();
                 
-                // Thêm dt_id vào quyết định
-                $quyetDinh->dt_id = $dotThi ? $dotThi->dt_id : null;
+                // Thêm dt_id và dt_ten vào quyết định
+                if ($dotThi) {
+                    $quyetDinh->dt_id = $dotThi->dt_id;
+                    $quyetDinh->dt_ten = $dotThi->dt_ten;
+                    $quyetDinh->dt_tunam = $dotThi->dt_tunam;
+                    $quyetDinh->dt_dennam = $dotThi->dt_dennam;
+                    $quyetDinh->dt_hdt_id = $dotThi->dt_hdt_id;
+                } else {
+                    $quyetDinh->dt_id = null;
+                    $quyetDinh->dt_ten = null;
+                    $quyetDinh->dt_tunam = null;
+                    $quyetDinh->dt_dennam = null;
+                    $quyetDinh->dt_hdt_id = null;
+                }
             }
+            
         }
 
         return response()->json($danhSachquyetdinh);

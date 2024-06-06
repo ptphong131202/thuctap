@@ -12,6 +12,7 @@ class BangDiem extends Model
     protected $table = 'qlsv_bangdiem';
 
     protected $primaryKey = 'bd_id';
+    protected $keyType = 'int';
 
     /**
      * The attributes that are mass assignable.
@@ -33,8 +34,13 @@ class BangDiem extends Model
         return $this->hasOne(LopHoc::class, 'lh_id', 'lh_id');
     }
 
-    public function bangDiemLog()
+    public function bangDiemLogs()
     {
         return $this->hasMany(BangDiemLog::class, 'bd_id', 'bd_id');
+    }
+
+    public function monHoc()
+    {
+        return $this->belongsTo(MonHoc::class, 'mh_id', 'mh_id');
     }
 }

@@ -13,7 +13,7 @@
                     <a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a>
                 </li>
                 <li>
-                    <a :href="'http://localhost/cea-2.0/public' + parent_url"
+                    <a :href="'http://localhost/cea-2.1/public' + parent_url"
                         >Ngành nghề</a
                     >
                 </li>
@@ -37,7 +37,7 @@
                 >
 
                 <a
-                    :href="'http://localhost/cea-2.0/public' + parent_url"
+                    :href="'http://localhost/cea-2.1/public' + parent_url"
                     class="btn btn-default"
                 >
                     <i class="fa fa-share"></i> Trở về danh sách
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <a
-                :href="'http://localhost/cea-2.0/public' + parent_url"
+                :href="'http://localhost/cea-2.1/public' + parent_url"
                 class="btn btn-default"
             >
                 <i class="fa fa-share"></i> Trở về danh sách
@@ -301,13 +301,13 @@ const editModal = {
 
 const consumer = {
     getNganhNge: function (nn_id) {
-        const url = "http://localhost/cea-2.0/public/api/nganh-nghe/" + nn_id;
+        const url = "http://localhost/cea-2.1/public/api/nganh-nghe/" + nn_id;
         return axios.get(url).then((response) => response.data);
     },
 
     getDanhSachMonHoc: function (hdt_id, nn_id) {
         const url =
-            "http://localhost/cea-2.0/public/api/mon-hoc/all?hdt_id=" +
+            "http://localhost/cea-2.1/public/api/mon-hoc/all?hdt_id=" +
             hdt_id +
             "&nn_id=" +
             nn_id;
@@ -315,40 +315,40 @@ const consumer = {
         return axios.get(url).then((response) => response.data);
     },
     getMonHoc: function (mh_id) {
-        const url = "http://localhost/cea-2.0/public/api/mon-hoc/" + mh_id;
+        const url = "http://localhost/cea-2.1/public/api/mon-hoc/" + mh_id;
         return axios.get(url).then((response) => response.data);
     },
     getListHeDaoTao: function () {
-        const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";
+        const url = "http://localhost/cea-2.1/public/api/he-dao-tao/all";
         return axios.get(url).then((response) => response.data);
     },
     getListNganhNghe: function (hdt_id) {
         const url =
-            "http://localhost/cea-2.0/public/api/nganh-nghe/all?hedaotao=" +
+            "http://localhost/cea-2.1/public/api/nganh-nghe/all?hedaotao=" +
             hdt_id;
         return axios.get(url).then((response) => response.data);
     },
     save: function (formData) {
         if (formData.mh_id == null) {
             return axios.post(
-                "http://localhost/cea-2.0/public/api/mon-hoc",
+                "http://localhost/cea-2.1/public/api/mon-hoc",
                 formData
             );
         } else {
             return axios.put(
-                "http://localhost/cea-2.0/public/api/mon-hoc/" + formData.mh_id,
+                "http://localhost/cea-2.1/public/api/mon-hoc/" + formData.mh_id,
                 formData
             );
         }
     },
     destroy: function (mh_id) {
         return axios.delete(
-            "http://localhost/cea-2.0/public/api/mon-hoc/" + mh_id
+            "http://localhost/cea-2.1/public/api/mon-hoc/" + mh_id
         );
     },
     restore: function (mh_id) {
         return axios.put(
-            "http://localhost/cea-2.0/public/api/mon-hoc/restore/" + mh_id
+            "http://localhost/cea-2.1/public/api/mon-hoc/restore/" + mh_id
         );
     },
 };

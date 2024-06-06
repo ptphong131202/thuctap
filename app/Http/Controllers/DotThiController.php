@@ -52,12 +52,18 @@ class DotThiController extends Controller
         $dt_tunam = $request->tunam;
         $dt_dennam = $request->dennam;
         $hdt_id = $request->chuongtrinh;
+        $dt_id = $request->dt_id; // Thêm biến cho dt_id
 
 
         $danhSachDotThi = DotThi::withExists(['dotThiBangDiem'])
             ->with('dotXetTotNghiep')
-            ->where(function ($builder) use ($search) {
-                $builder->whereRaw('lower(qlsv_dotthi.dt_ten) like lower(?)', "%$search%");
+            ->where(function ($builder) use ($search, $dt_id) {
+                if ($search) {
+                    $builder->whereRaw('lower(qlsv_dotthi.dt_ten) like lower(?)', "%$search%");
+                }
+                if ($dt_id) {
+                    $builder->where('qlsv_dotthi.dt_id', $dt_id);
+                }
             })
             ->where(function ($builder) use ($dt_loai) {
                 if (isset($dt_loai) && $dt_loai != -1) {
@@ -98,7 +104,6 @@ class DotThiController extends Controller
                     }
                 }
             })
-            // ->select('hdt.*')
             ->orderBy('qlsv_dotthi.dt_id', 'desc')
             ->paginate(10)
             ->setPath(route('dot-thi.index'))

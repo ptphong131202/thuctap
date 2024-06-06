@@ -97,15 +97,15 @@
 <script>
     const consumer = {
         getUser: function (user_id) {
-            const url = 'http://localhost/cea-2.0/public/apiuser/' + user_id;
+            const url = 'http://localhost/cea-2.1/public/api/user/' + user_id;
             return axios.get(url)
                     .then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.user_id == null) {
-                return axios.post('http://localhost/cea-2.0/public/apiuser', formData);
+                return axios.post('http://localhost/cea-2.1/public/api/user', formData);
             } else {
-                return axios.put('http://localhost/cea-2.0/public/apiuser/' + formData.user_id, formData);
+                return axios.put('http://localhost/cea-2.1/public/api/user/' + formData.user_id, formData);
             }
         },
         getListPermission: function () {

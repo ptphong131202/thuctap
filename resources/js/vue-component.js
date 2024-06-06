@@ -46,6 +46,7 @@ Vue.component('sinhvien-box', require('./components/SinhVien/SinhVienComponent.v
 
 Vue.component('import-monhoc-box', require('./components/MonHoc/ImportMonHocComponent.vue').default);
 Vue.component('kiem-tra-diem-box', require('./components/NhapDiem/KiemTraDiemComponent.vue').default);
+Vue.component('nhat-ky-box', require('./components/NhapDiem/NhatKyDiemComponent.vue').default);
 
 Vue.component('nhatky-box', require('./components/Nhatky/DanhSachLopNhatKyComponent.vue').default);
 Vue.component('nhatky-chitiet-box', require('./components/Nhatky/NhatkyChiTietComponent.vue').default);

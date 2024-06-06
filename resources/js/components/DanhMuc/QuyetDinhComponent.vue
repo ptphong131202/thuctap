@@ -24,32 +24,30 @@
                         <div class="box-header">
 
                             <!-- T.Phong -->
+                            
                             <div class="box-tool pull-left">
-                                <form method="get" style="max-width:300px">
-                                    <div class="input-group">
-                                        <select style="height: 33px;" name="qd_loai" v-model="filter.qd_loai"> 
-                                                <option value="0">Quyết định thêm lớp</option>
-                                                <option value="1">Quyết định sinh viên tốt nghiệp</option>
-                                                <option value="2">Quyết định xóa tên sinh viên</option>
-                                                <option value="3">Quyết định tổ chức đợt xét thi tốt nghiệp</option>
-                                        </select>
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default">Lọc</button>
-                                        </span>
-                                    </div>
+                                <form method="get" style="max-width:300px; display: flex;">
+                                        <div class="input-group">
+                                            <label>Mã hoặc tên quyết định</label>
+                                            <input style="width: 300px;" type="text" name="search" v-model="filter.search" class="form-control" placeholder="Tìm kiếm..">
+                                            
+                                        </div>
+                                        <div class="input-group" style="margin-left: 50px">
+                                            <label>Loại quyết định</label>
+                                            <select style="height: 33px;" name="qd_loai" v-model="filter.qd_loai"> 
+                                                    <option value="0">Quyết định thêm lớp</option>
+                                                    <option value="3">Quyết định xét thi tốt nghiệp</option>
+                                                    <option value="1">Quyết định sinh viên tốt nghiệp</option>
+                                                    <option value="2">Quyết định xóa tên sinh viên</option>
+                                            </select>
+                                        </div>
+                                    <span class="input-group-btn" style="    transform: translateY(24px);    margin-left: 30px;">
+                                        <i class="fa fa-search"></i>
+                                        <button type="submit" class="btn btn-default">Tìm </button>
+                                    </span>
                                 </form>
                             </div>
-                            <!--  -->
-                            <div class="box-tool pull-right">
-                                <form method="get" style="max-width:300px">
-                                    <div class="input-group">
-                                        <input type="text" name="search" v-model="filter.search" class="form-control" placeholder="Tìm kiếm..">
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default">Tìm</button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
+                                        <!--  -->
                         </div>
                         <div class="box-body">
                             <table class="table table-striped table-bordered no-margin">
@@ -73,6 +71,7 @@
                                             <span v-if="qd.qd_loai == 0">Quyết định thêm lớp</span>
                                             <span v-if="qd.qd_loai == 1">Quyết định sinh viên tốt nghiệp</span>
                                             <span v-if="qd.qd_loai == 2">Quyết định xóa tên sinh viên</span>
+                                            <span v-if="qd.qd_loai == 3">Quyết định xét thi tốt nghiệp</span>
                                         </td>
                                         <td class="text-left">
                                             <button type="button" class="btn bg-orange btn-sm" v-on:click="edit(qd.qd_id)"><i class="fa fa-pencil"></i></button>
@@ -86,22 +85,22 @@
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                             <!-- T.Phong thêm nút xem chi tiết quyết định -->
-                                            <a v-if="qd.qd_loai === 0 && qd.checklophoc === true" :href="'http://localhost/cea-2.0/public/lop-hoc?search=' + qd.qd_id">
+                                            <a v-if="qd.qd_loai === 0 && qd.checklophoc === true" :href="'http://localhost/cea-2.1/public/lop-hoc?search=' + qd.qd_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
-                                            <a v-if="qd.qd_loai === 1 && qd.dxtn_id !== null"  :href="'http://localhost/cea-2.0/public/dot-xet-tot-nghiep/' + qd.dxtn_id">
+                                            <a v-if="qd.qd_loai === 1 && qd.dxtn_id !== null"  :href="'http://localhost/cea-2.1/public/dot-xet-tot-nghiep/?dxtn_id=' + qd.dxtn_id + '&tunam=' + qd.dxtn_tunam + '&dennam=' + qd.dxtn_dennam + '&chuongtrinh=' + qd.dxtn_hdt_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
-                                            <a v-if="qd.qd_loai === 3 && qd.dt_id !== null"  :href="'http://localhost/cea-2.0/public/dot-thi/' + qd.dt_id">
+                                            <a v-if="qd.qd_loai === 3 && qd.dt_id !== null"  :href="'http://localhost/cea-2.1/public/dot-thi?dt_id=' + qd.dt_id + '&&tunam=' + qd.dt_tunam + '&dennam=' + qd.dt_dennam + '&chuongtrinh=' + qd.dt_hdt_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
-                                            <a v-if="qd.qd_loai === 2 && qd.checkusser === true" :href="'http://localhost/cea-2.0/public/sinh-vien?search=' + qd.qd_id ">
+                                            <a v-if="qd.qd_loai === 2 && qd.checkusser === true" :href="'http://localhost/cea-2.1/public/sinh-vien?search=' + qd.qd_id ">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
@@ -194,26 +193,26 @@
 
     const consumer = {
         getListQuyetDinh: function () {
-            const url = 'http://localhost/cea-2.0/public/api/quyet-dinh' + window.location.search; /** Phong */
+            const url = 'http://localhost/cea-2.1/public/api/quyet-dinh' + window.location.search; /** Phong */
             return axios.get(url).then(response => response.data);
         },
         getQuyetDinh: function (qd_id) {
-            const url = 'http://localhost/cea-2.0/public/api/quyet-dinh/' + qd_id;/** Phong */
+            const url = 'http://localhost/cea-2.1/public/api/quyet-dinh/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         checkUsed: function (qd_id) {
-            const url = 'http://localhost/cea-2.0/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
+            const url = 'http://localhost/cea-2.1/public/api/quyet-dinh/check-used/' + qd_id;/** Phong */
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.qd_id == null) {
-                return axios.post('http://localhost/cea-2.0/public/api/quyet-dinh', formData);/** Phong */
+                return axios.post('http://localhost/cea-2.1/public/api/quyet-dinh', formData);/** Phong */
             } else {
-                return axios.put('http://localhost/cea-2.0/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
+                return axios.put('http://localhost/cea-2.1/public/api/quyet-dinh/' + formData.qd_id, formData);/** Phong */
             }
         },
         destroy: function (qd_id) {
-            return axios.delete('http://localhost/cea-2.0/public/api/quyet-dinh/' + qd_id);/** Phong */
+            return axios.delete('http://localhost/cea-2.1/public/api/quyet-dinh/' + qd_id);/** Phong */
         }
     }
 
@@ -263,7 +262,6 @@
                 consumer.getListQuyetDinh().then(data => {
                     Vue.set(vm.table, 'list', data);
                     store.table.list = data;
-                    console.log(data)
                 });
             },
             resetEditForm: function () {

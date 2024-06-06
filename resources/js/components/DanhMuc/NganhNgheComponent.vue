@@ -335,31 +335,31 @@ const duplicateModal = {
 const consumer = {
   getListNganhNghe: function () {
       const url =
-          "http://localhost/cea-2.0/public/api/nganh-nghe" +
+          "http://localhost/cea-2.1/public/api/nganh-nghe" +
           window.location.search;
       return axios.get(url).then((response) => response.data);
   },
   getNganhNghe: function (nn_id) {
-      const url = "http://localhost/cea-2.0/public/api/nganh-nghe/" + nn_id;
+      const url = "http://localhost/cea-2.1/public/api/nganh-nghe/" + nn_id;
       return axios.get(url).then((response) => response.data);
   },
   getListHeDaoTao: function () {
-      const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";
+      const url = "http://localhost/cea-2.1/public/api/he-dao-tao/all";
       return axios.get(url).then((response) => response.data);
   },
   saveOrUpdate: function (formData) {
       if (formData.nn_id == null) {
-          return axios.post("http://localhost/cea-2.0/public/api/nganh-nghe", formData);
+          return axios.post("http://localhost/cea-2.1/public/api/nganh-nghe", formData);
       } else {
-          return axios.put("http://localhost/cea-2.0/public/api/nganh-nghe/" + formData.nn_id, formData);
+          return axios.put("http://localhost/cea-2.1/public/api/nganh-nghe/" + formData.nn_id, formData);
       }
   },
   destroy: function (nn_id) {
-      return axios.delete("http://localhost/cea-2.0/public/api/nganh-nghe/" + nn_id);
+      return axios.delete("http://localhost/cea-2.1/public/api/nganh-nghe/" + nn_id);
   },
   duplicate: function (formData) {
       return axios.post(
-          "http://localhost/cea-2.0/public/api/nganh-nghe/duplicate/" + formData.nn_id,
+          "http://localhost/cea-2.1/public/api/nganh-nghe/duplicate/" + formData.nn_id,
           formData
       );
   },

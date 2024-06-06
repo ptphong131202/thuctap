@@ -137,6 +137,12 @@ return [
                             'icon' => 'fa fa-sticky-note-o',
                             'permission' => 'admin.index',
                         ],
+                        [
+                            'name' => 'Nhật ký chỉnh sửa điểm',
+                            'route' => 'nhap-diem.nhat-ky',
+                            'icon' => 'fa fa-sticky-note-o',
+                            'permission' => 'admin.index',
+                        ],
                     ]
                 ]
             ]

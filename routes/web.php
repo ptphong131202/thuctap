@@ -116,7 +116,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('admin.score:xemdiem,nhaprenluyen')->prefix('nhap-diem')->group(function () {
         Route::get('/', [NhapDiemController::class, 'index'])->name('nhap-diem.index');
         Route::get('/kiem-tra', [NhapDiemController::class, 'kiemTraDiem'])->name('nhap-diem.kiem-tra');
-        Route::get('/{lop_hoc}', [NhapDiemController::class, 'show'])->name('nhap-diem.show');
+        Route::get('/nhat-ky', [NhapDiemController::class, 'NhatKyDiem'])->name('nhap-diem.nhat-ky');
+        Route::get('/nhat-ky-diem', [NhapDiemController::class, 'getNhatKyDiem']);
+        Route::get('/{lop_hoc}', [NhapDiemController::class, 'show'])->name('nhap-diem.show');  
         Route::get('/{lh_id}/ket-qua-hoc-tap', [NhapDiemController::class, 'ketQuaHocTap'])->name('nhap-diem.ket-qua-hoc-tap');
         Route::get('/{lh_id}/ket-qua-hoc-tap/export', [NhapDiemController::class, 'exportKetQuaHocTap'])->name('nhap-diem.ket-qua-hoc-tap-export');
         Route::get('/ren-luyen/{token}', [NhapDiemController::class, 'nhapDiemRenLuyen'])->name('nhap-diem.ren-luyen.edit');
