@@ -154,15 +154,15 @@ import moment from 'moment';
 
 const consumer = {
     getListnhatKy: function (sv_id) {
-        const url = `http://localhost/cea-2.1/public/api/nhat-ky/${sv_id}/paginateNhatKy` + window.location.search;
+        const url = `http://localhost/cea-4.0/public/api/nhat-ky/${sv_id}/paginateNhatKy` + window.location.search;
         return axios.get(url).then((response) => response.data);
     },
     getLisLopHoc: function () {
-        const url = "http://localhost/cea-2.1/public/api/lop-hoc/all";
+        const url = "http://localhost/cea-4.0/public/api/lop-hoc/all";
         return axios.get(url).then((response) => response.data);
     },
     getListHeDaoTao: function () {
-        const url = "http://localhost/cea-2.1/public/api/he-dao-tao/all";
+        const url = "http://localhost/cea-4.0/public/api/he-dao-tao/all";
         return axios.get(url).then((response) => response.data);
     },
 };

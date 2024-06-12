@@ -20,7 +20,7 @@ class BangDiemLog extends Model
         'sv_id',
         'user_id',
         'svd_dulop',
-        'svd_seconnd_hocky',
+        'svd_second_hocky',
         'svd_first',
         'svd_second',
         'svd_final',

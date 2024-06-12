@@ -365,97 +365,118 @@ class NhapDiemController extends Controller
 
     
    
- public function updateBangDiem(Request $request, $lh_id)
-{
-    $validator = \Validator::make($request->all(), [
-        'data.*.svd_dulop' => 'nullable|gte:0|lte:100|integer',
-        'data.*.svd_final' => 'nullable|gte:0|lte:100',
-        'data.*.svd_first' => 'nullable|gte:0|lte:10',
-        'data.*.svd_second' => 'nullable|gte:0|lte:10',
-        'data.*.svd_third' => 'nullable|gte:0|lte:10',
-        'data.*.svd_exam_first' => 'nullable|gte:0|lte:10',
-        'data.*.svd_exam_second' => 'nullable|gte:0|lte:10',
-        'data.*.svd_exam_third' => 'nullable|gte:0|lte:10',
-    ]);
+    public function updateBangDiem(Request $request, $lh_id)
+    {
+        $validator = \Validator::make($request->all(), [
+            'data.*.svd_dulop' => 'nullable|gte:0|lte:100|integer',
+            'data.*.svd_final' => 'nullable|gte:0|lte:100',
+            'data.*.svd_first' => 'nullable|gte:0|lte:10',
+            'data.*.svd_second' => 'nullable|gte:0|lte:10',
+            'data.*.svd_third' => 'nullable|gte:0|lte:10',
+            'data.*.svd_exam_first' => 'nullable|gte:0|lte:10',
+            'data.*.svd_exam_second' => 'nullable|gte:0|lte:10',
+            'data.*.svd_exam_third' => 'nullable|gte:0|lte:10',
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json([
-            'errors' => $validator->errors(),
-        ], 422);
-    }
-
-    DB::transaction(function () use ($request, $lh_id) {
-        $bd_type = $request->bd_type;
-        $mh_id = $request->mh_id;
-        $hocky = $request->kdt_hocky;
-        $bangDiem = BangDiem::whereLhId($lh_id)
-            ->whereBdType($bd_type)
-            ->whereMhId($mh_id)
-            ->whereKdtHocky($hocky)
-            ->first();
-
-        $bangDiem->fill($request->only(['bd_tungay', 'bd_denngay', 'bd_giangvien']));
-        $bangDiem->user_id = auth()->user()->user_id;
-        $bangDiem->save();
-        
-        $danhSachSinhVien = $request->data;
-        if (is_array($danhSachSinhVien)) {
-            foreach ($danhSachSinhVien as $sinhVien) {
-                $updateData = [
-                    'svd_dulop' => $sinhVien['svd_dulop'],
-                    'svd_first' => $sinhVien['svd_first'],
-                    'svd_exam_first' => isset($sinhVien['svd_exam_first']) ? $sinhVien['svd_exam_first'] : null,
-                    'svd_second' => $sinhVien['svd_second'],
-                    'svd_exam_second' => isset($sinhVien['svd_exam_second']) ? $sinhVien['svd_exam_second'] : null,
-                    'svd_third' => isset($sinhVien['svd_third']) ? $sinhVien['svd_third'] : null,
-                    'svd_exam_third' => isset($sinhVien['svd_exam_third']) ? $sinhVien['svd_exam_third'] : null,
-                    'svd_ghichu' => $sinhVien['svd_ghichu'],
-                    'svd_final' => $sinhVien['svd_final'],
-                    'svd_second_hocky' => isset($sinhVien['svd_second_hocky']) ? $sinhVien['svd_second_hocky'] : null,
-                    'svd_third_hocky' => isset($sinhVien['svd_third_hocky']) ? $sinhVien['svd_third_hocky'] : null,
-                    'svd_total' => isset($sinhVien['svd_total']) ? $sinhVien['svd_total'] : null,
-                ];
-
-                if (DB::table('qlsv_sinhvien_diem')->whereBdId($bangDiem->bd_id)->whereSvId($sinhVien['sv_id'])->exists()) {
-                    DB::table('qlsv_sinhvien_diem')
-                        ->whereBdId($bangDiem->bd_id)
-                        ->whereSvId($sinhVien['sv_id'])
-                        ->update($updateData);
-                } else {
-                    $updateData['bd_id'] = $bangDiem->bd_id;
-                    $updateData['sv_id'] = $sinhVien['sv_id'];
-                    DB::table('qlsv_sinhvien_diem')->insert($updateData);
-                }
-                // Tạo bản ghi mới trong bảng BangDiemLog cho mỗi sinh viên
-                $time = now();
-                BangDiemLog::create([
-                    'bd_id' => $bangDiem->bd_id,
-                    'sv_id' => $sinhVien['sv_id'],
-                    'user_id' => auth()->user()->user_id,
-                    'thoigian' => $time,
-                    'svd_dulop' => isset($updateData['svd_dulop']) ? $updateData['svd_dulop'] : null,
-                    'svd_seconnd_hocky' => isset($updateData['svd_seconnd_hocky']) ? $updateData['svd_seconnd_hocky'] : null,
-                    'svd_first' => isset($updateData['svd_first']) ? $updateData['svd_first'] : null,
-                    'svd_second' => isset($updateData['svd_second']) ? $updateData['svd_second'] : null,
-                    'svd_final' => isset($updateData['svd_final']) ? $updateData['svd_final'] : null,
-                    'svd_total' => isset($updateData['svd_total']) ? $updateData['svd_total'] : null,
-                    'svd_ghichu' => isset($updateData['svd_ghichu']) ? $updateData['svd_ghichu'] : null,
-                    'svd_third' => isset($updateData['svd_third']) ? $updateData['svd_third'] : null,
-                    'svd_third_hocky' => isset($updateData['svd_third_hocky']) ? $updateData['svd_third_hocky'] : null,
-                    'svd_exam_first' => isset($updateData['svd_exam_first']) ? $updateData['svd_exam_first'] : null,
-                    'svd_exam_second' => isset($updateData['svd_exam_second']) ? $updateData['svd_exam_second'] : null,
-                    'svd_exam_third' => isset($updateData['svd_exam_third']) ? $updateData['svd_exam_third'] : null,
-                ]);
-            }
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
+
+        DB::transaction(function () use ($request, $lh_id) {
+            $bd_type = $request->bd_type;
+            $mh_id = $request->mh_id;
+            $hocky = $request->kdt_hocky;
+
+            // Kiểm tra xem bảng điểm đã tồn tại hay chưa
+            $bangDiem = BangDiem::firstOrCreate(
+                [
+                    'lh_id' => $lh_id,
+                    'bd_type' => $bd_type,
+                    'mh_id' => $mh_id,
+                    'kdt_hocky' => $hocky,
+                ],
+                [
+                    'bd_tungay' => $request->bd_tungay,
+                    'bd_denngay' => $request->bd_denngay,
+                    'bd_giangvien' => $request->bd_giangvien,
+                    'user_id' => auth()->user()->user_id,
+                ]
+            );
+
+            // Cập nhật các trường khác nếu cần thiết
+            $bangDiem->fill($request->only(['bd_tungay', 'bd_denngay', 'bd_giangvien']));
+            $bangDiem->user_id = auth()->user()->user_id;
+            $bangDiem->save();
+
+            $danhSachSinhVien = $request->data;
+            if (is_array($danhSachSinhVien)) {
+                foreach ($danhSachSinhVien as $sinhVien) {
+                    $updateData = array_filter([
+                        'svd_dulop' => $sinhVien['svd_dulop'] ?? null,
+                        'svd_first' => $sinhVien['svd_first'] ?? null,
+                        'svd_exam_first' => $sinhVien['svd_exam_first'] ?? null,
+                        'svd_second' => $sinhVien['svd_second'] ?? null,
+                        'svd_exam_second' => $sinhVien['svd_exam_second'] ?? null,
+                        'svd_third' => $sinhVien['svd_third'] ?? null,
+                        'svd_exam_third' => $sinhVien['svd_exam_third'] ?? null,
+                        'svd_ghichu' => $sinhVien['svd_ghichu'] ?? null,
+                        'svd_final' => $sinhVien['svd_final'] ?? null,
+                        'svd_second_hocky' => $sinhVien['svd_second_hocky'] ?? null,
+                        'svd_third_hocky' => $sinhVien['svd_third_hocky'] ?? null,
+                        'svd_total' => $sinhVien['svd_total'] ?? null,
+                    ], function ($value) {
+                        return !is_null($value);
+                    });
+
+                    $existingRecord = DB::table('qlsv_sinhvien_diem')
+                        ->where('bd_id', $bangDiem->bd_id)
+                        ->where('sv_id', $sinhVien['sv_id'])
+                        ->exists();
+
+                    if ($existingRecord) {
+                        DB::table('qlsv_sinhvien_diem')
+                            ->where('bd_id', $bangDiem->bd_id)
+                            ->where('sv_id', $sinhVien['sv_id'])
+                            ->update($updateData);
+                    } else {
+                        $updateData['bd_id'] = $bangDiem->bd_id;
+                        $updateData['sv_id'] = $sinhVien['sv_id'];
+                        DB::table('qlsv_sinhvien_diem')->insert($updateData);
+                    }
+
+                    // Ghi vào bảng BangDiemLog
+                    BangDiemLog::create([
+                        'bd_id' => $bangDiem->bd_id,
+                        'sv_id' => $sinhVien['sv_id'],
+                        'user_id' => auth()->user()->user_id,
+                        'thoigian' => now(),
+                        'svd_dulop' => $updateData['svd_dulop'] ?? null,
+                        'svd_second_hocky' => $updateData['svd_second_hocky'] ?? null,
+                        'svd_first' => $updateData['svd_first'] ?? null,
+                        'svd_second' => $updateData['svd_second'] ?? null,
+                        'svd_final' => $updateData['svd_final'] ?? null,
+                        'svd_total' => $updateData['svd_total'] ?? null,
+                        'svd_ghichu' => $updateData['svd_ghichu'] ?? null,
+                        'svd_third' => $updateData['svd_third'] ?? null,
+                        'svd_third_hocky' => $updateData['svd_third_hocky'] ?? null,
+                        'svd_exam_first' => $updateData['svd_exam_first'] ?? null,
+                        'svd_exam_second' => $updateData['svd_exam_second'] ?? null,
+                        'svd_exam_third' => $updateData['svd_exam_third'] ?? null,
+                    ]);
+                }
+            }
         });
 
+        return response()->json([
+            'message' => 'Bảng điểm đã được cập nhật thành công.',
+            'data' => $request->all(),
+        ], 200);
+    }
 
-    return response()->json([
-        'message' => 'Bảng điểm đã được cập nhật thành công.',
-        'data' => $request->all(),
-    ], 200);
-}
+
+    
 
 
  
@@ -786,28 +807,53 @@ class NhapDiemController extends Controller
     {
         $perPage = $request->has('per_page') ? $request->per_page : 10; // Số mục trên mỗi trang
 
-        $bangDiemLogs = BangDiemLog::with(['user', 'bangDiem' => function ($query) {
-            $query->with(['lopHoc', 'monHoc']);
-        }])
-        ->selectRaw('bd_id, thoigian, user_id')
-        ->groupBy('bd_id', 'thoigian', 'user_id')
-        ->paginate($perPage);
+        $bangDiemLogs = BangDiemLog::with([
+            'user',
+            'bangDiem' => function ($query) {
+                $query->with(['lopHoc', 'monHoc']);
+            }
+        ])
+            ->selectRaw('bd_id, thoigian, user_id')
+            ->groupBy('bd_id', 'thoigian', 'user_id')
+            ->orderBy('bd_log_id', 'desc')
+            ->paginate($perPage)
+            ->onEachSide(2);
 
-        $bangDiemLogs->withPath(route('nhap-diem.nhat-ky')); // Đặt đường dẫn cho phân trang
+        $formattedData = [];
 
-        $formattedData = $bangDiemLogs->map(function ($item) {
-            return [
-                'bd_id' => $item->bd_id,
-                'thoigian' => $item->thoigian,
-                'user_id' => $item->user_id,
-                'user_info' => $item->user,
-                'lop_hoc' => $item->bangDiem->lopHoc,
-                'mon_hoc' => $item->bangDiem->monHoc,
+        foreach ($bangDiemLogs as $log) {
+            $formattedData[] = [
+                'bd_id' => $log->bd_id,
+                'thoigian' => $log->thoigian,
+                'user_id' => $log->user_id,
+                'user_info' => $log->user,
+                'lop_hoc' => $log->bangDiem->lopHoc,
+                'mon_hoc' => $log->bangDiem->monHoc,
+                'bang_diem' => $log->bangDiem, // Thêm dòng này để lấy thông tin bangDiem
             ];
-        });
+        }
 
-        return response()->json($formattedData);
+        $response = [
+            'current_page' => $bangDiemLogs->currentPage(),
+            'data' => $formattedData,
+            'first_page_url' => $bangDiemLogs->url(1),
+            'from' => $bangDiemLogs->firstItem(),
+            'last_page' => $bangDiemLogs->lastPage(),
+            'last_page_url' => $bangDiemLogs->url($bangDiemLogs->lastPage()),
+            'links' => $bangDiemLogs->linkCollection()->toArray(),
+            'next_page_url' => $bangDiemLogs->nextPageUrl(),
+            'path' => $bangDiemLogs->path(),
+            'per_page' => $bangDiemLogs->perPage(),
+            'prev_page_url' => $bangDiemLogs->previousPageUrl(),
+            'to' => $bangDiemLogs->lastItem(),
+            'total' => $bangDiemLogs->total(),
+        ];
+
+        return response()->json($response);
     }
+
+
+    
 
 
 

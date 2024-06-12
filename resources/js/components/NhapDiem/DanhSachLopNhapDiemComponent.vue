@@ -177,27 +177,27 @@
 <script>
 const consumer = {
   getListLopHoc: function () {
-    const url = "http://localhost/cea-2.1/public/api/nhap-diem" + window.location.search;
+    const url = "http://localhost/cea-4.0/public/api/nhap-diem" + window.location.search;
     return axios.get(url).then((response) => response.data);
   },
   getLopHoc: function (lh_id) {
-    const url = "http://localhost/cea-2.1/public/api/lop-hoc/" + lh_id;
+    const url = "http://localhost/cea-4.0/public/api/lop-hoc/" + lh_id;
     return axios.get(url).then((response) => response.data);
   },
   getListNienKhoa: function () {
-    const url = "http://localhost/cea-2.1/public/api/nien-khoa/all";
+    const url = "http://localhost/cea-4.0/public/api/nien-khoa/all";
     return axios.get(url).then((response) => response.data);
   },
   getListHeDaoTao: function () {
-    const url = "http://localhost/cea-2.1/public/api/he-dao-tao/all";
+    const url = "http://localhost/cea-4.0/public/api/he-dao-tao/all";
     return axios.get(url).then((response) => response.data);
   },
   getListDotThi: function (chuongtrinh) {
-    const url = "http://localhost/cea-2.1/public/api/dot-thi/all?chuongtrinh=" + chuongtrinh;
+    const url = "http://localhost/cea-4.0/public/api/dot-thi/all?chuongtrinh=" + chuongtrinh;
     return axios.get(url).then((response) => response.data);
   },
   capNhatDotThiChoLop: function (formData) {
-    return axios.post("http://localhost/cea-2.1/public/api/dot-thi/cap-nhat-dot-thi-cho-lop", formData);
+    return axios.post("http://localhost/cea-4.0/public/api/dot-thi/cap-nhat-dot-thi-cho-lop", formData);
   },
 };
 

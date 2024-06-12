@@ -105,16 +105,16 @@
 <script>
     const consumer = {
         getLopHoc: function (lh_id) {
-            const url = 'http://localhost/cea-2.1/public/api/lop-hoc/' + lh_id;
+            const url = 'http://localhost/cea-4.0/public/api/lop-hoc/' + lh_id;
             return axios.get(url).then(response => response.data);
         },
         getBangDiem: function(lh_id, hocKy) {
             // bd_type = 2 là bảng điểm học kỳ
-            const url = `http://localhost/cea-2.1/public/api/nhap-diem/${lh_id}/bang-diem?hocky=${hocKy}&bd_type=2`;
+            const url = `http://localhost/cea-4.0/public/api/nhap-diem/${lh_id}/bang-diem?hocky=${hocKy}&bd_type=2`;
             return axios.get(url).then(response => response.data);
         },
         saveBangDiem: function (formData) {
-            const url = `http://localhost/cea-2.1/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
+            const url = `http://localhost/cea-4.0/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
             return axios.post(url, formData);
         },
         uploadFile: function (file) {
@@ -125,7 +125,7 @@
                 }
             }
             formData.append('excel_file', file);
-            let url = 'http://localhost/cea-2.1/public/api/excel/import-ren-luyen-score';
+            let url = 'http://localhost/cea-4.0/public/api/excel/import-ren-luyen-score';
             return axios.post(url, formData, headers);
         }
     }

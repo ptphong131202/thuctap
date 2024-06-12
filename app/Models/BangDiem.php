@@ -20,7 +20,7 @@ class BangDiem extends Model
      * @var array
      */
     protected $fillable = [
-        'lh_id', 'kdt_hocky', 'mh_id', 'userid', 'bd_id', 'bd_tungay', 'bd_denngay', 'bd_giangvien', 'bd_type'
+        'lh_id', 'kdt_hocky', 'mh_id', 'user_id', 'bd_id', 'bd_tungay', 'bd_denngay', 'bd_giangvien', 'bd_type'
     ];
 
     /**

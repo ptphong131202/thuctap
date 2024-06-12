@@ -17,7 +17,7 @@
     <!-- Main content -->
     <section class="content">
       <div style="margin-bottom: 6px">
-        <a :href="'http://localhost/cea-2.1/public/nhap-diem/' + lh_id" class="btn btn-default">
+        <a :href="'http://localhost/cea-4.0/public/nhap-diem/' + lh_id" class="btn btn-default">
           <i class="fa fa-share"></i> Trở về danh sách
         </a>
         <button type="button" class="btn bg-purple" v-on:click="actionSave">
@@ -129,22 +129,22 @@
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li>
-                      <a href="http://localhost/cea-2.1/public/sample/import-diem-2022-sample.xls"
+                      <a href="http://localhost/cea-4.0/public/sample/import-diem-2022-sample.xls"
                         >QC2022 - Mẫu có công thức</a
                       >
                     </li>
                     <li>
-                      <a href="http://localhost/cea-2.1/public/sample/import-diem-2022-raw-sample.xls"
+                      <a href="http://localhost/cea-4.0/public/sample/import-diem-2022-raw-sample.xls"
                         >QC2022 - Mẫu không có công thức</a
                       >
                     </li>
                     <li>
-                      <a href="http://localhost/cea-2.1/public/sample/import-diem-sample.xls"
+                      <a href="http://localhost/cea-4.0/public/sample/import-diem-sample.xls"
                         >QC2020 - Mẫu có công thức</a
                       >
                     </li>
                     <li>
-                      <a href="http://localhost/cea-2.1/public/sample/import-diem-raw-sample.xls"
+                      <a href="http://localhost/cea-4.0/public/sample/import-diem-raw-sample.xls"
                         >QC2020 - Mẫu không có công thức</a
                       >
                     </li>
@@ -374,7 +374,7 @@
               </div>
             </div>
             <div class="box-footer">
-              <a :href="'http://localhost/cea-2.1/public/nhap-diem/' + lh_id" class="btn btn-default">
+              <a :href="'http://localhost/cea-4.0/public/nhap-diem/' + lh_id" class="btn btn-default">
                 <i class="fa fa-share"></i> Trở về danh sách
               </a>
               <input
@@ -431,15 +431,15 @@
 <script>
 const consumer = {
   getLopHoc: function (lh_id) {
-    const url = 'http://localhost/cea-2.1/public/api/lop-hoc/' + lh_id;
+    const url = 'http://localhost/cea-4.0/public/api/lop-hoc/' + lh_id;
     return axios.get(url).then((response) => response.data);
   },
   getMonHoc: function (mh_id) {
-    const url = 'http://localhost/cea-2.1/public/api/mon-hoc/' + mh_id;
+    const url = 'http://localhost/cea-4.0/public/api/mon-hoc/' + mh_id;
     return axios.get(url).then((response) => response.data);
   },
   getDanhSachHocKy: function (kdt_id) {
-    const url = 'http://localhost/cea-2.1/public/api/khoa-dao-tao/' + kdt_id + "/hoc-ky";
+    const url = 'http://localhost/cea-4.0/public/api/khoa-dao-tao/' + kdt_id + "/hoc-ky";
     return axios
       .get(url)
       .then((response) => response.data)
@@ -475,11 +475,11 @@ const consumer = {
   },
   getBangDiem: function (lh_id, mh_id, hocKy, type) {
     // bd_type = 1 là bảng điểm môn học
-    const url = `http://localhost/cea-2.1/public/api/nhap-diem/${lh_id}/bang-diem?mh_id=${mh_id}&hocky=${hocKy}&bd_type=${type}`;
+    const url = `http://localhost/cea-4.0/public/api/nhap-diem/${lh_id}/bang-diem?mh_id=${mh_id}&hocky=${hocKy}&bd_type=${type}`;
     return axios.get(url).then((response) => response.data);
   },
   saveBangDiem: function (formData) {
-    const url = `http://localhost/cea-2.1/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
+    const url = `http://localhost/cea-4.0/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
     return axios.post(url, formData);
   },
   uploadFile: function (file, quyChe2022, hasCal) {
@@ -491,9 +491,9 @@ const consumer = {
     };
     formData.append("excel_file", file);
     formData.append("quy_che_2022", quyChe2022);
-    let url = "http://localhost/cea-2.1/public/api/excel/import-raw-score";
+    let url = "http://localhost/cea-4.0/public/api/excel/import-raw-score";
     if (hasCal) {
-      url = "http://localhost/cea-2.1/public/api/excel/import-score";
+      url = "http://localhost/cea-4.0/public/api/excel/import-score";
     }
     return axios.post(url, formData, headers);
   },
