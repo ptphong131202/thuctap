@@ -344,33 +344,33 @@
 
     const consumer = {
         getListSinhVien: function () {
-            const url = 'http://localhost/cea-4.0/public/api/sinh-vien' + window.location.search;
+            const url = 'http://localhost/cea-3.0/public/api/sinh-vien' + window.location.search;
             return axios.get(url).then(response => response.data);
         },
         getSinhVien: function (sv_id) {
-            const url = 'http://localhost/cea-4.0/public/api/sinh-vien/' + sv_id;
+            const url = 'http://localhost/cea-3.0/public/api/sinh-vien/' + sv_id;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.sv_id == null) {
-                return axios.post('http://localhost/cea-4.0/public/api/sinh-vien', formData);
+                return axios.post('http://localhost/cea-3.0/public/api/sinh-vien', formData);
             } else {
-                return axios.put('http://localhost/cea-4.0/public/api/sinh-vien/' + formData.sv_id, formData);
+                return axios.put('http://localhost/cea-3.0/public/api/sinh-vien/' + formData.sv_id, formData);
             }
         },
         destroy: function (sv_id) {
-            return axios.delete('http://localhost/cea-4.0/public/api/sinh-vien/' + sv_id);
+            return axios.delete('http://localhost/cea-3.0/public/api/sinh-vien/' + sv_id);
         },
         getListLopHoc: function () {
-            const url = 'http://localhost/cea-4.0/public/api/lop-hoc/all';
+            const url = 'http://localhost/cea-3.0/public/api/lop-hoc/all';
             return axios.get(url).then(response => response.data);
         },
         getListQuyetDinh: function (loai) {
-            const url = 'http://localhost/cea-4.0/public/api/quyet-dinh/all/'+loai;
+            const url = 'http://localhost/cea-3.0/public/api/quyet-dinh/all/'+loai;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdateQuyetDinh: function (formData) {
-            return axios.put('http://localhost/cea-4.0/public/api/sinh-vien/cap-nhat-quyet-dinh-sinh-vien', formData);
+            return axios.put('http://localhost/cea-3.0/public/api/sinh-vien/cap-nhat-quyet-dinh-sinh-vien', formData);
         },
     }
 

@@ -75,7 +75,7 @@ import moment from "moment";
 const consumer = {
     getNhatKy: function () {
         const url =
-            "http://localhost/cea-4.0/public/nhap-diem/nhat-ky-diem" +
+            "http://localhost/cea-3.0/public/nhap-diem/nhat-ky-diem" +
             window.location.search;
         return axios.get(url).then((response) => response.data);
     },
@@ -109,7 +109,7 @@ export default {
         };
     },
     filters: {
-        moment: function (date) {
+        moment: function (date) { 
             if (date) {
                 return moment(date).format("HH:mm DD/MM/yyyy");
             }
@@ -128,8 +128,13 @@ export default {
         },
 
         nhapDiemUrl: function (nk) {
-            let baseSixFour = btoa(JSON.stringify({ lh_id: nk.lop_hoc.lh_id, hoc_ky: nk.bang_diem.kdt_hocky, mh_id: nk.mon_hoc.mh_id }));
-            return 'http://localhost/cea-4.0/public/nhap-diem/mon-hoc/' + baseSixFour;
+            let baseSixFour = btoa(JSON.stringify({  bd_id: nk.bang_diem.bd_id ,
+                thoigian: nk.thoigian,
+                 mh_id: nk.mon_hoc.mh_id,
+                  lh_id: nk.lop_hoc.lh_id}));
+            /* return 'http://localhost/cea-3.0/public/nhap-diem/xem-nhat-ky-diem?bd_id=' + nk.bang_diem.bd_id + '&thoigian="' + nk.thoigian + '"&mh_id=' +nk.mon_hoc.mh_id + '&lh_id=' + nk.lop_hoc.lh_id; */
+            return 'http://localhost/cea-3.0/public/nhap-diem/xem-nhat-ky-diem/' + encodeURIComponent(baseSixFour);
+
         }
     }
 };

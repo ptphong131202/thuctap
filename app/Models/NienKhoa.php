@@ -15,7 +15,7 @@ class NienKhoa extends Model
     protected $primaryKey = 'nk_id';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass assignable
      *
      * @var array
      */

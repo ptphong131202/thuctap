@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <select2-ajax v-model="selected" :list="'http://localhost/cea-4.0/public/api/mon-hoc/select2'"></select2-ajax>
+        <select2-ajax v-model="selected" :list="'http://localhost/cea-3.0/public/api/mon-hoc/select2'"></select2-ajax>
         {{ selected }}
     </div>
 </template>

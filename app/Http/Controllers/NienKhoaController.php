@@ -95,7 +95,7 @@ class NienKhoaController extends Controller
     {
         $model = NienKhoa::find($id);
         if (!$model->lopHoc()->exists()) {
-            $model->delete();
+            $model->destroy();
             return response()->json($model);
         }
         return response()->json($model, 422);

@@ -103,24 +103,24 @@
 
     const consumer = {
         getListHeDaoTao: function () {
-            const url = 'http://localhost/cea-4.0/public/api/he-dao-tao' + window.location.search;
+            const url = 'http://localhost/cea-3.0/public/api/he-dao-tao' + window.location.search;
             return axios.get(url)
                     .then(response => response.data);
         },
         getHeDaotao: function (hdt_id) {
-            const url = 'http://localhost/cea-4.0/public/api/he-dao-tao/' + hdt_id;
+            const url = 'http://localhost/cea-3.0/public/api/he-dao-tao/' + hdt_id;
             return axios.get(url)
                     .then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.hdt_id == null) {
-                return axios.post('http://localhost/cea-4.0/public/api/he-dao-tao', formData);
+                return axios.post('http://localhost/cea-3.0/public/api/he-dao-tao', formData);
             } else {
-                return axios.put('http://localhost/cea-4.0/public/api/he-dao-tao/' + formData.hdt_id, formData);
+                return axios.put('http://localhost/cea-3.0/public/api/he-dao-tao/' + formData.hdt_id, formData);
             }
         },
         destroy: function (hdt_id) {
-            return axios.delete('http://localhost/cea-4.0/public/api/he-dao-tao/' + hdt_id);
+            return axios.delete('http://localhost/cea-3.0/public/api/he-dao-tao/' + hdt_id);
         }
     }
 

@@ -97,15 +97,15 @@
 <script>
     const consumer = {
         getUser: function (user_id) {
-            const url = 'http://localhost/cea-4.0/public/api/user/' + user_id;
+            const url = 'http://localhost/cea-3.0/public/api/user/' + user_id;
             return axios.get(url)
                     .then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.user_id == null) {
-                return axios.post('http://localhost/cea-4.0/public/api/user', formData);
+                return axios.post('http://localhost/cea-3.0/public/api/user', formData);
             } else {
-                return axios.put('http://localhost/cea-4.0/public/api/user/' + formData.user_id, formData);
+                return axios.put('http://localhost/cea-3.0/public/api/user/' + formData.user_id, formData);
             }
         },
         getListPermission: function () {
@@ -120,6 +120,7 @@
                 { permission_id: 'caodang', name: 'Cao đẳng' },
                 { permission_id: 'xemdiem', name: 'Xem điểm' },
                 { permission_id: 'nhaprenluyen', name: 'Nhập điểm rèn luyện' },
+                { permission_id: 'admin.log', name: 'Xem nhật ký điểm' },
             ]
         }
     }

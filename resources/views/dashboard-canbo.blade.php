@@ -41,7 +41,7 @@
                                 <div class="">
                                     @foreach ($khoadaotaocaodangQuery as $caodang)
                                     <p class="div_kdt_div1_1_p">
-                                    <a href="http://localhost/cea-4.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                    <a href="http://localhost/cea-3.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                         {{ $caodang->kdt_ten }}
                                     </a>
                                         </p>
@@ -53,7 +53,7 @@
                                 <div class="">
                                     @foreach ($khoadaotaotrungcapQuery as $caodang)
                                     <p  class="div_kdt_div1_1_p">
-                                    <a href="http://localhost/cea-4.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
+                                    <a href="http://localhost/cea-3.0/public/khoa-dao-tao/{{ $caodang->kdt_id }}/hoc-ky">
                                         {{ $caodang->kdt_ten }}
                                     </a>
                                         </p>
@@ -312,7 +312,7 @@
                 <div class="icon">
                     <i class="fa fa-child"></i>
                 </div>
-                <a href="http://localhost/cea-4.0/public/lop-hoc/" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="http://localhost/cea-3.0/public/lop-hoc/" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 

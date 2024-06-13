@@ -59,12 +59,12 @@
 <script>
     const consumer = {
         getUser: function (user_id) {
-            const url = 'http://localhost/cea-4.0/public/api/user/' + user_id;
+            const url = 'http://localhost/cea-3.0/public/api/user/' + user_id;
             return axios.get(url)
                     .then(response => response.data);
         },
         updatePassword: function (formData) {
-            return axios.put('http://localhost/cea-4.0/public/api/user/current/password', formData);
+            return axios.put('http://localhost/cea-3.0/public/api/user/current/password', formData);
         }
     }
 

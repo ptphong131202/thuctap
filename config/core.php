@@ -141,7 +141,7 @@ return [
                             'name' => 'Nhật ký chỉnh sửa điểm',
                             'route' => 'nhap-diem.nhat-ky',
                             'icon' => 'fa fa-sticky-note-o',
-                            'permission' => 'admin.index',
+                            'permission' => 'admin.log',
                         ],
                     ]
                 ]

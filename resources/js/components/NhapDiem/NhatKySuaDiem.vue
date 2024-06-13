@@ -10,18 +10,18 @@
         <li>
           <a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a>
         </li>
-        <li class="active">Lớp học</li>
+        <li class="active">Lớp học</li> 
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div style="margin-bottom: 6px">
-        <a :href="'http://localhost/cea-3.0/public/nhap-diem/' + lh_id" class="btn btn-default">
+        <a :href="'http://localhost/cea-3.0/public/nhap-diem/nhat-ky'" class="btn btn-default">
           <i class="fa fa-share"></i> Trở về danh sách
         </a>
-        <button type="button" class="btn bg-purple" v-on:click="actionSave">
-          <i class="fa fa-save"></i> Lưu
+        <button type="button" class="btn bg-purple" v-on:click="nhapDiemMonHocUrl">
+          <i class="fa fa-book"></i> Bảng điểm hiện tại
         </button>
       </div>
       <div class="row">
@@ -40,7 +40,12 @@
                     <input
                       type="text"
                       class="form-control"
-                      v-model="editForm.model.bd_giangvien"
+                      v-if="editForm.model.bd_giangvien!==null" :value="editForm.model.bd_giangvien"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-else value=""
                     />
                   </div>
                 </div>
@@ -53,12 +58,18 @@
                         id="bd_tungay"
                         type="text"
                         class="form-control"
-                        v-model="editForm.model.bd_tungay_formated"
+                        v-if="editForm.model.bd_tungay_formated!==null" :value="editForm.model.bd_tungay_formated"
                       />
-                      <span class="input-group-addon">
-                        <i class="fas fa-calendar"></i>
-                      </span>
+
+                      <input
+                        id="bd_tungay"
+                        type="text"
+                        class="form-control"
+                        v-else value=""
+                      />
                     </div>
+
+                    
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
@@ -70,87 +81,19 @@
                         id="bd_denngay"
                         type="text"
                         class="form-control"
-                        v-model="editForm.model.bd_denngay_formated"
+                        v-if="editForm.model.bd_denngay_formated" :value="editForm.model.bd_denngay_formated"
                       />
-                      <span class="input-group-addon">
-                        <i class="fas fa-calendar"></i>
-                      </span>
+                      <input
+                        id="bd_denngay"
+                        type="text"
+                        class="form-control"
+                        v-else value=""
+                      />
                     </div>
                   </div>
                 </div>
               </div>
-              <div style="margin-bottom: 10px">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default">
-                    <i class="fa fa-file-excel-o"></i> Nhập từ tập tin excel
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        v-on:click="actionShowSelectFile(true)"
-                      >
-                        {{ editForm.lopHoc.lh_nienche == 1 ? "QC2022" : "QC2020" }} - Tập
-                        tin chứa công thức
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        v-on:click="actionShowSelectFile(false)"
-                      >
-                        {{ editForm.lopHoc.lh_nienche == 1 ? "QC2022" : "QC2020" }} - Tập
-                        tin không chứa công thức
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default">
-                    <i class="fa fa-download"></i> Tải mẫu
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li>
-                      <a href="http://localhost/cea-3.0/public/sample/import-diem-2022-sample.xls"
-                        >QC2022 - Mẫu có công thức</a
-                      >
-                    </li>
-                    <li>
-                      <a href="http://localhost/cea-3.0/public/sample/import-diem-2022-raw-sample.xls"
-                        >QC2022 - Mẫu không có công thức</a
-                      >
-                    </li>
-                    <li>
-                      <a href="http://localhost/cea-3.0/public/sample/import-diem-sample.xls"
-                        >QC2020 - Mẫu có công thức</a
-                      >
-                    </li>
-                    <li>
-                      <a href="http://localhost/cea-3.0/public/sample/import-diem-raw-sample.xls"
-                        >QC2020 - Mẫu không có công thức</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              
               <div id="panel-diem">
                 <table class="table table-hover table-striped table-bordered no-margin">
                   <thead>
@@ -179,7 +122,7 @@
                       <th rowspan="3" class="w-10 text-center" style="min-width: 85px">
                         Dự lớp (%)
                       </th>
-                      <th v-bind:colspan="quyChe2022 ? 8 : 3" class="w-30 text-center">
+                      <th v-bind:colspan="quChye2022 ? 8 : 3" class="w-30 text-center">
                         Điểm
                       </th>
                       <th rowspan="3" class="w-15 text-center" style="min-width: 100px">Ghi chú</th>
@@ -243,112 +186,110 @@
                       <td class="w-10">{{ sv.sv_ho }}</td>
                       <td class="w-10">{{ sv.sv_ten }}</td>
                       <td>
-                        <form-group
-                          :errors="editForm.errors"
-                          :field="'data.' + indexSv + '.svd_dulop'"
-                        >
-                          <input
-                            type="number"
-                            v-model="sv.svd_dulop"
-                            class="form-control"
-                          />
-                        </form-group>
+                          <form-group :errors="editForm.errors" :field="'data.' + indexSv + '.svd_dulop'">
+                              <span class="form-control" ><span v-if="sv.pre_svd_dulop!==null">{{ sv.pre_svd_dulop }}</span>
+                              <span v-if="sv.pre_svd_dulop!==null && sv.pre_svd_dulop!==sv.svd_dulop" style="color: red;"> - {{ sv.svd_exam_first }}</span> 
+                              <span v-if="sv.pre_svd_dulop === null && sv.svd_dulop" style="color: red;">{{ sv.svd_exam_first }}</span>
+                            </span>
+                          </form-group>
                       </td>
                       <td v-if="quyChe2022">
-                        <div style="min-width: 50px">
+                        <div style="min-width: 80px; text-align: center;">
                           <form-group
                             :errors="editForm.errors"
                             :field="'data.' + indexSv + '.svd_exam_first'"
                           >
-                            <input
-                              type="number"
-                              v-model="sv.svd_exam_first"
-                              class="form-control"
-                            />
+                          <span class="form-control" ><span  v-if="sv.pre_svd_exam_first!==null">{{ sv.pre_svd_exam_first }}</span>
+                           <span v-if="sv.pre_svd_exam_first!==null && sv.pre_svd_exam_first!==sv.svd_exam_first" style="color: red;"> - {{ sv.svd_exam_first }}</span> 
+                           <span v-if="sv.pre_svd_exam_first===null && sv.svd_exam_first">{{sv.svd_exam_first}}</span>
+                          </span>
                           </form-group>
                         </div>
                       </td>
                       <td>
-                        <div style="min-width: 50px">
+                        <div style="min-width: 80px; text-align: center;">
                           <form-group
                             :errors="editForm.errors"
                             :field="'data.' + indexSv + '.svd_first'"
                           >
-                            <input
-                              type="number"
-                              v-model="sv.svd_first"
-                              class="form-control"
-                            />
+                          <span class="form-control" > <span v-if="sv.pre_svd_first!== null">{{ sv.pre_svd_first }}</span> 
+                            <span v-if="sv.pre_svd_first!== null && sv.pre_svd_first!==sv.svd_first" style="color: red;"> - {{ sv.svd_first }}</span>
+                            <span v-if="sv.pre_svd_first=== null && sv.svd_first">{{ sv.svd_first }}</span>
+                         </span>
                           </form-group>
                         </div>
                       </td>
                       <td v-if="quyChe2022">
-                        <form-group
+                        <form-group style="min-width: 80px; text-align: center;"
                           :errors="editForm.errors"
                           :field="'data.' + indexSv + '.svd_exam_second'"
                         >
-                          <input
-                            type="number"
-                            v-model="sv.svd_exam_second"
-                            class="form-control"
-                          />
+                        <span class="form-control" > <span v-if="sv.pre_svd_exam_second !== null">{{ sv.pre_svd_exam_second }}</span>
+                           <span v-if="sv.pre_svd_exam_second !== null && sv.pre_svd_exam_second!==sv.svd_exam_second" style="color: red;"> - {{ sv.svd_exam_second }}</span>
+                           <span v-if="sv.pre_svd_exam_second===null && sv.svd_exam_second" style="color: red;">{{ sv.svd_exam_second }}</span>
+                          </span>
                         </form-group>
                       </td>
                       <td>
-                        <form-group
+                        <form-group style="min-width: 80px; text-align: center;"
                           :errors="editForm.errors"
                           :field="'data.' + indexSv + '.svd_second'"
                         >
-                          <input
-                            type="number"
-                            v-model="sv.svd_second"
-                            class="form-control"
-                          />
+                        <span class="form-control" > <span v-if="sv.pre_svd_second!==null">{{ sv.pre_svd_second }} </span>
+                          <span v-if="sv.pre_svd_second!==null && sv.pre_svd_second!==sv.svd_second" style="color: red;"> - {{ sv.svd_second }}</span>
+                          <span v-if="sv.pre_svd_second===null && sv.svd_second" style="color: red;"> {{ sv.svd_second }}</span>
+                        </span>
                         </form-group>
                       </td>
                       <td>
-                        <select class="form-control" v-model="sv.svd_second_hocky">
-                          <option value="1">Năm I, HK 1</option>
-                          <option value="2">Năm I, HK 2</option>
-                          <option value="3">Năm II, HK 1</option>
-                          <option value="4">Năm II, HK 2</option>
-                          <option value="5">Năm III, HK 1</option>
-                          <option value="6">Năm III, HK 2</option>
-                        </select>
-                      </td>
-                      <td v-if="quyChe2022">
-                        <form-group
-                          :errors="editForm.errors"
-                          :field="'data.' + indexSv + '.svd_exam_third'"
-                        >
-                          <input
-                            type="number"
-                            v-model="sv.svd_exam_third"
-                            class="form-control"
-                          />
-                        </form-group>
-                      </td>
-                      <td v-if="quyChe2022">
-                        <form-group
+                        <form-group style="min-width: 120px; text-align: center;"
                           :errors="editForm.errors"
                           :field="'data.' + indexSv + '.svd_third'"
                         >
-                          <input
-                            type="number"
-                            v-model="sv.svd_third"
-                            class="form-control"
-                          />
+                        <span class="form-control" v-if="sv.svd_second_hocky === 1" >Năm I, HK 1</span>
+                        <span class="form-control" v-if="sv.svd_second_hocky === 2" >Năm I, HK 2</span>
+                        <span class="form-control" v-if="sv.svd_second_hocky === 3" >Năm II, HK 1</span>
+                        <span class="form-control" v-if="sv.svd_second_hocky === 4" >Năm II, HK 2</span>
+                        <span class="form-control" v-if="sv.svd_second_hocky === 5" >Năm III, HK 1</span>
+                        <span class="form-control" v-if="sv.svd_second_hocky === 6" >Năm III, HK 2</span>
+                        <span class="form-control" v-else-if="sv.svd_second_hocky === null" ></span>
                         </form-group>
                       </td>
                       <td v-if="quyChe2022">
-                        <select class="form-control" v-model="sv.svd_third_hocky">
-                          <option value="1">Năm I, HK 1</option>
-                          <option value="2">Năm I, HK 2</option>
-                          <option value="3">Năm II, HK 1</option>
-                          <option value="4">Năm II, HK 2</option>
-                          <option value="5">Năm III, HK 1</option>
-                          <option value="6">Năm III, HK 2</option>
-                        </select>
+                        <form-group style="min-width: 80px; text-align: center;"
+                          :errors="editForm.errors"
+                          :field="'data.' + indexSv + '.svd_exam_third'"
+                        >
+                        <span class="form-control" > <span v-if="sv.pre_svd_exam_third!==null">{{ sv.pre_svd_exam_third }}</span> 
+                          <span v-if="sv.pre_svd_exam_third!==null && sv.pre_svd_exam_third!==sv.svd_exam_third" style="color: red;"> - {{ sv.svd_exam_third }}</span>
+                          <span v-if="sv.pre_svd_exam_third===null && sv.svd_exam_third" style="color: red;">{{ sv.svd_exam_third }}</span>
+                        </span>
+                        </form-group>
+                      </td>
+                      <td v-if="quyChe2022">
+                        <form-group style="min-width: 80px; text-align: center;"
+                          :errors="editForm.errors"
+                          :field="'data.' + indexSv + '.svd_third'"
+                        >
+                        <span class="form-control" > <span v-if="sv.pre_svd_third!==null">{{ sv.pre_svd_third }}</span> 
+                          <span v-if="sv.pre_svd_third!==null && sv.pre_svd_third!==sv.svd_third" style="color: red;"> - {{ sv.svd_third }}</span>
+                          <span v-if="sv.pre_svd_third===null && sv.svd_third" style="color: red;">{{ sv.svd_third }}</span>
+                        </span>
+                        </form-group>
+                      </td>
+                      <td v-if="quyChe2022">
+                        <form-group style="min-width: 120px; text-align: center;"
+                          :errors="editForm.errors"
+                          :field="'data.' + indexSv + '.svd_third'"
+                        >
+                        <span class="form-control" v-if="sv.svd_third_hocky === 1" >Năm I, HK 1</span>
+                        <span class="form-control" v-if="sv.svd_third_hocky === 2" >Năm I, HK 2</span>
+                        <span class="form-control" v-if="sv.svd_third_hocky === 3" >Năm II, HK 1</span>
+                        <span class="form-control" v-if="sv.svd_third_hocky === 4" >Năm II, HK 2</span>
+                        <span class="form-control" v-if="sv.svd_third_hocky === 5" >Năm III, HK 1</span>
+                        <span class="form-control" v-if="sv.svd_third_hocky === 6" >Năm III, HK 2</span>
+                        <span class="form-control" v-else-if="sv.svd_third_hocky === null" ></span>
+                        </form-group>
                       </td>
                       <td>
                         <input type="text" v-model="sv.svd_ghichu" class="form-control" />
@@ -374,7 +315,7 @@
               </div>
             </div>
             <div class="box-footer">
-              <a :href="'http://localhost/cea-3.0/public/nhap-diem/' + lh_id" class="btn btn-default">
+              <a :href="'http://localhost/cea-3.0/public/nhap-diem/nhat-ky'" class="btn btn-default">
                 <i class="fa fa-share"></i> Trở về danh sách
               </a>
               <input
@@ -391,8 +332,8 @@
                 accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 v-on:change="actionSelectFile"
               />
-              <button type="button" class="btn bg-purple" v-on:click="actionSave">
-                <i class="fa fa-save"></i> Lưu
+              <button type="button" class="btn bg-purple" v-on:click="nhapDiemMonHocUrl">
+                <i class="fa fa-book"></i> Bảng diểm hiện tại
               </button>
             </div>
           </div>
@@ -473,9 +414,9 @@ const consumer = {
         return data;
       });
   },
-  getBangDiem: function (lh_id, mh_id, hocKy, type) {
+  getBangDiem: function (bd_id, thoigian) {
     // bd_type = 1 là bảng điểm môn học
-    const url = `http://localhost/cea-3.0/public/api/nhap-diem/${lh_id}/bang-diem?mh_id=${mh_id}&hocky=${hocKy}&bd_type=${type}`;
+    const url = `http://localhost/cea-3.0/public/api/nhap-diem/bang-diem-log?bd_id=${bd_id}&thoigian="${thoigian}"`;
     return axios.get(url).then((response) => response.data);
   },
   saveBangDiem: function (formData) {
@@ -529,13 +470,10 @@ const BANGDIEMTYPE = {
 };
 
 export default {
-  props: ["lh_id", "hoc_ky", "mh_id", "thoigian"],
+  props: ["bd_id", "thoigian", "lh_id", "mh_id"],
   mounted() {
     this.loadLopHoc();
-    console.log("Thời gian:", this.thoigian);
-    console.log("lh_id:", this.thoigian);
-    console.log("hoc_ky:", this.thoigian);
-    console.log("mh_id:", this.thoigian);
+    this.reloadSinhVien();
   },
   updated: function () {
     this.fixEditDate();
@@ -583,7 +521,6 @@ export default {
       var vm = this;
       // Load thông tin lớp học
       consumer.getLopHoc(this.lh_id).then((lopHoc) => {
-        console.log(this.lh_id);
         this.editForm.lopHoc = lopHoc;
         this.quyChe2022 = lopHoc.lh_nienche == 1;
 
@@ -596,11 +533,8 @@ export default {
       });
     },
     reloadSinhVien: function () {
-      let lh_id = this.lh_id;
-      let mh_id = this.editForm.model.mh_id;
-      let hocKy = this.editForm.model.kdt_hocky;
       panelDiem.block();
-      consumer.getBangDiem(lh_id, mh_id, hocKy, BANGDIEMTYPE.MONHOC).then((data) => {
+      consumer.getBangDiem(this.bd_id, this.thoigian).then((data) => {
         data.data = data.data.filter((item) => {
           let passXoaTen = false;
           let passTotNghiep = false;
@@ -640,6 +574,10 @@ export default {
         panelDiem.unblock();
       });
     },
+    nhapDiemMonHocUrl: function () {
+            let baseSixFour = btoa(JSON.stringify({ lh_id: this.lh_id, hoc_ky: this.editForm.model.kdt_hocky, mh_id: this.editForm.model.mh_id }));
+            window.location.href = `http://localhost/cea-3.0/public/nhap-diem/mon-hoc/${baseSixFour}`;
+        },
     actionSave: function () {
       var vm = this;
 

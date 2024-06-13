@@ -189,6 +189,18 @@ class NhapDiemController extends Controller
         return view('qlsv.nhapdiem.nhapdiem_monhoc', compact(['lopHoc', 'hocKy', 'monHoc']));
     }
 
+    public function xemNhatKyDiem($token)
+    {
+        $params = json_decode(base64_decode($token));
+        // Lấy bd_id và thoigian từ request
+        $bd_id = $params->bd_id;
+        $thoigian = $params->thoigian;
+        $lh_id = $params->lh_id;
+        $mh_id = $params->mh_id;
+
+        return view('qlsv.nhapdiem.nhatkydiem', compact(['bd_id', 'thoigian', 'lh_id', 'mh_id']));
+    }
+
     public function nhapDiemDotThi($token)
     {
         $params = json_decode(base64_decode($token));
@@ -282,6 +294,135 @@ class NhapDiemController extends Controller
 
         return response()->json($bangDiem);
     }
+
+    
+
+    public function getBangDiemLog(Request $request)
+    {
+        // Lấy bd_id và thoigian từ request
+        $bd_id = $request->bd_id;
+        $time = $request->thoigian;
+        $bd_type = 1;
+        // Loại bỏ dấu ngoặc kép thừa từ $time
+        $time = trim($time, '"');
+
+        // Lấy thông tin BangDiem tương ứng với bd_id
+        $bangDiem = BangDiem::whereBdId($bd_id)->whereBdType($bd_type)->first();
+        
+        // Khởi tạo biến dsBangDiemLog rỗng
+        $dsBangDiemLog = collect();
+        $filteredLog = null;
+        $previousLog = null;
+        $filteredLogList = collect();
+        $previousLogList = collect();
+        $mergedLogs = collect();
+
+        // Kiểm tra nếu bangDiem tồn tại
+        if ($bangDiem) {
+            // Lấy danh sách BangDiemLog tương ứng với bd_id
+            $dsBangDiemLog = BangDiemLog::select('bd_id', 'user_id', 'thoigian', 'sv_id')
+                ->where('bd_id', $bd_id)
+                ->groupBy('bd_id', 'user_id', 'thoigian', 'sv_id')
+                ->get();
+
+            // Lọc danh sách BangDiemLog theo thoigian
+            $filteredLogs = $dsBangDiemLog->filter(function ($log) use ($time) {
+                return $log->thoigian == $time;
+            });
+
+            // Lấy phần tử đầu tiên trong filteredLogs
+            $filteredLog = $filteredLogs->first();
+
+            // Lấy bản ghi trước đó
+            $index = $dsBangDiemLog->search(function ($log) use ($time) {
+                return $log->thoigian == $time;
+            });
+
+            if ($index !== false && $index > 0) {
+                $previousLog = $dsBangDiemLog[$index - 1];
+            }
+
+            // Lấy danh sách từ BangDiemLog theo bd_id và thoigian
+            if ($filteredLog) {
+                $filteredLogList = BangDiemLog::where('bd_id', $bd_id)
+                    ->where('thoigian', $time)
+                    ->get();
+            }
+
+            // Lấy danh sách từ BangDiemLog theo bd_id và thoigian của bản ghi trước đó
+            if ($previousLog) {
+                $previousLogList = BangDiemLog::where('bd_id', $previousLog->bd_id)
+                    ->where('thoigian', $previousLog->thoigian)
+                    ->get();
+            }
+
+            // Gộp hai danh sách thành một với việc thêm "pre" trước các trường của previousLogList
+            $mergedLogs = $filteredLogList->map(function ($item, $key) use ($previousLogList) {
+                $previousItem = $previousLogList->get($key);
+                $mergedItem = array_merge(
+                    $item->toArray(),
+                    $previousItem ? [
+                        'pre_user_id' => $previousItem->user_id,
+                        'pre_thoigian' => $previousItem->thoigian,
+                        'pre_svd_dulop' => $previousItem->svd_dulop,
+                        'pre_svd_second_hocky' => $previousItem->svd_second_hocky,
+                        'pre_svd_first' => $previousItem->svd_first,
+                        'pre_svd_second' => $previousItem->svd_second,
+                        'pre_svd_final' => $previousItem->svd_final,
+                        'pre_svd_total' => $previousItem->svd_total,
+                        'pre_svd_ghichu' => $previousItem->svd_ghichu,
+                        'pre_svd_third' => $previousItem->svd_third,
+                        'pre_svd_third_hocky' => $previousItem->svd_third_hocky,
+                        'pre_svd_exam_first' => $previousItem->svd_exam_first,
+                        'pre_svd_exam_second' => $previousItem->svd_exam_second,
+                        'pre_svd_exam_third' => $previousItem->svd_exam_third
+                    ] : [
+                        'pre_user_id' => null,
+                        'pre_thoigian' => null,
+                        'pre_svd_dulop' => null,
+                        'pre_svd_second_hocky' => null,
+                        'pre_svd_first' => null,
+                        'pre_svd_second' => null,
+                        'pre_svd_final' => null,
+                        'pre_svd_total' => null,
+                        'pre_svd_ghichu' => null,
+                        'pre_svd_third' => null,
+                        'pre_svd_third_hocky' => null,
+                        'pre_svd_exam_first' => null,
+                        'pre_svd_exam_second' => null,
+                        'pre_svd_exam_third' => null
+                    ]
+                );
+
+                // Lấy thông tin sinh viên từ sv_id
+                $studentInfo = SinhVien::where('sv_id', $item->sv_id)->first();
+                // Kiểm tra nếu có thông tin sinh viên
+                if ($studentInfo) {
+                    // Thêm thông tin sinh viên trực tiếp vào mergedItem
+                    $mergedItem['sv_id'] = $studentInfo->sv_id;
+                    $mergedItem['sv_ma'] = $studentInfo->sv_ma;
+                    $mergedItem['sv_ten'] = $studentInfo->sv_ten;
+                    $mergedItem['sv_ho'] = $studentInfo->sv_ho;
+                    }
+                    return $mergedItem;
+                    });
+        }
+
+        // Gắn danh sách BangDiemLog, phần tử đầu tiên của filteredLogs, previousLog và mergedLogs vào thuộc tính của bangDiem
+        $bangDiem->data = $mergedLogs;
+
+        // Trả về kết quả dưới dạng JSON
+        return response()->json($bangDiem);
+    }
+
+
+
+    
+
+
+
+    
+
 
     public function getDanhSachDiemDotThiSinhVien($lh_id, $dt_id, $mh_id)
     {

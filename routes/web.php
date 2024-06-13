@@ -118,6 +118,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kiem-tra', [NhapDiemController::class, 'kiemTraDiem'])->name('nhap-diem.kiem-tra');
         Route::get('/nhat-ky', [NhapDiemController::class, 'NhatKyDiem'])->name('nhap-diem.nhat-ky');
         Route::get('/nhat-ky-diem', [NhapDiemController::class, 'getNhatKyDiem']);
+        Route::get('/xem-nhat-ky-diem/{token}', [NhapDiemController::class, 'xemNhatKyDiem']);
         Route::get('/{lop_hoc}', [NhapDiemController::class, 'show'])->name('nhap-diem.show');  
         Route::get('/{lh_id}/ket-qua-hoc-tap', [NhapDiemController::class, 'ketQuaHocTap'])->name('nhap-diem.ket-qua-hoc-tap');
         Route::get('/{lh_id}/ket-qua-hoc-tap/export', [NhapDiemController::class, 'exportKetQuaHocTap'])->name('nhap-diem.ket-qua-hoc-tap-export');
@@ -314,6 +315,7 @@ Route::middleware([])->prefix('/api')->group(function () {
         Route::get('/', [NhapDiemController::class, 'paginate']);
         Route::get('/{lh_id}/hoc-ky', [NhapDiemController::class, 'getDanhSachHocKy']);
         Route::get('{lh_id}/bang-diem', [NhapDiemController::class, 'getBangDiem']);
+        Route::get('/bang-diem-log', [NhapDiemController::class, 'getBangDiemLog']);
         Route::post('{lh_id}/bang-diem', [NhapDiemController::class, 'updateBangDiem']);
         Route::delete('{lh_id}/bang-diem', [NhapDiemController::class, 'destroyBangDiem']);
         Route::get('{lh_id}/bang-diem-dot-thi', [NhapDiemController::class, 'getBangDiemDotThi']);

@@ -110,7 +110,7 @@
                             </table>
                         </div>
                         <div class="box-footer">
-                            <a :href="'/cea-4.0/public/nhap-diem/' + lh_id + '/ket-qua-hoc-tap?semester=' + (sIndex + 1)"
+                            <a :href="'/cea-3.0/public/nhap-diem/' + lh_id + '/ket-qua-hoc-tap?semester=' + (sIndex + 1)"
                                 :title="'Xem kết quả học lập học kỳ ' + (sIndex + 1)" class="btn-link btn-sm">
                                 <i class="fa fa-eye"></i> Xem kết quả học tập
                             </a>
@@ -129,7 +129,7 @@
 <script>
 const consumer = {
     getDanhSachHocKy: function (lh_id, semester) {
-        const url = 'http://localhost/cea-4.0/public/api/nhap-diem/' + lh_id + '/hoc-ky?semester=' + semester;
+        const url = 'http://localhost/cea-3.0/public/api/nhap-diem/' + lh_id + '/hoc-ky?semester=' + semester;
         return axios.get(url)
             .then(response => response.data)
             .then(data => {
@@ -181,15 +181,15 @@ const consumer = {
             });
     },
     getLopHoc: function (lh_id) {
-        const url = 'http://localhost/cea-4.0/public/api/lop-hoc/' + lh_id;
+        const url = 'http://localhost/cea-3.0/public/api/lop-hoc/' + lh_id;
         return axios.get(url).then(response => response.data);
     },
     destroyBangDiem: function (bd_id) {
-        const url = `http://localhost/cea-4.0/public/api/nhap-diem/${bd_id}/bang-diem`;
+        const url = `http://localhost/cea-3.0/public/api/nhap-diem/${bd_id}/bang-diem`;
         return axios.delete(url);
     },
     destroyBangDiemDotThi: function (dt_bd_id) {
-        const url = `http://localhost/cea-4.0/public/api/nhap-diem/${dt_bd_id}/bang-diem-dot-thi`;
+        const url = `http://localhost/cea-3.0/public/api/nhap-diem/${dt_bd_id}/bang-diem-dot-thi`;
         return axios.delete(url);
     },
 }
@@ -236,17 +236,16 @@ export default {
             return null;
         },
         nhapDiemMonHocUrl: function (monHoc) {
-            console.log(monHoc.lh_id);
             let baseSixFour = btoa(JSON.stringify({ lh_id: monHoc.lh_id, hoc_ky: monHoc.semester, mh_id: monHoc.mh_id }));
-            return 'http://localhost/cea-4.0/public/nhap-diem/mon-hoc/' + baseSixFour;
+            return 'http://localhost/cea-3.0/public/nhap-diem/mon-hoc/' + baseSixFour;
         },
         nhapDiemDotThiUrl: function (monHoc) {
             let baseSixFour = btoa(JSON.stringify({ lh_id: monHoc.lh_id, dot_thi: monHoc.dotthi, mh_id: monHoc.mh_id }));
-            return 'http://localhost/cea-4.0/public/api/nhap-diem/dot-thi/' + baseSixFour;
+            return 'http://localhost/cea-3.0/public/api/nhap-diem/dot-thi/' + baseSixFour;
         },
         nhapDiemRenLuyenUrl: function (semester) {
             let baseSixFour = btoa(JSON.stringify({ lh_id: semester.lh_id, hoc_ky: semester.semester }));
-            return 'http://localhost/cea-4.0/public/api/nhap-diem/ren-luyen/' + baseSixFour;
+            return 'http://localhost/cea-3.0/public/api/nhap-diem/ren-luyen/' + baseSixFour;
         }
     },
     methods: {
@@ -273,7 +272,7 @@ export default {
         shareNotification: function(mh, model) {
             alert(`Chia sẻ điểm môn ${mh.mh_ten }, lớp ${model.lh_ten}`);
             
-            /* const url = `http://localhost/cea-4.0/public/api/nhap-diem/`;
+            /* const url = `http://localhost/cea-3.0/public/api/nhap-diem/`;
             return axios.post(url, { mh_id: mh.mh_id, lh_ma: model.lh_ma })
                 .then(response => {
             // Hiển thị thông tin chi tiết trả về trong alert

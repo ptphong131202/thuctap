@@ -37,6 +37,7 @@ Vue.component('importsv-box', require('./components/LopHoc/ImportSinhVienCompone
 Vue.component('nhapdiem-danhsach-box', require('./components/NhapDiem/DanhSachLopNhapDiemComponent.vue').default);
 Vue.component('nhapdiem-hocky-box', require('./components/NhapDiem/DanhSachHocKyComponent.vue').default);
 Vue.component('nhapdiem-monhoc-box', require('./components/NhapDiem/NhapDiemMonHocComponent.vue').default);
+Vue.component('nhat-ky-sua-diem-box', require('./components/NhapDiem/NhatKySuaDiem.vue').default);
 Vue.component('nhapdiem-dotthi-box', require('./components/NhapDiem/NhapDiemDotThiComponent.vue').default);
 Vue.component('nhapdiem-renluyen-box', require('./components/NhapDiem/NhapDiemRenLuyenComponent.vue').default);
 
