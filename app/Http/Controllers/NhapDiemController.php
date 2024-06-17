@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\LopHoc;
+use App\Models\CanBo;
 use App\Models\SinhVien;
 use App\Models\BangDiem;
 use App\Models\BangDiemLog;
@@ -416,15 +417,7 @@ class NhapDiemController extends Controller
     }
 
 
-
-    
-
-
-
-    
-
-
-    public function getDanhSachDiemDotThiSinhVien($lh_id, $dt_id, $mh_id)
+      public function getDanhSachDiemDotThiSinhVien($lh_id, $dt_id, $mh_id)
     {
         $danhSachDiem = DB::table('qlsv_dotthi_bangdiem as bd')
             ->where('bd.lh_id', $lh_id)
@@ -590,6 +583,8 @@ class NhapDiemController extends Controller
                     // Ghi vào bảng BangDiemLog
                     BangDiemLog::create([
                         'bd_id' => $bangDiem->bd_id,
+                        'mh_id' => $mh_id,
+                        'lh_id' => $lh_id,
                         'sv_id' => $sinhVien['sv_id'],
                         'user_id' => auth()->user()->user_id,
                         'thoigian' => now(),
@@ -713,17 +708,7 @@ class NhapDiemController extends Controller
         $bd_type = $request->bd_type;
         $mh_id = $request->mh_id;
         $dt_id = $request->dt_id;
-        //     $bangDiem = DotThiBangDiem::whereLhId($lh_id[0])
-        //         ->whereMhId($mh_id)
-        //         ->whereDtId($dt_id)
-        //         ->first();
-        //     if (!$bangDiem) {
-        //         $bangDiem = new DotThiBangDiem;
-        //         $bangDiem->fill($request->only(['lh_id', 'mh_id', 'dt_id']));
-        //     }
-
-
-
+        
         $bangDiem = DB::table('qlsv_dotthi_bangdiem as bd')
             ->join('qlsv_dotthi_diem as svd', function ($join) {
                 $join->on('svd.dt_bd_id', '=', 'bd.dt_bd_id');
@@ -738,24 +723,7 @@ class NhapDiemController extends Controller
         $danhSachSinhVien = $request->data;
         if (is_array($danhSachSinhVien)) {
             foreach ($danhSachSinhVien as $sinhVien) {
-                // update 3 môn
-                // 885, 887, 886
-                // $monthi = null;
-                // switch ($mh) {
-                //     case 885:
-                //         $monthi = $sinhVien['chinhtri'];
-                //         break;
-                //     case 886:
-                //         $monthi = $sinhVien['lythuyet'];
-                //         break;
-                //     case 887:
-                //         $monthi = $sinhVien['thuchanh'];
-                //         break;
-                //     default:
-                //         $monthi = null;
-                //         break;
-                // }
-
+              
                 // Cập nhật điểm Chính trị
                 if ($mh_id[0] === 885) {
                     if (DB::table('qlsv_dotthi_diem')->where('dt_bd_id', $bangDiem[1]->dt_bd_id)->where('sv_id', $sinhVien['sv_id'])->exists()) {
@@ -786,51 +754,7 @@ class NhapDiemController extends Controller
         }
 
 
-        // dd($bangDiem);
-
-        // DB::transaction(function () use ($request, $lh_id) {
-        //     $bd_type = $request->bd_type;
-        //     $mh_id = $request->mh_id;
-        //     $dt_id = $request->dt_id;
-        //     $bangDiem = DotThiBangDiem::whereLhId($lh_id)
-        //         ->whereMhId($mh_id)
-        //         ->whereDtId($dt_id)
-        //         ->first();
-        //     if (!$bangDiem) {
-        //         $bangDiem = new DotThiBangDiem;
-        //         $bangDiem->fill($request->only(['lh_id', 'mh_id', 'dt_id']));
-        //     }
-        //     $bangDiem->fill($request->only(['dt_bd_tungay', 'dt_bd_denngay']));
-        //     $bangDiem->save();
-        //     $danhSachSinhVien = $request->data;
-        //     if (is_array($danhSachSinhVien)) {
-        //         foreach ($danhSachSinhVien as $sinhVien) {
-        //             if (DB::table('qlsv_dotthi_diem')->whereDtBdId($bangDiem->dt_bd_id)->whereSvId($sinhVien['sv_id'])->exists()) {
-        //                 DB::table('qlsv_dotthi_diem')->whereDtBdId($bangDiem->dt_bd_id)->whereSvId($sinhVien['sv_id'])->update([
-        //                     'svd_dulop' => $sinhVien['svd_dulop'],
-        //                     'svd_first' => $sinhVien['svd_first'],
-        //                     'svd_second' => $sinhVien['svd_second'],
-        //                     'svd_ghichu' => $sinhVien['svd_ghichu'],
-        //                     'svd_final' => $sinhVien['svd_final'],
-        //                     'svd_second_hocky' => isset($sinhVien['svd_second_hocky']) ? $sinhVien['svd_second_hocky'] : null,
-        //                     'svd_total' => isset($sinhVien['svd_total']) ? $sinhVien['svd_total'] : null,
-        //                 ]);
-        //             } else {
-        //                 DB::table('qlsv_dotthi_diem')->insert([
-        //                     'dt_bd_id' => $bangDiem->dt_bd_id,
-        //                     'sv_id' => $sinhVien['sv_id'],
-        //                     'svd_dulop' => $sinhVien['svd_dulop'],
-        //                     'svd_first' => $sinhVien['svd_first'],
-        //                     'svd_second' => $sinhVien['svd_second'],
-        //                     'svd_ghichu' => $sinhVien['svd_ghichu'],
-        //                     'svd_final' => $sinhVien['svd_final'],
-        //                     'svd_second_hocky' => isset($sinhVien['svd_second_hocky']) ? $sinhVien['svd_second_hocky'] : null,
-        //                     'svd_total' => isset($sinhVien['svd_total']) ? $sinhVien['svd_total'] : null,
-        //                 ]);
-        //             }
-        //         }
-        //     }
-        // });
+        
         return $request->all();
     }
 
@@ -946,31 +870,82 @@ class NhapDiemController extends Controller
     
     public function getNhatKyDiem(Request $request)
     {
+        // get id monhoc
+        $monhocs = $request->monhoc;
+        $dsmonhoc = MonHoc::where('mh_ma', $monhocs)->get();
+        $monhoc_ids = null;
+        if($dsmonhoc->isNotEmpty()) {
+            // Lấy ra mảng các mh_id từ collection $dsmonhoc
+            $monhoc_ids = $dsmonhoc->pluck('mh_id')->all();
+        }
+        
+        // get mã lớp
+        $malophoc = $request->lophoc;
+        $dslophoc = LopHoc::where('lh_ma', $malophoc)->first();
+        $lophoc_id = null;
+        if($dslophoc) {
+            $lophoc_id = $dslophoc->lh_id;
+        }
+
+
+        // get cán bộ 
+        $macanbo = $request->canbo;
+        $dscanbo = CanBo::where('cb_ma', $macanbo)->first();
+        $canbo_id = null;
+        if($dscanbo) {
+            $canbo_id = $dscanbo->user_id;
+        }
+
         $perPage = $request->has('per_page') ? $request->per_page : 10; // Số mục trên mỗi trang
 
-        $bangDiemLogs = BangDiemLog::with([
-            'user',
-            'bangDiem' => function ($query) {
-                $query->with(['lopHoc', 'monHoc']);
-            }
-        ])
-            ->selectRaw('bd_id, thoigian, user_id')
-            ->groupBy('bd_id', 'thoigian', 'user_id')
-            ->orderBy('bd_log_id', 'desc')
-            ->paginate($perPage)
-            ->onEachSide(2);
+        $bangDiemLogs = BangDiemLog::select('lh_id', 'user_id', 'thoigian', 'mh_id', 'bd_id')
+            ->with([
+                'user',
+                'bangDiem' => function ($query) {
+                    $query->with(['lopHoc', 'monHoc']);
+                }
+            ])
+            ->groupBy('lh_id', 'user_id', 'thoigian', 'bd_id', 'mh_id')
+            ->orderBy('bd_log_id', 'desc');
+        
+        // nếu tồn tại $canbo id
+        if($canbo_id !== null) {
+            $bangDiemLogs = $bangDiemLogs->where('user_id', $canbo_id);
+        }
+
+        // if tồn tại  $malophoc
+        if($lophoc_id){
+            $bangDiemLogs = $bangDiemLogs->where('lh_id', $lophoc_id);
+        }
+
+        // Thêm điều kiện lọc theo mh_id nếu monhoc_ids tồn tại
+        if ($monhoc_ids !== null) {
+            $bangDiemLogs = $bangDiemLogs->where(function ($query) use ($monhoc_ids) {
+                foreach ($monhoc_ids as $monhoc_id) {
+                    $query->orWhere('mh_id', $monhoc_id);
+                }
+            });
+        }
+
+        $bangDiemLogs = $bangDiemLogs->paginate($perPage)
+            ->appends($request->all())
+            ->onEachSide(2)
+            ->withPath(route('nhap-diem.nhat-ky'));
 
         $formattedData = [];
 
         foreach ($bangDiemLogs as $log) {
             $formattedData[] = [
-                'bd_id' => $log->bd_id,
                 'thoigian' => $log->thoigian,
                 'user_id' => $log->user_id,
                 'user_info' => $log->user,
                 'lop_hoc' => $log->bangDiem->lopHoc,
                 'mon_hoc' => $log->bangDiem->monHoc,
                 'bang_diem' => $log->bangDiem, // Thêm dòng này để lấy thông tin bangDiem
+                'bd_id' => $log->bangDiem->bd_id, // Thêm dòng này để lấy thông tin bangDiem
+                'lh_id' => $log->lh_id,
+                'mh_id' => $log->mh_id,
+                'mh_ma_monhoc' => $canbo_id,
             ];
         }
 

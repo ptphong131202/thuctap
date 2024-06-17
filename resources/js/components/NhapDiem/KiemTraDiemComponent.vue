@@ -131,19 +131,19 @@
 import axios from 'axios';
   const consumer = {
     updateConfigSV: function (status) {
-        const url = `http://localhost/cea-3.0/public/api/cau-hinh/${status}/update-config-allow-info-hssv`; /** Phong API */
+        const url = `http://localhost/cea-2.0/public/api/cau-hinh/${status}/update-config-allow-info-hssv`; /** Phong API */
         return axios.put(url).then(res => res.data);
     },
     getListLopHoc: function () {
-        const url = 'http://localhost/cea-3.0/public/api/lop-hoc/all';/** Phong API */
+        const url = 'http://localhost/cea-2.0/public/api/lop-hoc/all';/** Phong API */
         return axios.get(url).then(response => response.data);
     },
     getLopHoc: function (lh_id) {
-        const url = 'http://localhost/cea-3.0/public/api/lop-hoc/' + lh_id;/** Phong API */
+        const url = 'http://localhost/cea-2.0/public/api/lop-hoc/' + lh_id;/** Phong API */
         return axios.get(url).then(response => response.data);
     },
     getKetQuaHocTap: function (lh_id, semester) {
-      const url = `http://localhost/cea-3.0/public/api/nhap-diem/${lh_id}/ket-qua-hoc-tap/json?semester=${semester}`;/** Phong API */
+      const url = `http://localhost/cea-2.0/public/api/nhap-diem/${lh_id}/ket-qua-hoc-tap/json?semester=${semester}`;/** Phong API */
       return axios.get(url).then(res => res.data);
     },
     uploadFile: function (file, sheet) {
@@ -155,7 +155,7 @@ import axios from 'axios';
       }
       formData.append('excel_file', file);
       // formData.append('sheet', sheet);
-      return axios.post('http://localhost/cea-3.0/public/api/excel/import-score-check', formData, headers).then(res => res.data);/** Phong API */
+      return axios.post('http://localhost/cea-2.0/public/api/excel/import-score-check', formData, headers).then(res => res.data);/** Phong API */
     }
   }
 

@@ -39,10 +39,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [HeDaoTaoController::class, 'index'])->name('he-dao-tao.index');
     });
 
+    ///
     Route::middleware('admin.index')->prefix('nganh-nghe')->group(function () {
         Route::get('/', [NganhNgheController::class, 'index'])->name('nganh-nghe.index');
         Route::get('{nn_id}/{hdt_id}/mon-hoc', [NganhNgheController::class, 'monhoc'])->name('nganh-nghe.monhoc'); // P.Dinh
     });
+    ///
 
     Route::prefix('user')->group(function () {
         Route::middleware('admin.users')->group(function () {
@@ -113,12 +115,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{lop_hoc}/hoc-ky', [LopHocController::class, 'hocKy'])->name('lop-hoc.hoc-ky');
     });
 
-    Route::middleware('admin.score:xemdiem,nhaprenluyen')->prefix('nhap-diem')->group(function () {
-        Route::get('/', [NhapDiemController::class, 'index'])->name('nhap-diem.index');
-        Route::get('/kiem-tra', [NhapDiemController::class, 'kiemTraDiem'])->name('nhap-diem.kiem-tra');
+    //// dã sửa
+    Route::middleware('admin.log')->prefix('nhap-diem')->group(function () {
         Route::get('/nhat-ky', [NhapDiemController::class, 'NhatKyDiem'])->name('nhap-diem.nhat-ky');
         Route::get('/nhat-ky-diem', [NhapDiemController::class, 'getNhatKyDiem']);
         Route::get('/xem-nhat-ky-diem/{token}', [NhapDiemController::class, 'xemNhatKyDiem']);
+    });
+    ///
+
+    Route::middleware('admin.score:xemdiem,nhaprenluyen')->prefix('nhap-diem')->group(function () {
+        Route::get('/', [NhapDiemController::class, 'index'])->name('nhap-diem.index');
+        Route::get('/kiem-tra', [NhapDiemController::class, 'kiemTraDiem'])->name('nhap-diem.kiem-tra');
         Route::get('/{lop_hoc}', [NhapDiemController::class, 'show'])->name('nhap-diem.show');  
         Route::get('/{lh_id}/ket-qua-hoc-tap', [NhapDiemController::class, 'ketQuaHocTap'])->name('nhap-diem.ket-qua-hoc-tap');
         Route::get('/{lh_id}/ket-qua-hoc-tap/export', [NhapDiemController::class, 'exportKetQuaHocTap'])->name('nhap-diem.ket-qua-hoc-tap-export');
@@ -165,7 +172,7 @@ Route::middleware([])->prefix('/api')->group(function () {
         Route::get('{nganh_nghe}', [NganhNgheController::class, 'getNganhNghe']);
         Route::put('{nganh_nghe}', [NganhNgheController::class, 'update']);
         Route::delete('{nganh_nghe}', [NganhNgheController::class, 'destroy']);
-        Route::post('duplicate/{nganh_nghe}', [NganhNgheController::class, 'duplicate']);
+        Route::post('duplicate/{nganh_nghe}', [NganhNgheController::class, 'duplicate']);  /// sửa
     });
 
     Route::prefix('quyet-dinh')->group(function () {
@@ -310,12 +317,18 @@ Route::middleware([])->prefix('/api')->group(function () {
         Route::put('{kdt_id}/updateSyncMonHocTheoNN', [KhoaDaoTaoController::class, 'updateSyncMonHocTheoNN']);
 
     });
+    
+    //// đã sửa
+    Route::middleware('admin.log')->prefix('nhap-diem')->group(function () {
+        Route::get('/bang-diem-log', [NhapDiemController::class, 'getBangDiemLog']);
+    });
+    /////
 
     Route::middleware('admin.score:xemdiem,nhaprenluyen')->prefix('nhap-diem')->group(function () {
         Route::get('/', [NhapDiemController::class, 'paginate']);
         Route::get('/{lh_id}/hoc-ky', [NhapDiemController::class, 'getDanhSachHocKy']);
         Route::get('{lh_id}/bang-diem', [NhapDiemController::class, 'getBangDiem']);
-        Route::get('/bang-diem-log', [NhapDiemController::class, 'getBangDiemLog']);
+        /* Route::get('/bang-diem-log', [NhapDiemController::class, 'getBangDiemLog']); */ /// dã sửa
         Route::post('{lh_id}/bang-diem', [NhapDiemController::class, 'updateBangDiem']);
         Route::delete('{lh_id}/bang-diem', [NhapDiemController::class, 'destroyBangDiem']);
         Route::get('{lh_id}/bang-diem-dot-thi', [NhapDiemController::class, 'getBangDiemDotThi']);
@@ -353,6 +366,8 @@ Route::middleware([])->prefix('/api')->group(function () {
     });
 
     Route::get('/nhap-diem/{lh_id}/ket-qua-hoc-tap/json', [NhapDiemController::class, 'ketQuaHocTapAPI'])->name('nhap-diem.ket-qua-hoc-tap-api');
+
+
 });
 
 require __DIR__ . '/auth.php';

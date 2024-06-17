@@ -14,6 +14,43 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
+                <div class="col-md-12 col-sm-12" >
+                    <div class="" style="    margin-bottom: 20px;
+                                                        padding: 23px;
+                                                        background: white;
+                                                        height: 110px;">
+                        <div class="d-flex" style="position: relative;">
+                                <form method="get" style="max-width:300px; display: flex;">
+                                        <div class="input-group">
+                                            <label>Mã cán bộ</label>
+                                            <input style="width: 300px;" type="text" name="canbo" v-model="filter.canbo" class="form-control" >
+                                            
+                                        </div>
+
+                                        <div class="input-group" style="margin-left: 40px;">
+                                            <label>Mã lớp</label>
+                                            <input style="width: 300px;" type="text" name="lophoc" v-model="filter.lophoc" class="form-control" >
+                                            
+                                        </div>
+
+                                        <div class="input-group" style="margin-left: 40px;">
+                                            <label>Mã môn học </label>
+                                            <input style="width: 300px;" type="text" name="monhoc" v-model="filter.monhoc" class="form-control" >
+                                            
+                                        </div>
+                                    <span class="input-group-btn" style="    transform: translateY(24px);    margin-left: 30px;">
+                                        <i class="fa fa-search"></i>
+                                        <button type="submit" class="btn btn-default">Tìm </button>
+                                    </span>
+
+                                    </form>
+                                <span class="input-group-btn" style="    transform: translateY(-35px); position: absolute;  right: 8%;   margin-left: 50px; color: white;">
+                                    <i class="fa fa-search"></i>
+                                    <button @click="clearboloc()" class="btn btn-default btn-danger text-white" style="color:white;"> xóa bộ lọc </button>
+                                </span>
+                                    </div>
+                                    </div>
+                </div>
                 <div class="col-md-12 col-sm-12">
                     <div class="box box-widget">
                         <div class="box-body table-responsive">
@@ -25,8 +62,8 @@
                                         <th class="w-3 text-center">#</th>
                                         <th class="w-10">Ngày</th>
                                         <th>Cán bộ</th>
-                                        <th>Môn học</th>
                                         <th class="w-4">Mã lớp</th>
+                                        <th>Môn học</th>
                                         <th class="w-3 text-center">
                                             Hành động
                                         </th>
@@ -40,8 +77,8 @@
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ nk.thoigian | moment }}</td>
                                         <td>{{ nk.user_info.name }}</td>
-                                        <td>{{ nk.mon_hoc.mh_ten }}</td>
                                         <td>{{ nk.lop_hoc.lh_ma }}</td>
+                                        <td>{{ nk.mon_hoc.mh_ten }}</td>
                                         <td>
                                             <a
                                                 :href="nhapDiemUrl(nk)"
@@ -75,7 +112,7 @@ import moment from "moment";
 const consumer = {
     getNhatKy: function () {
         const url =
-            "http://localhost/cea-3.0/public/nhap-diem/nhat-ky-diem" +
+            "http://localhost/cea-2.0/public/nhap-diem/nhat-ky-diem" +
             window.location.search;
         return axios.get(url).then((response) => response.data);
     },
@@ -105,6 +142,9 @@ export default {
             },
             filter: {
                 semester: 123456,
+                canbo: new URLSearchParams(window.location.search).get('canbo'),
+                monhoc: new URLSearchParams(window.location.search).get('monhoc'), 
+                lophoc: new URLSearchParams(window.location.search).get('lophoc'), 
             },
         };
     },
@@ -127,13 +167,17 @@ export default {
             });
         },
 
+        clearboloc: function(){
+            window.location.href = "http://localhost/cea-2.0/public/nhap-diem/nhat-ky";
+        },
+
         nhapDiemUrl: function (nk) {
-            let baseSixFour = btoa(JSON.stringify({  bd_id: nk.bang_diem.bd_id ,
+            let baseSixFour = btoa(JSON.stringify({  bd_id: nk.bd_id ,
                 thoigian: nk.thoigian,
                  mh_id: nk.mon_hoc.mh_id,
                   lh_id: nk.lop_hoc.lh_id}));
-            /* return 'http://localhost/cea-3.0/public/nhap-diem/xem-nhat-ky-diem?bd_id=' + nk.bang_diem.bd_id + '&thoigian="' + nk.thoigian + '"&mh_id=' +nk.mon_hoc.mh_id + '&lh_id=' + nk.lop_hoc.lh_id; */
-            return 'http://localhost/cea-3.0/public/nhap-diem/xem-nhat-ky-diem/' + encodeURIComponent(baseSixFour);
+            /* return 'http://localhost/cea-2.0/public/nhap-diem/xem-nhat-ky-diem?bd_id=' + nk.bang_diem.bd_id + '&thoigian="' + nk.thoigian + '"&mh_id=' +nk.mon_hoc.mh_id + '&lh_id=' + nk.lop_hoc.lh_id; */
+            return 'http://localhost/cea-2.0/public/nhap-diem/xem-nhat-ky-diem/' + encodeURIComponent(baseSixFour);
 
         }
     }

@@ -209,7 +209,7 @@ const editModal = {
 
 const consumer = {
     save: function (formData) {
-        return axios.post('http://localhost/cea-3.0/public/apimon-hoc/them-excel', formData);
+        return axios.post('http://localhost/cea-2.0/public/apimon-hoc/them-excel', formData);
     },
     uploadFile: function (file) {
         var formData = new FormData();
@@ -219,14 +219,14 @@ const consumer = {
             }
         }
         formData.append('excel_file', file);
-        return axios.post('http://localhost/cea-3.0/public/apiexcel/import-mon-hoc', formData, headers);
+        return axios.post('http://localhost/cea-2.0/public/apiexcel/import-mon-hoc', formData, headers);
     },
     getListHeDaoTao: function () {
-        const url = 'http://localhost/cea-3.0/public/apihe-dao-tao/all';
+        const url = 'http://localhost/cea-2.0/public/apihe-dao-tao/all';
         return axios.get(url).then(response => response.data);
     },
     getListNganhNghe: function () {
-        const url = 'http://localhost/cea-3.0/public/apinganh-nghe/all';
+        const url = 'http://localhost/cea-2.0/public/apinganh-nghe/all';
         return axios.get(url).then(response => response.data);
     },
 }

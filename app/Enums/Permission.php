@@ -21,6 +21,8 @@ class Permission extends Enum
 
     const TRUNGCAP = "trungcap";
     
+    const XNKD = "admin.log"; // sửa
+
     const CAODANG = "caodang";
 
     public static function getPermisstion() {
@@ -33,6 +35,7 @@ class Permission extends Enum
             self::TRUNGCAP => 'Trung cấp',
             self::CAODANG => 'Cao đẳng',
             self::XEMDIEM => 'Xem điểm',
+            self::XNKD => 'Xem nhật ký điểm', /// đã sửa 
             self::NHAPRENLUYEN => 'Nhập điểm rèn luyện',
         ];
     }

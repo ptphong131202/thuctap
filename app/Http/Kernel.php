@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'admin.users' => \App\Http\Middleware\UserManager::class,
         'admin.index' => \App\Http\Middleware\CommonIndexManager::class,
         'admin.score' => \App\Http\Middleware\ScoreManager::class,
+        'admin.log' => \App\Http\Middleware\LogManager::class, // sửa
     ];
 }

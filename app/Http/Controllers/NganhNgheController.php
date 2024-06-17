@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB; // dinh
 
 class NganhNgheController extends Controller
 {
-    /**
+    /**get
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -124,9 +124,15 @@ class NganhNgheController extends Controller
      */
     public function getNganhNghe($id)
     {
-        $nganhNgheModel = NganhNghe::find($id);
-        return response()
-            ->json($nganhNgheModel);
+        $nganhNgheModel = NganhNghe::with('khoaDaoTao')->find($id);
+
+        if (!$nganhNgheModel) {
+            return response()->json(['error' => 'NganhNghe not found'], 404);
+        }
+
+        $nganhNgheModel->khoa_dao_tao_exists = $nganhNgheModel->relationLoaded('khoaDaoTao') && count($nganhNgheModel->khoaDaoTao) > 0;
+
+        return response()->json($nganhNgheModel);
     }
 
     /**

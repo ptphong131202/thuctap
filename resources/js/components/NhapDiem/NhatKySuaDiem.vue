@@ -17,7 +17,7 @@
     <!-- Main content -->
     <section class="content">
       <div style="margin-bottom: 6px">
-        <a :href="'http://localhost/cea-3.0/public/nhap-diem/nhat-ky'" class="btn btn-default">
+        <a :href="'http://localhost/cea-2.0/public/nhap-diem/nhat-ky'" class="btn btn-default">
           <i class="fa fa-share"></i> Trở về danh sách
         </a>
         <button type="button" class="btn bg-purple" v-on:click="nhapDiemMonHocUrl">
@@ -188,8 +188,8 @@
                       <td>
                           <form-group :errors="editForm.errors" :field="'data.' + indexSv + '.svd_dulop'">
                               <span class="form-control" ><span v-if="sv.pre_svd_dulop!==null">{{ sv.pre_svd_dulop }}</span>
-                              <span v-if="sv.pre_svd_dulop!==null && sv.pre_svd_dulop!==sv.svd_dulop" style="color: red;"> - {{ sv.svd_exam_first }}</span> 
-                              <span v-if="sv.pre_svd_dulop === null && sv.svd_dulop" style="color: red;">{{ sv.svd_exam_first }}</span>
+                              <span v-if="sv.pre_svd_dulop!==null && sv.pre_svd_dulop!==sv.svd_dulop" style="color: red;"> - {{ sv.svd_dulop }}</span> 
+                              <span v-if="sv.pre_svd_dulop === null && sv.svd_dulop" style="color: red;">{{ sv.svd_dulop }}</span>
                             </span>
                           </form-group>
                       </td>
@@ -315,7 +315,7 @@
               </div>
             </div>
             <div class="box-footer">
-              <a :href="'http://localhost/cea-3.0/public/nhap-diem/nhat-ky'" class="btn btn-default">
+              <a :href="'http://localhost/cea-2.0/public/nhap-diem/nhat-ky'" class="btn btn-default">
                 <i class="fa fa-share"></i> Trở về danh sách
               </a>
               <input
@@ -372,15 +372,15 @@
 <script>
 const consumer = {
   getLopHoc: function (lh_id) {
-    const url = 'http://localhost/cea-3.0/public/api/lop-hoc/' + lh_id;
+    const url = 'http://localhost/cea-2.0/public/api/lop-hoc/' + lh_id;
     return axios.get(url).then((response) => response.data);
   },
   getMonHoc: function (mh_id) {
-    const url = 'http://localhost/cea-3.0/public/api/mon-hoc/' + mh_id;
+    const url = 'http://localhost/cea-2.0/public/api/mon-hoc/' + mh_id;
     return axios.get(url).then((response) => response.data);
   },
   getDanhSachHocKy: function (kdt_id) {
-    const url = 'http://localhost/cea-3.0/public/api/khoa-dao-tao/' + kdt_id + "/hoc-ky";
+    const url = 'http://localhost/cea-2.0/public/api/khoa-dao-tao/' + kdt_id + "/hoc-ky";
     return axios
       .get(url)
       .then((response) => response.data)
@@ -416,11 +416,11 @@ const consumer = {
   },
   getBangDiem: function (bd_id, thoigian) {
     // bd_type = 1 là bảng điểm môn học
-    const url = `http://localhost/cea-3.0/public/api/nhap-diem/bang-diem-log?bd_id=${bd_id}&thoigian="${thoigian}"`;
+    const url = `http://localhost/cea-2.0/public/api/nhap-diem/bang-diem-log?bd_id=${bd_id}&thoigian="${thoigian}"`;
     return axios.get(url).then((response) => response.data);
   },
   saveBangDiem: function (formData) {
-    const url = `http://localhost/cea-3.0/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
+    const url = `http://localhost/cea-2.0/public/api/nhap-diem/${formData.lh_id}/bang-diem`;
     return axios.post(url, formData);
   },
   uploadFile: function (file, quyChe2022, hasCal) {
@@ -432,9 +432,9 @@ const consumer = {
     };
     formData.append("excel_file", file);
     formData.append("quy_che_2022", quyChe2022);
-    let url = "http://localhost/cea-3.0/public/api/excel/import-raw-score";
+    let url = "http://localhost/cea-2.0/public/api/excel/import-raw-score";
     if (hasCal) {
-      url = "http://localhost/cea-3.0/public/api/excel/import-score";
+      url = "http://localhost/cea-2.0/public/api/excel/import-score";
     }
     return axios.post(url, formData, headers);
   },
@@ -576,7 +576,7 @@ export default {
     },
     nhapDiemMonHocUrl: function () {
             let baseSixFour = btoa(JSON.stringify({ lh_id: this.lh_id, hoc_ky: this.editForm.model.kdt_hocky, mh_id: this.editForm.model.mh_id }));
-            window.location.href = `http://localhost/cea-3.0/public/nhap-diem/mon-hoc/${baseSixFour}`;
+            window.location.href = `http://localhost/cea-2.0/public/nhap-diem/mon-hoc/${baseSixFour}`;
         },
     actionSave: function () {
       var vm = this;

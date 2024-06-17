@@ -101,13 +101,13 @@
                                             <span v-if="lh.quyet_dinh" :title="lh.quyet_dinh.qd_ten">{{ lh.quyet_dinh.qd_ma }}, {{ lh.quyet_dinh.qd_ngay | moment }}</span>
                                         </td> -->
                                         <td class="text-left">
-                                            <a :href="'http://localhost/cea-3.0/public/'+ lh.ketqua_url"
+                                            <a :href="lh.ketqua_url"
                                                 title="Danh sách dự xét" class="btn bg-purple btn-sm"><i class="fa fa-eye"></i>
                                             </a>
                                             <a :href="lh.monhoc_url"
                                                 title="Nhập điểm" class="btn bg-green btn-sm"><i class="fa fa-list-ol"></i>
                                             </a>
-                                            <a :href="'http://localhost/cea-3.0/public/dot-thi/ket-qua-diem-thi-tn/' + lh.lh_id + '/' + dt_id"
+                                            <a :href="'http://localhost/cea-2.0/public/dot-thi/ket-qua-diem-thi-tn/' + lh.lh_id + '/' + dt_id"
                                                 title="Xem kết quả thi" class="btn bg-blue btn-sm"><i class="fa fa-list-alt"></i>
                                             </a>
                                             <!-- <a :href="lh.xoa_url" title="Xóa" class="btn btn-danger btn-sm" v-if="qd">
@@ -169,37 +169,37 @@ import Label from '../../../../vendor/laravel/breeze/stubs/inertia-vue/resources
 
     const consumer = {
         getListLopHoc: function (dt_id) {
-            const url = 'http://localhost/cea-3.0/public/api/lop-hoc/dot-thi-lop-hoc/'+dt_id+'/'+ window.location.search;
+            const url = 'http://localhost/cea-2.0/public/api/lop-hoc/dot-thi-lop-hoc/'+dt_id+'/'+ window.location.search;
             return axios.get(url).then(response => response.data);
         },
         getLopHoc: function (lh_id) {
-            const url = 'http://localhost/cea-3.0/public/api/lop-hoc/' + lh_id;
+            const url = 'http://localhost/cea-2.0/public/api/lop-hoc/' + lh_id;
             return axios.get(url).then(response => response.data);
         },
         saveOrUpdate: function (formData) {
             if (formData.lh_id == null) {
-                return axios.post('http://localhost/cea-3.0/public/api/lop-hoc', formData);
+                return axios.post('http://localhost/cea-2.0/public/api/lop-hoc', formData);
             } else {
-                return axios.put('http://localhost/cea-3.0/public/api/lop-hoc/' + formData.lh_id, formData);
+                return axios.put('http://localhost/cea-2.0/public/api/lop-hoc/' + formData.lh_id, formData);
             }
         },
         destroy: function (lh_id, dt_id) {
-            return axios.delete('http://localhost/cea-3.0/public/apidot-thi/xoa-lop-hoc/' + lh_id + '/' + dt_id);
+            return axios.delete('http://localhost/cea-2.0/public/apidot-thi/xoa-lop-hoc/' + lh_id + '/' + dt_id);
         },
         getListKhoaDaoTao: function () {
-            const url = 'http://localhost/cea-3.0/public/api/khoa-dao-tao/all';
+            const url = 'http://localhost/cea-2.0/public/api/khoa-dao-tao/all';
             return axios.get(url).then(response => response.data);
         },
         getListQuyetDinh: function () {
-            const url = 'http://localhost/cea-3.0/public/api/quyet-dinh/all/0';
+            const url = 'http://localhost/cea-2.0/public/api/quyet-dinh/all/0';
             return axios.get(url).then(response => response.data);
         },
         getListNienKhoa: function () {
-            const url = 'http://localhost/cea-3.0/public/api/nien-khoa/all';
+            const url = 'http://localhost/cea-2.0/public/api/nien-khoa/all';
             return axios.get(url).then(response => response.data);
         },
         getListHeDaoTao: function () {
-            const url = 'http://localhost/cea-3.0/public/api/he-dao-tao/all';
+            const url = 'http://localhost/cea-2.0/public/api/he-dao-tao/all';
             return axios.get(url).then(response => response.data);
         },
     }

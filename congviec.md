@@ -31,3 +31,42 @@ Tuần 2:
     - file NganhNgeController:
         + Thêm hàm "monhoc" để điều hướng về danh sách môn học
         + Chỉnh sửa hàm "paginate" để danh sách nghành nghề trả về kèm theo url điều hướng sang trang danh sách môn học
+
+
+
+
+---
+- web.php
+
+- app / http / Controllers
+    + dashboard
+    + lophoc
+    + nganhnghe
+    + nhapdiem
+    + quyetdinh
+    + zalo oa (thêm)
+
+- app / http / models
+    + Bangdiem
+    + bangdiemlog (thêm)
+    + Canbo
+
+
+- app / http / middleware
+    - logmanager (thêm)
+
+- config /  core.php 
+
+- ../permissions.php 
+- ../kernel.php
+
+- ../dashboard-canbo.balade.php
+- ../nganhnghemonhoc.blade.php
+- ../nhapdiem/nhatkydiem.blade.php
+- ../nhapdiem/nhapdiem_nhatky.blade.php
+- ../danhmuc/nganhnghemonhoccomponent.vue
+- ../lophoc/lophoccomponent.vue
+- ../nhapdiem/nhatkydiem.vue
+- ../nhapdiem/nhatkysuadiem.vue
+- ../user/usereditcomponent.vue
+- ../user/usercomponent.vue

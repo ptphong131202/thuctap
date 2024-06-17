@@ -171,27 +171,27 @@ import Label from '../../../../vendor/laravel/breeze/stubs/inertia-vue/resources
 
     const consumer = {
         getListSinhVien: function (dxtn_id) {
-            const url = 'http://localhost/cea-3.0/public/api/dot-xet-tot-nghiep/'+dxtn_id+'/danhsachsinhvien'+ window.location.search;
+            const url = 'http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep/'+dxtn_id+'/danhsachsinhvien'+ window.location.search;
             return axios.get(url).then(response => response.data);
         },
         capNhatSinhVienDotThi: function (dt_id,formData) {
-            return axios.post('http://localhost/cea-3.0/public/api/dot-thi/'+dt_id+'/danhsachsinhvien', formData);
+            return axios.post('http://localhost/cea-2.0/public/api/dot-thi/'+dt_id+'/danhsachsinhvien', formData);
         },
         capNhatTrangThaiSinhVien: function (dxtn_id, dt_id, lh_id, sv_id, svd_ghichu, svxtn_vipham) {
-            return axios.get('http://localhost/cea-3.0/public/api/dot-xet-tot-nghiep/'+dxtn_id+'/cap-nhat-trang-thai-sv-dxtn?dt_id='+ dt_id +'&lhid='+lh_id+'&svid='+sv_id+'&svxtn_ghichu=' + svd_ghichu + '&svxtn_vipham=' + svxtn_vipham );
+            return axios.get('http://localhost/cea-2.0/public/api/dot-xet-tot-nghiep/'+dxtn_id+'/cap-nhat-trang-thai-sv-dxtn?dt_id='+ dt_id +'&lhid='+lh_id+'&svid='+sv_id+'&svxtn_ghichu=' + svd_ghichu + '&svxtn_vipham=' + svxtn_vipham );
         },
         // xoaSinhVienThamGia: function (dt_id, lh_id, sv_id) {
-        //     return axios.get('http://localhost/cea-3.0/public/api/dot-thi/'+dt_id+'/xoa-sinh-vien-tham-gia?lhid='+lh_id+'&svid='+sv_id);
+        //     return axios.get('http://localhost/cea-2.0/public/api/dot-thi/'+dt_id+'/xoa-sinh-vien-tham-gia?lhid='+lh_id+'&svid='+sv_id);
         // },
         exportDiemTheoLop: function (dt_id, lh_id) {
             return axios.get('/dot-thi/'+dt_id+'/diem-dot-thi-theo-lop/export?lhid='+lh_id);
         },
         getListQuyetDinh: function (loai) {
-            const url = 'http://localhost/cea-3.0/public/api/quyet-dinh/all/'+loai;
+            const url = 'http://localhost/cea-2.0/public/api/quyet-dinh/all/'+loai;
             return axios.get(url).then(response => response.data);
         },
         saveOrAddQuyetDinh: function (formData) {
-            return axios.post('http://localhost/cea-3.0/public/api/sinh-vien/them-quyet-dinh-thi-tot-nghiep', formData);
+            return axios.post('http://localhost/cea-2.0/public/api/sinh-vien/them-quyet-dinh-thi-tot-nghiep', formData);
         },
     }
 

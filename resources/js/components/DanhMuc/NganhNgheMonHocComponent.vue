@@ -13,7 +13,7 @@
                     <a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a>
                 </li>
                 <li>
-                    <a :href="'http://localhost/cea-3.0/public' + parent_url"
+                    <a :href="'http://localhost/cea-2.0/public' + parent_url"
                         >Ngành nghề</a
                     >
                 </li>
@@ -37,7 +37,7 @@
                 >
 
                 <a
-                    :href="'http://localhost/cea-3.0/public' + parent_url"
+                    :href="'http://localhost/cea-2.0/public' + parent_url"
                     class="btn btn-default"
                 >
                     <i class="fa fa-share"></i> Trở về danh sách
@@ -58,7 +58,12 @@
                                         <th class="w-10">Số tín chỉ</th>
                                         <th class="w-10">Số tiết/giờ</th>
                                         <th class="w-10">Tích lũy</th>
-                                        <th class="w-90-p text-center">
+                                        <th
+                                            class="w-90-p text-center"
+                                            v-if="
+                                                !nganhNghe.khoa_dao_tao_exists
+                                            "
+                                        >
                                             Hành động
                                         </th>
                                     </tr>
@@ -84,50 +89,12 @@
                                         <td>
                                             {{ mh.mh_tichluy ? "Có" : "Không" }}
                                         </td>
-                                        <td class="text-center">
-                                            <button
-                                                type="button"
-                                                class="btn bg-orange btn-sm pull-left"
-                                                title="Thay đổi"
-                                                v-if="
-                                                    !mh.bang_diem_exists &&
-                                                    mh.deleted_at == null
-                                                "
-                                                v-on:click="edit(mh.mh_id)"
-                                            >
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="btn btn-danger btn-sm pull-right"
-                                                title="Xóa"
-                                                v-if="
-                                                    !mh.bang_diem_exists &&
-                                                    mh.deleted_at == null
-                                                "
-                                                v-on:click="
-                                                    destroy(mh.mh_id, mh.mh_ten)
-                                                "
-                                            >
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="btn btn-primary btn-sm pull-right"
-                                                title="Khôi phục"
-                                                v-if="
-                                                    !mh.bang_diem_exists &&
-                                                    mh.deleted_at != null
-                                                "
-                                                v-on:click="
-                                                    restore(mh.mh_id, mh.mh_ten)
-                                                "
-                                            >
-                                                <i
-                                                    class="fa fa-undo"
-                                                    aria-hidden="true"
-                                                ></i>
-                                            </button>
+                                        <td
+                                            class="w-90-p text-center"
+                                            v-if="
+                                                !nganhNghe.khoa_dao_tao_exists
+                                            "
+                                        >
                                         </td>
                                     </tr>
                                     <tr
@@ -151,7 +118,7 @@
                 </div>
             </div>
             <a
-                :href="'http://localhost/cea-3.0/public' + parent_url"
+                :href="'http://localhost/cea-2.0/public' + parent_url"
                 class="btn btn-default"
             >
                 <i class="fa fa-share"></i> Trở về danh sách
@@ -301,13 +268,13 @@ const editModal = {
 
 const consumer = {
     getNganhNge: function (nn_id) {
-        const url = "http://localhost/cea-3.0/public/api/nganh-nghe/" + nn_id;
+        const url = "http://localhost/cea-2.0/public/api/nganh-nghe/" + nn_id;
         return axios.get(url).then((response) => response.data);
     },
 
     getDanhSachMonHoc: function (hdt_id, nn_id) {
         const url =
-            "http://localhost/cea-3.0/public/api/mon-hoc/all?hdt_id=" +
+            "http://localhost/cea-2.0/public/api/mon-hoc/all?hdt_id=" +
             hdt_id +
             "&nn_id=" +
             nn_id;
@@ -315,40 +282,40 @@ const consumer = {
         return axios.get(url).then((response) => response.data);
     },
     getMonHoc: function (mh_id) {
-        const url = "http://localhost/cea-3.0/public/api/mon-hoc/" + mh_id;
+        const url = "http://localhost/cea-2.0/public/api/mon-hoc/" + mh_id;
         return axios.get(url).then((response) => response.data);
     },
     getListHeDaoTao: function () {
-        const url = "http://localhost/cea-3.0/public/api/he-dao-tao/all";
+        const url = "http://localhost/cea-2.0/public/api/he-dao-tao/all";
         return axios.get(url).then((response) => response.data);
     },
     getListNganhNghe: function (hdt_id) {
         const url =
-            "http://localhost/cea-3.0/public/api/nganh-nghe/all?hedaotao=" +
+            "http://localhost/cea-2.0/public/api/nganh-nghe/all?hedaotao=" +
             hdt_id;
         return axios.get(url).then((response) => response.data);
     },
     save: function (formData) {
         if (formData.mh_id == null) {
             return axios.post(
-                "http://localhost/cea-3.0/public/api/mon-hoc",
+                "http://localhost/cea-2.0/public/api/mon-hoc",
                 formData
             );
         } else {
             return axios.put(
-                "http://localhost/cea-3.0/public/api/mon-hoc/" + formData.mh_id,
+                "http://localhost/cea-2.0/public/api/mon-hoc/" + formData.mh_id,
                 formData
             );
         }
     },
     destroy: function (mh_id) {
         return axios.delete(
-            "http://localhost/cea-3.0/public/api/mon-hoc/" + mh_id
+            "http://localhost/cea-2.0/public/api/mon-hoc/" + mh_id
         );
     },
     restore: function (mh_id) {
         return axios.put(
-            "http://localhost/cea-3.0/public/api/mon-hoc/restore/" + mh_id
+            "http://localhost/cea-2.0/public/api/mon-hoc/restore/" + mh_id
         );
     },
 };
