@@ -2,7 +2,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Nhật ký sửa điểm</h1>
+            <h1>Nhật ký sửa điểm </h1>
             <ol class="breadcrumb">
                 <li>
                     <a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a>
@@ -15,19 +15,13 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12 col-sm-12" >
-                    <div class="" style="    margin-bottom: 20px;
+                    <div style="    margin-bottom: 20px;
                                                         padding: 23px;
                                                         background: white;
                                                         height: 110px;">
                         <div class="d-flex" style="position: relative;">
                                 <form method="get" style="max-width:300px; display: flex;">
-                                        <div class="input-group">
-                                            <label>Mã cán bộ</label>
-                                            <input style="width: 300px;" type="text" name="canbo" v-model="filter.canbo" class="form-control" >
-                                            
-                                        </div>
-
-                                        <div class="input-group" style="margin-left: 40px;">
+                                        <div class="input-group" >
                                             <label>Mã lớp</label>
                                             <input style="width: 300px;" type="text" name="lophoc" v-model="filter.lophoc" class="form-control" >
                                             
@@ -60,10 +54,11 @@
                                 <thead>
                                     <tr>
                                         <th class="w-3 text-center">#</th>
-                                        <th class="w-10">Ngày</th>
-                                        <th>Cán bộ</th>
                                         <th class="w-4">Mã lớp</th>
+                                        <th class="w-4">Tên lớp</th>
+                                        <th>Mã nôn</th>
                                         <th>Môn học</th>
+                                        <th class="w-5">Ngày cập nhật cuối</th>
                                         <th class="w-3 text-center">
                                             Hành động
                                         </th>
@@ -75,10 +70,11 @@
                                         :key="nk.bd_id"
                                     >
                                         <td>{{ index + 1 }}</td>
-                                        <td>{{ nk.thoigian | moment }}</td>
-                                        <td>{{ nk.user_info.name }}</td>
                                         <td>{{ nk.lop_hoc.lh_ma }}</td>
+                                        <td>{{ nk.lop_hoc.lh_ten }}</td>
+                                        <td>{{ nk.mon_hoc.mh_ma }}</td>
                                         <td>{{ nk.mon_hoc.mh_ten }}</td>
+                                        <td>{{ nk.thoigian | moment }}</td>
                                         <td>
                                             <a
                                                 :href="nhapDiemUrl(nk)"
@@ -142,7 +138,6 @@ export default {
             },
             filter: {
                 semester: 123456,
-                canbo: new URLSearchParams(window.location.search).get('canbo'),
                 monhoc: new URLSearchParams(window.location.search).get('monhoc'), 
                 lophoc: new URLSearchParams(window.location.search).get('lophoc'), 
             },

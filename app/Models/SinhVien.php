@@ -73,5 +73,12 @@ class SinhVien extends Model
     public function Log()
     {
         return $this->hasMany(Log::class, 'sv_id', 'sv_id');
+
+
+    }
+
+    public function bangDiemLogs()
+    {
+        return $this->hasManyThrough(BangDiemLog::class, 'sv_id', 'sv_id');
     }
 }

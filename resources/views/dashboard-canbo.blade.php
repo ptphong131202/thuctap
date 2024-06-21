@@ -21,7 +21,7 @@
                     </div>
                     <!-- icon (Phong)-->
                     <div class="icon">
-                        <i class="fas fa-screwdriver-wrench"></i>
+                        <i class="fas fa-screwdriver-wrench" style="color: white;"></i>
                     </div>
                     <a href="{{ route('nganh-nghe.index') }}" class="small-box-footer">Chi tiết <i
                         class="fa fa-arrow-circle-right"></i></a>
@@ -63,7 +63,7 @@
                 </div>
                 </div>
                 <div class="icon">
-                    <i class="fa-solid fa-gears"></i>
+                    <i class="fa-solid fa-gears" style="color: white;"></i>
                 </div>
                 <a href="{{ route('khoa-dao-tao.index') }}" class="small-box-footer">Chi tiết <i
                         class="fa fa-arrow-circle-right"></i></a>
@@ -71,9 +71,7 @@
         </div>
 
     
-    <div class="col-lg-6 col-xs-6">
-            <!-- lớp học -->
-        <div class="col-lg-12 col-xs-12" class="div_pd">
+        <div class="col-lg-6 col-xs-6 hidden-xs p-0"  >
                 <div class="small-box bg-orange">
                     <div class="inner">
                         <h3 class="d-none d-sm-block">{{ $thongKe['slLopHoc'] }}</h3>
@@ -154,14 +152,17 @@
                             class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-        
 
         <!-- Đợt xét tốt nghiệp (Phong)-->
-        <div class="col-lg-12 col-xs-12 hidden-xs" style="padding: 0;">
+        <div class="col-lg-6 col-xs-6 hidden-xs" >
             <div class="small-box bg-olive">
                 <div class="inner">
                     <!-- <h3 class="d-none d-sm-block">{{ $thongKe['slLopHoc'] }}</h3> -->
                     <p class="d-none d-sm-block">Đợt thi, xét tốt nghiệp</p>
+                    <div style="width: 100%;display: flex; justify-content: center; margin-bottom: 26px;">
+                                <div style="    display: flex; justify-content: left; margin-bottom: 5px; margin-right: 10px; "> <div style="  margin-right: 5px;  width: 20px;    height: 20px;    background: red;"></div> - đợt thi </div>
+                                <div style="   display: flex; justify-content: left; margin-bottom: 5px; "> <div style="  margin-right: 5px;  width: 20px;    height: 20px;    background: #00ff29;"></div> - xét tốt nghiệp</div>
+                        </div>
                     <div class="hidden-xs"
                         style="border: 1px solid white;
                         height: 130px; width: 70%; margin-left: 28px;  border-right: none; border-top: none; margin-top: -5px; display: flex; margin-bottom: 19px;">
@@ -270,10 +271,7 @@
                         </span>
                         <span style="position: absolute;    right: 19%;    bottom: 16%;">Năm</span>
 
-                        <div style="position: absolute;    right: 2%;    bottom: 34%;  width: 125px;">
-                                <div style="    display: flex; justify-content: left; margin-bottom: 5px; "> <div style="  margin-right: 5px;  width: 20px;    height: 20px;    background: red;"></div> - đợt thi </div>
-                                <div style="   display: flex; justify-content: left; margin-bottom: 5px; "> <div style="  margin-right: 5px;  width: 20px;    height: 20px;    background: #00ff29;"></div> - xét tốt nghiệp</div>
-                        </div>
+                        
 
 
                     </div>
@@ -285,11 +283,14 @@
                         class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-    </div>
+
+
+
+
 
      <!-- Số lượng sinh viên -->
-     <div class="col-lg-6 col-xs-6 hidden-xs">
-            <div class="small-box bg-olive text-black">
+     <div class="col-lg-12 col-xs-12 hidden-xs" >
+            <div class="small-box  text-black" style="background: #f8d7d7;">
                
 
             @php
@@ -310,7 +311,7 @@
 
 
                 <div class="icon">
-                    <i class="fa fa-child"></i>
+                    <i class="fa fa-child" style="color: white;"></i>
                 </div>
                 <a href="http://localhost/cea-2.0/public/lop-hoc/" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -413,15 +414,19 @@
                                         </div>
                                     <div class="div_sv_div2_3_div4">
                                         ${Object.values(lopHocs).map(lop => `
-                                            <div title="Lớp ${lop.lop_ten} có ${lop.slsinhvienlop} sinh viên trong đó &#10; - ${lop.slsvtotnghiep} sinh viên tốt nghiệp &#10; - ${lop.slsvxoaten} sinh viên tạm nghỉ &#10; - ${lop.slsvconlai} sinh viên đang học" style="width: calc(100 / ${soLuongLop})%;  max-width: 50px; min-width: 25px; height: 100%; display: flex;position: relative; justify-content: space-between; align-items: flex-end;">
+                                            <div title="Lớp ${lop.lop_ten} có ${lop.slsinhvienlop} sinh viên trong đó &#10; -
+                                             ${lop.slsvtotnghiep} sinh viên tốt nghiệp &#10; - ${lop.slsvxoaten} sinh viên tạm nghỉ &#10; 
+                                             - ${lop.slsvconlai} sinh viên đang học" style="width: calc(100% / ${soLuongLop}); max-width: 100px;
+                                                height: 100%; display: flex;
+                                               position: relative; justify-content: space-between; align-items: flex-end;">
                                             <div class="div_sv_div2_3_div5" title="${lop.lop_ten}" >
                                                             ${lop.lop_ma}</div>
                                                 <div class="div_sv_div2_3_div6" style="height: ${((lop.slsvtotnghiep / soLuongMaxSinhVienLop) * 100) + 1}%; ">
-                                                     <span class="div_sv_div2_3_div8_span">${lop.slsvtotnghiep}</span></div>
+                                                     <p class="div_sv_div2_3_div8_p">${lop.slsvtotnghiep}</p></div>
                                                 <div class="div_sv_div2_3_div7" style="height: ${((lop.slsvxoaten / soLuongMaxSinhVienLop) * 100) + 1}%; ">
-                                                     <span class="div_sv_div2_3_div8_span">${lop.slsvxoaten}</span></div>
+                                                     <p class="div_sv_div2_3_div8_p">${lop.slsvxoaten}</p></div>
                                                 <div class="div_sv_div2_3_div8" style="height: ${((lop.slsvconlai / soLuongMaxSinhVienLop) * 100) + 1}%; ">
-                                                     <span class="div_sv_div2_3_div8_span">${lop.slsvconlai}</span></div>
+                                                     <p class="div_sv_div2_3_div8_p">${lop.slsvconlai}</p></div>
                                                 
                                             </div>
                                         `).join('')}

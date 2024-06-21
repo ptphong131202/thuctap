@@ -1,0 +1,221 @@
+
+/*------------------------------------*\
+    #T.Phong css
+\*------------------------------------*/
+
+.css_h4{
+    margin: 0 0 5px 5px; 
+    font-size: 25px;
+    justify-content: space-between;
+  }
+  
+  .div_nn{
+    display: flex; 
+    width: 100%;
+  }
+  
+  .div_nn_p{
+    width: 50%; 
+    text-align: center; 
+    font-size: 20px;
+  }
+  
+  .div_nn_p_span{
+    display: block; 
+    font-size: 115px; 
+    font-weight: bold;
+  }
+  
+  .div_kdt{
+    width: 96%; 
+    height: 135px; 
+    display: flex; 
+    position: relative;  
+    justify-content: space-between;  
+    margin-top: 20px; 
+  }
+  
+  .div_kdt_div1{
+    width: 48%; 
+    height: 100%; 
+    border: 1px solid rgb(0 102 255); 
+    position: relative; 
+  }
+  
+  .div_kdt_div1_1{
+    position: absolute; 
+    width: 100%;           
+    padding: 2px 5px;
+    background: rgb(0 102 255);
+    font-size: 13px;
+    top: -22px;
+  }
+  
+  .div_kdt_div1_1_p{
+    padding: 3px;    font-size: 14px;    margin: 0px;    display: -webkit-box;  
+    line-height: 20px;    -webkit-box-orient: vertical;    -webkit-line-clamp: 1; 
+    overflow: hidden;
+  }
+  
+  
+  .div_kdt_div1_1_p a{
+    color: white;
+  }
+  
+  .div_pd{
+    padding: 0;
+  }
+  
+  .div_lh{
+    border: 1px solid white;
+    height: 130px; 
+                              width: 75%; 
+                              margin-left: 28px;  
+                              border-right: none; 
+                              border-top: none; 
+                              margin-top: -5px; 
+                              display: flex; 
+                              margin-bottom: 19px;                          
+  }
+  
+  .div_lh_span{
+    width: 30px; height: 130px; position: absolute;  left: 8px;
+  }
+  
+  .div_lh_span_div1{
+    position: absolute; top: -5%; left: 37%;
+  }
+  
+  .div_lh_span_div2{
+    position: absolute; top: 45%; left: 37%;
+  }
+  
+  .div_lh_span_div3{
+    position: absolute; bottom: -5px; left: 37%;
+  }
+  
+  .div_lh_span2{
+    width: calc(100% / 5); flex: 1;    position: relative;
+  }
+  
+  .div_lh_span_div_chart{
+    width: 50%;  background: #00ff29;  position: absolute; bottom: 0; left: 23%;
+  }
+  
+  .div_lh_span_div_chart_span{
+    position: absolute; top:-17px; left: 31%;
+  }
+  
+  .div_lh_span_div_chart_span2{
+    position: absolute; 
+    bottom: -22px;   
+    right: 12px;                        
+    font-size: 12px;
+  }
+  
+  .div_lh_span_div_chart_span3{
+    position: absolute;    right: 8%;    bottom: 16%;
+  }
+  
+  .div_sv_p{
+    margin: 0;                            
+    padding: 10px;                            
+    font-size: 20px;
+  }
+  
+  .div_canbo{
+    max-width: 650px;border: 2px solid #605ca8;border-radius: 6px;
+  }
+  
+  .div_sv_div1{
+    display: flex;    justify-content: center; padding: 10px 0 20px 0; margin-bottom: 37px;
+  }
+  
+  .div_sv_div1_chart1{
+    background: blue;
+                                  width: 30px;
+                                  height: 20px;
+                                  margin-right: 5px;
+  }
+  
+  .div_sv_div1_chart2{
+    background: green;
+    width: 30px;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 15px;
+  }
+  
+  .div_sv_div1_chart3{
+    background: red;
+                                  width: 30px;
+                                  height: 20px;
+                                  margin-right: 5px;
+                                  margin-left: 15px;
+                                }
+  .div_sv_div2{
+    width: 100%; padding: 0 40px;    margin-bottom: 130px;
+  }
+  
+  
+  .div_sv_div2_1{
+    width: 98%; height: 222px; border: 1px solid black; border-top: none; border-right: none; position: relative;
+  }
+  
+  
+  .div_sv_div2_2{
+    position: absolute; top: -30px; font-size: 20px; left: -30px;
+  }
+  
+  .div_sv_div2_3{
+    position: absolute; font-size: 20px; bottom: -9px; right: -37px;
+  }
+  
+  .div_sv_div2_3_1{
+    position: absolute;
+                                          top: 0;   left: -20px;  width: 20px;
+                                          height: 100%; display: flex; flex-direction: column;
+                                          text-align: center;
+  }
+  
+  .div_sv_div2_3_div1{
+    height: calc(100% / 3); width: 100%; text-align: center;    width: 100%;
+  }
+  
+  .div_sv_div2_3_div2{
+    height: calc(100% / 3); width: 100%; text-align: center;    width: 100%;  display: flex; align-items: center; justify-content: center;
+  }
+  
+  .div_sv_div2_3_div3{
+    height: calc(100% / 3); width: 100%; text-align: center;    width: 100%;  display: flex; align-items: center;align-items: flex-end; justify-content: center;
+  }
+  
+  .div_sv_div2_3_div4{
+    width: 100%; height: 100%; display: flex; justify-content: space-between;
+  }
+  
+  .div_sv_div2_3_div5{
+    position: absolute;       
+    writing-mode: vertical-rl;     
+    bottom: -130px;    left: 5px;      
+     width: 100%;   height: 120px;    
+     display: flex;     
+     align-items: center;     
+     cursor: default;
+  }
+  
+  .div_sv_div2_3_div6{
+    width: calc(100% / 3);  position: relative; background: blue;
+  }
+  .div_sv_div2_3_div7{
+    width: calc(100% / 3);  position: relative; background: green;
+  }
+  .div_sv_div2_3_div8{
+    width: calc(100% / 3);  position: relative; background: red;
+  }
+  
+  .div_sv_div2_3_div8_p{
+    position: absolute; font-size: 16px; top: -20px; left: 0;
+    text-align: center;
+    width: 100%;
+  }

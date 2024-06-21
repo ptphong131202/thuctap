@@ -312,106 +312,71 @@ class NhapDiemController extends Controller
         
         // Khởi tạo biến dsBangDiemLog rỗng
         $dsBangDiemLog = collect();
-        $filteredLog = null;
-        $previousLog = null;
-        $filteredLogList = collect();
-        $previousLogList = collect();
-        $mergedLogs = collect();
 
         // Kiểm tra nếu bangDiem tồn tại
         if ($bangDiem) {
             // Lấy danh sách BangDiemLog tương ứng với bd_id
-            $dsBangDiemLog = BangDiemLog::select('bd_id', 'user_id', 'thoigian', 'sv_id')
+            $dsBangDiemLog = BangDiemLog::select('bd_id',  'thoigian', 'user_id')
                 ->where('bd_id', $bd_id)
-                ->groupBy('bd_id', 'user_id', 'thoigian', 'sv_id')
+                ->groupBy('bd_id', 'user_id', 'thoigian')
+                ->orderBy('thoigian', 'desc') // Sắp xếp theo thời gian giảm dần
                 ->get();
 
-            // Lọc danh sách BangDiemLog theo thoigian
-            $filteredLogs = $dsBangDiemLog->filter(function ($log) use ($time) {
-                return $log->thoigian == $time;
+        }   
+
+        $filteredLog = $dsBangDiemLog->first();
+        
+
+        // Lấy danh sách từ BangDiemLog theo bd_id và thoigian
+        $bangDiem->data = BangDiemLog::where('bd_id', $filteredLog->bd_id)
+                ->where('thoigian', $filteredLog->thoigian)
+                ->get();
+
+
+        // Lấy danh sách sv_id từ data
+        $userIds = $bangDiem->data->pluck('sv_id')->unique();
+
+        // Lấy thông tin sinh viên dựa trên sv_id
+        $students = SinhVien::whereIn('sv_id', $userIds)->get()->keyBy('sv_id');
+
+        // Thêm thông tin sinh viên vào mỗi phần tử trong data
+        $bangDiem->data->each(function($item) use ($students) {
+            $student = $students->get($item->sv_id);
+            if ($student) {
+                $item->sv_id = $student->sv_id;
+                $item->sv_ma = $student->sv_ma;
+                $item->sv_ten = $student->sv_ten;
+                $item->sv_ho = $student->sv_ho;
+            }
+        });    
+
+        // Lấy danh sách tất cả các BangDiemLog
+        $allBangDiemLog = BangDiemLog::all();
+        
+
+        // Thêm thông tin nhatkysua vào mỗi phần tử trong data
+        $bangDiem->data->each(function($item) use ($allBangDiemLog) {
+            // Lấy thông tin từ $item
+            $sv_id = $item->sv_id;
+            $lh_id = $item->lh_id;
+            $mh_id = $item->mh_id;
+
+            // Tìm các log tương ứng trong allBangDiemLog với sv_id, lh_id, mh_id
+            $matchingLogs = $allBangDiemLog->where('sv_id', $sv_id)
+                                        ->where('lh_id', $lh_id)
+                                        ->where('mh_id', $mh_id)
+                                        ->values(); // Chuyển kết quả thành collection
+            
+             $allcanbo = CanBo::all();                           
+           // Thêm thông tin cán bộ vào mỗi log
+            $matchingLogs->each(function($log) use ($allcanbo) {
+                $canbo = $allcanbo->firstWhere('user_id', $log->user_id);
+                $log->cb_ten = $canbo ? $canbo->cb_ten : null;
             });
-
-            // Lấy phần tử đầu tiên trong filteredLogs
-            $filteredLog = $filteredLogs->first();
-
-            // Lấy bản ghi trước đó
-            $index = $dsBangDiemLog->search(function ($log) use ($time) {
-                return $log->thoigian == $time;
-            });
-
-            if ($index !== false && $index > 0) {
-                $previousLog = $dsBangDiemLog[$index - 1];
-            }
-
-            // Lấy danh sách từ BangDiemLog theo bd_id và thoigian
-            if ($filteredLog) {
-                $filteredLogList = BangDiemLog::where('bd_id', $bd_id)
-                    ->where('thoigian', $time)
-                    ->get();
-            }
-
-            // Lấy danh sách từ BangDiemLog theo bd_id và thoigian của bản ghi trước đó
-            if ($previousLog) {
-                $previousLogList = BangDiemLog::where('bd_id', $previousLog->bd_id)
-                    ->where('thoigian', $previousLog->thoigian)
-                    ->get();
-            }
-
-            // Gộp hai danh sách thành một với việc thêm "pre" trước các trường của previousLogList
-            $mergedLogs = $filteredLogList->map(function ($item, $key) use ($previousLogList) {
-                $previousItem = $previousLogList->get($key);
-                $mergedItem = array_merge(
-                    $item->toArray(),
-                    $previousItem ? [
-                        'pre_user_id' => $previousItem->user_id,
-                        'pre_thoigian' => $previousItem->thoigian,
-                        'pre_svd_dulop' => $previousItem->svd_dulop,
-                        'pre_svd_second_hocky' => $previousItem->svd_second_hocky,
-                        'pre_svd_first' => $previousItem->svd_first,
-                        'pre_svd_second' => $previousItem->svd_second,
-                        'pre_svd_final' => $previousItem->svd_final,
-                        'pre_svd_total' => $previousItem->svd_total,
-                        'pre_svd_ghichu' => $previousItem->svd_ghichu,
-                        'pre_svd_third' => $previousItem->svd_third,
-                        'pre_svd_third_hocky' => $previousItem->svd_third_hocky,
-                        'pre_svd_exam_first' => $previousItem->svd_exam_first,
-                        'pre_svd_exam_second' => $previousItem->svd_exam_second,
-                        'pre_svd_exam_third' => $previousItem->svd_exam_third
-                    ] : [
-                        'pre_user_id' => null,
-                        'pre_thoigian' => null,
-                        'pre_svd_dulop' => null,
-                        'pre_svd_second_hocky' => null,
-                        'pre_svd_first' => null,
-                        'pre_svd_second' => null,
-                        'pre_svd_final' => null,
-                        'pre_svd_total' => null,
-                        'pre_svd_ghichu' => null,
-                        'pre_svd_third' => null,
-                        'pre_svd_third_hocky' => null,
-                        'pre_svd_exam_first' => null,
-                        'pre_svd_exam_second' => null,
-                        'pre_svd_exam_third' => null
-                    ]
-                );
-
-                // Lấy thông tin sinh viên từ sv_id
-                $studentInfo = SinhVien::where('sv_id', $item->sv_id)->first();
-                // Kiểm tra nếu có thông tin sinh viên
-                if ($studentInfo) {
-                    // Thêm thông tin sinh viên trực tiếp vào mergedItem
-                    $mergedItem['sv_id'] = $studentInfo->sv_id;
-                    $mergedItem['sv_ma'] = $studentInfo->sv_ma;
-                    $mergedItem['sv_ten'] = $studentInfo->sv_ten;
-                    $mergedItem['sv_ho'] = $studentInfo->sv_ho;
-                    }
-                    return $mergedItem;
-                    });
-        }
-
-        // Gắn danh sách BangDiemLog, phần tử đầu tiên của filteredLogs, previousLog và mergedLogs vào thuộc tính của bangDiem
-        $bangDiem->data = $mergedLogs;
-
+            // Gán kết quả vào thuộc tính nhatkysua của $item
+            $item->nhatkysua = $matchingLogs;
+        });
+        
         // Trả về kết quả dưới dạng JSON
         return response()->json($bangDiem);
     }
@@ -524,22 +489,16 @@ class NhapDiemController extends Controller
             $hocky = $request->kdt_hocky;
 
             // Kiểm tra xem bảng điểm đã tồn tại hay chưa
-            $bangDiem = BangDiem::firstOrCreate(
-                [
-                    'lh_id' => $lh_id,
-                    'bd_type' => $bd_type,
-                    'mh_id' => $mh_id,
-                    'kdt_hocky' => $hocky,
-                ],
-                [
-                    'bd_tungay' => $request->bd_tungay,
-                    'bd_denngay' => $request->bd_denngay,
-                    'bd_giangvien' => $request->bd_giangvien,
-                    'user_id' => auth()->user()->user_id,
-                ]
-            );
-
-            // Cập nhật các trường khác nếu cần thiết
+            $bangDiem = BangDiem::whereLhId($lh_id)
+                ->whereBdType($bd_type)
+                ->whereMhId($mh_id)
+                ->whereKdtHocky($hocky)
+                ->first();
+            if (!$bangDiem) {
+                $bangDiem = new BangDiem;
+                $bangDiem->bd_type = $bd_type;
+                $bangDiem->fill($request->only(['lh_id', 'mh_id', 'kdt_hocky']));
+            }
             $bangDiem->fill($request->only(['bd_tungay', 'bd_denngay', 'bd_giangvien']));
             $bangDiem->user_id = auth()->user()->user_id;
             $bangDiem->save();
@@ -887,32 +846,19 @@ class NhapDiemController extends Controller
             $lophoc_id = $dslophoc->lh_id;
         }
 
-
-        // get cán bộ 
-        $macanbo = $request->canbo;
-        $dscanbo = CanBo::where('cb_ma', $macanbo)->first();
-        $canbo_id = null;
-        if($dscanbo) {
-            $canbo_id = $dscanbo->user_id;
-        }
-
         $perPage = $request->has('per_page') ? $request->per_page : 10; // Số mục trên mỗi trang
 
-        $bangDiemLogs = BangDiemLog::select('lh_id', 'user_id', 'thoigian', 'mh_id', 'bd_id')
+        $bangDiemLogs = BangDiemLog::select('lh_id',  'mh_id', 'bd_id', DB::raw('MAX(thoigian) as latest_thoigian'))
             ->with([
                 'user',
                 'bangDiem' => function ($query) {
                     $query->with(['lopHoc', 'monHoc']);
                 }
             ])
-            ->groupBy('lh_id', 'user_id', 'thoigian', 'bd_id', 'mh_id')
-            ->orderBy('bd_log_id', 'desc');
+            ->groupBy('lh_id',  'mh_id', 'bd_id')
+            ->orderBy('latest_thoigian', 'desc');
         
-        // nếu tồn tại $canbo id
-        if($canbo_id !== null) {
-            $bangDiemLogs = $bangDiemLogs->where('user_id', $canbo_id);
-        }
-
+        
         // if tồn tại  $malophoc
         if($lophoc_id){
             $bangDiemLogs = $bangDiemLogs->where('lh_id', $lophoc_id);
@@ -927,6 +873,7 @@ class NhapDiemController extends Controller
             });
         }
 
+
         $bangDiemLogs = $bangDiemLogs->paginate($perPage)
             ->appends($request->all())
             ->onEachSide(2)
@@ -936,8 +883,7 @@ class NhapDiemController extends Controller
 
         foreach ($bangDiemLogs as $log) {
             $formattedData[] = [
-                'thoigian' => $log->thoigian,
-                'user_id' => $log->user_id,
+                'thoigian' => $log->latest_thoigian,
                 'user_info' => $log->user,
                 'lop_hoc' => $log->bangDiem->lopHoc,
                 'mon_hoc' => $log->bangDiem->monHoc,
@@ -945,7 +891,6 @@ class NhapDiemController extends Controller
                 'bd_id' => $log->bangDiem->bd_id, // Thêm dòng này để lấy thông tin bangDiem
                 'lh_id' => $log->lh_id,
                 'mh_id' => $log->mh_id,
-                'mh_ma_monhoc' => $canbo_id,
             ];
         }
 

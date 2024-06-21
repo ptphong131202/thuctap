@@ -89,4 +89,9 @@ class LopHoc extends Model
         return $this->belongsToMany(MonHoc::class, 'qlsv_lophoc_monhoc', 'lh_id', 'mh_id')->withPivot(['lh_mh_hocky', 'lh_mh_index']);
     }
 
+    public function bangDiemLogs()
+    {
+        return $this->hasManyThrough(BangDiemLog::class, 'lh_id', 'lh_id');
+    }
+
 }

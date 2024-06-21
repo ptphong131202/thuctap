@@ -431,15 +431,15 @@
 <script>
 const consumer = {
   getLopHoc: function (lh_id) {
-    const url = 'http://localhost/cea-2.0/public/api/lop-hoc/' + lh_id;
+    const url = "http://localhost/cea-2.0/public/api/lop-hoc/" + lh_id;
     return axios.get(url).then((response) => response.data);
   },
   getMonHoc: function (mh_id) {
-    const url = 'http://localhost/cea-2.0/public/api/mon-hoc/' + mh_id;
+    const url = "http://localhost/cea-2.0/public/api/mon-hoc/" + mh_id;
     return axios.get(url).then((response) => response.data);
   },
   getDanhSachHocKy: function (kdt_id) {
-    const url = 'http://localhost/cea-2.0/public/api/khoa-dao-tao/' + kdt_id + "/hoc-ky";
+    const url = "http://localhost/cea-2.0/public/api/khoa-dao-tao/" + kdt_id + "/hoc-ky";
     return axios
       .get(url)
       .then((response) => response.data)
@@ -529,13 +529,9 @@ const BANGDIEMTYPE = {
 };
 
 export default {
-  props: ["lh_id", "hoc_ky", "mh_id", "thoigian"],
+  props: ["lh_id", "hoc_ky", "mh_id"],
   mounted() {
     this.loadLopHoc();
-    console.log("Thời gian:", this.thoigian);
-    console.log("lh_id:", this.thoigian);
-    console.log("hoc_ky:", this.thoigian);
-    console.log("mh_id:", this.thoigian);
   },
   updated: function () {
     this.fixEditDate();
@@ -583,7 +579,6 @@ export default {
       var vm = this;
       // Load thông tin lớp học
       consumer.getLopHoc(this.lh_id).then((lopHoc) => {
-        console.log(this.lh_id);
         this.editForm.lopHoc = lopHoc;
         this.quyChe2022 = lopHoc.lh_nienche == 1;
 

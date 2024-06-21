@@ -120,6 +120,12 @@ return [
                     'permission' => 'student',
                     'icon' => 'fa fa-search',
                 ],
+                [ // sửa
+                    'name' => 'Nhật ký chỉnh sửa điểm',
+                    'route' => 'nhap-diem.nhat-ky',
+                    'icon' => 'fa fa-sticky-note-o',
+                    'permission' => 'admin.log',
+                ],
                 
                 [
                     'name' => 'Quản trị',
@@ -138,12 +144,7 @@ return [
                             'icon' => 'fa fa-sticky-note-o',
                             'permission' => 'admin.index',
                         ],
-                        [ // sửa
-                            'name' => 'Nhật ký chỉnh sửa điểm',
-                            'route' => 'nhap-diem.nhat-ky',
-                            'icon' => 'fa fa-sticky-note-o',
-                            'permission' => 'admin.log',
-                        ],
+                        
                         
                     ]
                 ]

@@ -6,7 +6,7 @@
 @section('content')
     <div class="box box-default" style="max-width: 650px;border: 2px solid #605ca8;border-radius: 6px;">
         <div class="box-body">
-            <form method="POST" action="/user/update-Info-Sv">
+            <form method="POST" action="http://localhost/cea-2.0/public/user/update-Info-Sv">
                 @csrf
                 <div class="row">
                     <div class="col-md-5 ">

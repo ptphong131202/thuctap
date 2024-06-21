@@ -128,7 +128,7 @@
                                               class="btn btn-danger btn-sm pull-right"
                                               title="Xóa"
                                               v-if="
-                                                  !nn.khoa_dao_tao_exists &&
+                                                  !nn.khoa_dao_tao_exists || 
                                                   !nn.mon_hoc_exists
                                               "
                                               v-on:click="destroy(nn.nn_id)"

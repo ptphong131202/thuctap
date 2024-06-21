@@ -52,5 +52,20 @@ class BangDiemLog extends Model
     {
         return $this->hasOne(CanBo::class, 'user_id', 'user_id');
     }
+
+
+    public function Lophoc()
+    {
+        return $this->belongsTo(Lophoc::class, 'lh_id');
+    }
+    public function Monhoc()
+    {
+        return $this->belongsTo(Monhoc::class, 'mh_id');
+    }
+
+    public function SinhVien()
+    {
+        return $this->belongsTo(SinhVien::class, 'sv_id');
+    }
 }
 

@@ -27,7 +27,7 @@
                                 <button type="button" class="btn btn-default" v-on:click="actionShowSelectFile">
                                     <i class="fa fa-file-excel-o"></i> Chọn tập tin excel
                                 </button>
-                                <a href="/sample/import-mon-hoc-sample.xls" class="btn btn-default" download>
+                                <a href="http://localhost/cea-2.0/public/sample/import-mon-hoc-sample.xls" class="btn btn-default" download>
                                     <i class="fa fa-download"></i> Tải mẫu
                                 </a>
                             </h3>
@@ -209,7 +209,7 @@ const editModal = {
 
 const consumer = {
     save: function (formData) {
-        return axios.post('http://localhost/cea-2.0/public/apimon-hoc/them-excel', formData);
+        return axios.post('http://localhost/cea-2.0/public/api/mon-hoc/them-excel', formData);
     },
     uploadFile: function (file) {
         var formData = new FormData();
@@ -219,14 +219,14 @@ const consumer = {
             }
         }
         formData.append('excel_file', file);
-        return axios.post('http://localhost/cea-2.0/public/apiexcel/import-mon-hoc', formData, headers);
+        return axios.post('http://localhost/cea-2.0/public/api/excel/import-mon-hoc', formData, headers);
     },
     getListHeDaoTao: function () {
-        const url = 'http://localhost/cea-2.0/public/apihe-dao-tao/all';
+        const url = 'http://localhost/cea-2.0/public/api/he-dao-tao/all';
         return axios.get(url).then(response => response.data);
     },
     getListNganhNghe: function () {
-        const url = 'http://localhost/cea-2.0/public/apinganh-nghe/all';
+        const url = 'http://localhost/cea-2.0/public/api/nganh-nghe/all';
         return axios.get(url).then(response => response.data);
     },
 }

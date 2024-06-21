@@ -49,6 +49,7 @@
                                     <tr>
                                         <!-- <th class="text-center"></th> -->
                                         <th class="text-center w-3">STT</th>
+                                        <th>Mã môn</th>
                                         <th>Môn học</th>
                                         <th class="w-10">Số tín chỉ</th>
                                         <th class="w-10">Số tiết/giờ</th>
@@ -66,6 +67,11 @@
                                         </td> -->
                                         <td class="text-center">{{ semesterIndex + 1 }}</td>
                                         <td>
+                                            <!-- <select2 v-if="!mh.bang_diem_exists" v-model="mh.mh_id"
+                                                :options="listMonHoc.select2" @change="actionSelectMonHoc(mh)"></select2> -->
+                                            <span v-if="!mh.bang_diem_exists">{{ mh.mh_ma }}</span>
+                                        </td>
+                                         <td>
                                             <!-- <select2 v-if="!mh.bang_diem_exists" v-model="mh.mh_id"
                                                 :options="listMonHoc.select2" @change="actionSelectMonHoc(mh)"></select2> -->
                                             <span v-if="!mh.bang_diem_exists">{{ mh.mh_ten }}</span>

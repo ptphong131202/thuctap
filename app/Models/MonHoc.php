@@ -38,4 +38,9 @@ class MonHoc extends Model
     {
     	return $this->hasOne(KhoaDaoTao::class, 'kdt_id', 'kdt_id');
     }
+
+    public function bangDiemLogs()
+    {
+        return $this->hasManyThrough(BangDiemLog::class, 'mh_id', 'mh_id');
+    }
 }
