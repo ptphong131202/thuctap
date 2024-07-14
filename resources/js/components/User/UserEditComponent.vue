@@ -120,7 +120,7 @@
                 { permission_id: 'caodang', name: 'Cao đẳng' },
                 { permission_id: 'xemdiem', name: 'Xem điểm' },
                 { permission_id: 'nhaprenluyen', name: 'Nhập điểm rèn luyện' },
-                { permission_id: 'admin.log', name: 'Xem nhật ký điểm' },
+                { permission_id: 'admin.log', name: 'Xem nhật ký điểm' }, // P.Dinh
             ]
         }
     }

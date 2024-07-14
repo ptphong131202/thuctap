@@ -169,93 +169,10 @@ class LopHocController extends Controller
             $lophoc->ketqua_url = route('dot-xet-tot-nghiep.ket-qua-hoc-tap', ['lh_id' => $lophoc->lh_id, 'dxtn_id' => $dxtn_id]);
         }
         return response()->json($danhSach);
-
-
-
-
-        // $search = $request->search;
-        // $nk_id = $request->nienkhoa;
-        // $hdt_id = $request->chuongtrinh;
-        // $danhSach = LopHoc::with('khoaDaoTao', 'nienKhoa', 'quyetDinh')
-        //     ->where(function ($builder) use ($search) {
-        //         $builder->whereRaw('lower(qlsv_lophoc.lh_ma) like lower(?)', "%$search%")
-        //             ->orWhereRaw('lower(qlsv_lophoc.lh_ten) like lower(?)', "%$search%");
-        //     })
-        //     ->where(function ($builder) use ($dxtn_id) {
-        //         $builder->whereRaw('qlsv_lophoc.lh_id in (select dtdx.lh_id from qlsv_dotthi_dotxettotnghiep dtdx where dtdx.dxtn_id = ?)', $dxtn_id);
-        //     })
-        //     ->where(function ($builder) use ($nk_id) {
-        //         if (isset($nk_id) && $nk_id != -1) {
-        //             $builder->whereRaw('qlsv_lophoc.nk_id = ?', "$nk_id");
-        //         }
-        //     })
-        //     ->whereHas('khoaDaoTao', function ($builder) use ($hdt_id) {
-        //         if (isset($hdt_id) && $hdt_id != -1) {
-        //             $builder->whereRaw('qlsv_khoadaotao.hdt_id = ?', "$hdt_id");
-        //         }
-        //     })
-        //     ->orderBy('qlsv_lophoc.lh_id', 'desc')
-        //     ->paginate(10)
-        //     ->appends([
-        //         'search' => $search,
-        //         'nienkhoa' => $nk_id,
-        //         'chuongtrinh' => $hdt_id
-        //     ])
-        //     ->onEachSide(2);
-        // foreach ($danhSach as $lophoc) {
-        //     $lophoc->ketqua_url = route('dot-xet-tot-nghiep.ket-qua-hoc-tap', ['lh_id' => $lophoc->lh_id, 'dxtn_id' => $dxtn_id]);
-        // }
-        // return response()->json($danhSach);
     }
 
-   /*  public function paginate(Request $request)
-    {
-        $search = $request->search;
-        $nk_id = $request->nienkhoa;
-        $hdt_id = $request->chuongtrinh;
-        $danhSach = LopHoc::with('khoaDaoTao', 'nienKhoa', 'quyetDinh')
-            ->withExists('bangDiem')
-            ->withCount('sinhVien')
-            ->where(function ($builder) use ($search) {
-                $builder->whereRaw('lower(qlsv_lophoc.lh_ma) like lower(?)', "%$search%")
-                    ->orWhereRaw('lower(qlsv_lophoc.lh_ten) like lower(?)', "%$search%");
-            })
-            ->where(function ($builder) use ($nk_id) {
-                if (isset($nk_id) && $nk_id != -1) {
-                    $builder->whereRaw('qlsv_lophoc.nk_id = ?', "$nk_id");
-                }
-            })
-            ->whereHas('khoaDaoTao', function ($builder) use ($hdt_id) {
-                if (auth()->user()->hasPermission('caodang') && auth()->user()->hasPermission('trungcap')) {
-                    if (isset($hdt_id) && $hdt_id != -1) {
-                        $builder->whereRaw('qlsv_khoadaotao.hdt_id = ?', $hdt_id);
-                    }
-                } else {
-                    if (auth()->user()->hasPermission('caodang')) {
-                        $builder->whereRaw('qlsv_khoadaotao.hdt_id = ?', 4);
-                    } else if (auth()->user()->hasPermission('trungcap')) {
-                        $builder->whereRaw('qlsv_khoadaotao.hdt_id = ?', 5);
-                    }
-                }
-            })
-            ->orderBy('lh_id', 'desc')
-            ->paginate(10)
-            ->setPath(route('lop-hoc.index'))
-            ->appends([
-                'search' => $search,
-                'nienkhoa' => $nk_id,
-                'chuongtrinh' => $hdt_id
-            ])
-            ->onEachSide(2);
-        foreach ($danhSach as $lophoc) {
-            $lophoc->edit_url = route('lop-hoc.chi-tiet', $lophoc);
-            $lophoc->importexcel_url = route('lop-hoc.them-sinh-vien-excel', $lophoc);
-            $lophoc->edit_monhoc_url = route('lop-hoc.hoc-ky', $lophoc);
-        }
-        return response()->json($danhSach);
-    } */
 
-    // NGUYEN PHU DINH
+    // P.Dinh ->>>>>
     public function paginate(Request $request)
     {
         $search = $request->search;

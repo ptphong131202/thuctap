@@ -115,18 +115,18 @@ return [
                     'permission' => 'admin.index,admin.xettotnghiep',
                 ],
                 [
-                    'name' => 'Tra cứu điểm',
+                    'name' => 'Tra cứu điểm',   
                     'route' => 'tra-cuu-diem.tra-cuu',
                     'permission' => 'student',
                     'icon' => 'fa fa-search',
                 ],
-                [ // sửa
+                [ // P.Dinh >>> 
                     'name' => 'Nhật ký chỉnh sửa điểm',
                     'route' => 'nhap-diem.nhat-ky',
                     'icon' => 'fa fa-sticky-note-o',
                     'permission' => 'admin.log',
                 ],
-                
+                /// >>>>>
                 [
                     'name' => 'Quản trị',
                     'icon' => 'fa fa-cogs',

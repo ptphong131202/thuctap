@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ assetv('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ assetv('css/admin1.css') }}">
+    <link rel="stylesheet" href="{{ assetv('css/admin2.css') }}">
     @stack('style')
 </head>
 

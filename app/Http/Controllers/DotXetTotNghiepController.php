@@ -45,6 +45,7 @@ class DotXetTotNghiepController extends Controller
         return view('qlsv.dotxettotnghiep.dotxettotnghiep_create');
     }
 
+    // T.Phong ---->
     public function paginate(Request $request)
     {
         $search = $request->search;
@@ -116,6 +117,9 @@ class DotXetTotNghiepController extends Controller
         }
         return response()->json($danhSachDotXetTotNghiep);
     }
+
+    // T.Phong ---->
+
 
     public function exportBanDiemTungMonVaDotThiThiDatTN(Request $request, $dt_id)
     {

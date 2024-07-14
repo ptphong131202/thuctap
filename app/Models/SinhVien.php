@@ -77,6 +77,7 @@ class SinhVien extends Model
 
     }
 
+    // T.Phong >>>> 
     public function bangDiemLogs()
     {
         return $this->hasManyThrough(BangDiemLog::class, 'sv_id', 'sv_id');

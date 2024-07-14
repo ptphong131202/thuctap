@@ -37,6 +37,8 @@ class CanBo extends Model
     /**
      * Một cán bộ có nhiều bản ghi điểm thông qua user_id.
      */
+
+     // T.Phong >>>
     public function bangDiemLogs()
     {
         return $this->hasManyThrough(BangDiemLog::class, User::class, 'user_id', 'user_id', 'user_id', 'user_id');

@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\LopHoc;
 use App\Models\SinhVien;
 use App\Models\KhoaDaoTao;
-use App\Models\HeDaoTao;
 use App\Models\Log;
 use App\Models\MonHoc;
+// <---- T.Phong 
+use App\Models\HeDaoTao;
 use App\Models\DotXetTotNghiepSinhVien;
 use App\Models\NganhNghe;
 use App\Models\NienKhoa;
 use App\Models\DotThi;
 use App\Models\DotXetTotNghiep;
+// T.Phong ------>
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -69,7 +71,7 @@ class DashboardController extends Controller
     }
 
   
-    /// T.Phong chỉnh sửa hàm indexCanBo() 
+    /// T.Phong ---->
         public function indexCanBo()
     {
         // thông tin cán bộ

@@ -7,7 +7,7 @@ use App\Models\NganhNghe;
 use App\Models\MonHoc;
 
 use App\Http\Requests\NganhNgheEditRequest;
-use Illuminate\Support\Facades\DB; // dinh
+use Illuminate\Support\Facades\DB; // P.Dinh ->>>>
 
 class NganhNgheController extends Controller
 {
@@ -24,6 +24,7 @@ class NganhNgheController extends Controller
         return view('qlsv.nganhnghe.nganhnghe_list', compact('permissions'));
     }
 
+    // P.Dinh ->>>>
     public function monhoc($nn_id, $hdt_id)
     {
 

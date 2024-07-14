@@ -25,7 +25,7 @@ class SinhVienController extends Controller
         return view('qlsv.sinhvien.sinhvien_list');
     }
 
-    // T.Phong chỉnh sửa hàm paginate()
+    // T.Phong >>>> 
     public function paginate(Request $request)
     {
         $search = $request->search;

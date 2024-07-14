@@ -44,6 +44,7 @@ class DotThiController extends Controller
         return view('qlsv.dotthi.dotthi_create');
     }
 
+    // T.Phong ->>>
     public function paginate(Request $request)
     {
         $search = $request->search;
@@ -130,6 +131,8 @@ class DotThiController extends Controller
 
         return response()->json($danhSachDotThi);
     }
+
+    // T.Phong  --------
 
     public function xoaLopHocKhoiDotThi($lh_id, $dt_id)
     {

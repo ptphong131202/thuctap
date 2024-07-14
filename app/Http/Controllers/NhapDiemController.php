@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+// P.Dinh 
 use Illuminate\Support\Facades\Validator;
-use App\Models\LopHoc;
+use App\Models\BangDiemLog;
 use App\Models\CanBo;
+use Carbon\Carbon;
+use App\Services\ZaloService;
+// ->>>>
+use App\Models\LopHoc;
 use App\Models\SinhVien;
 use App\Models\BangDiem;
-use App\Models\BangDiemLog;
 use App\Models\MonHoc;
 use App\Models\DotThi;
 use App\Models\DotThiBangDiem;
 use App\Enums\BangDiemType;
 use App\Excels\KetQuaHocTap;
-use App\Services\ZaloService;
-use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToArray;
-
 class NhapDiemController extends Controller
 {
     /**
@@ -190,6 +191,7 @@ class NhapDiemController extends Controller
         return view('qlsv.nhapdiem.nhapdiem_monhoc', compact(['lopHoc', 'hocKy', 'monHoc']));
     }
 
+    // T.Phong >>>>
     public function xemNhatKyDiem($token)
     {
         $params = json_decode(base64_decode($token));
@@ -297,7 +299,7 @@ class NhapDiemController extends Controller
     }
 
     
-
+    // P.Phong 
     public function getBangDiemLog(Request $request)
     {
         // Lấy bd_id và thoigian từ request
@@ -463,7 +465,7 @@ class NhapDiemController extends Controller
     }
 
     
-   
+   // P.Phong 
     public function updateBangDiem(Request $request, $lh_id)
     {
         $validator = \Validator::make($request->all(), [
@@ -569,12 +571,7 @@ class NhapDiemController extends Controller
             'data' => $request->all(),
         ], 200);
     }
-
-
-    
-
-
- 
+  
     public function destroyBangDiem($bdId)
     {
         DB::transaction(function () use ($bdId) {
@@ -822,11 +819,13 @@ class NhapDiemController extends Controller
         return view('qlsv.nhapdiem.nhapdiem_kiemtradiem', compact(['configSv']));
     }
 
+    // P.Dinh >>>
     public function NhatKyDiem(Request $request)
     {
         return view('qlsv.nhapdiem.nhapdiem_nhatky');
     }
     
+    // T.Phong >>>
     public function getNhatKyDiem(Request $request)
     {
         // get id monhoc
@@ -912,13 +911,6 @@ class NhapDiemController extends Controller
 
         return response()->json($response);
     }
-
-
-    
-
-
-
-    
 
     public function nhapDotThi(Request $request)
     {

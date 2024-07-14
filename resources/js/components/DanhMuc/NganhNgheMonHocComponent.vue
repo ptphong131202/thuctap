@@ -1,4 +1,4 @@
-<!-- NGUYEN PHU DINH -->
+<!-- P.Dinh -->
 <template>
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->

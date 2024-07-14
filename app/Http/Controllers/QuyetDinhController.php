@@ -20,7 +20,7 @@ class QuyetDinhController extends Controller
         return view('qlsv.quyetdinh.quyetdinh_list');
     }
 
-    // T.Phong chỉnh sửa hàm paginate
+    // T.Phong >>>>>>
     public function paginate(Request $request)
     {
         $search = $request->search;

@@ -338,7 +338,7 @@
                                               </td>
                                               <td>
                                                   <div
-                                                      style="min-width: 50px"
+                                                      style="min-width: 80px; text-align: center;"
                                                   >
                                                   <span
                                                           @click="
@@ -617,7 +617,7 @@
                                               </td>
                                               <td>
                                                   <div
-                                                      style="min-width: 50px"
+                                                      style="min-width: 80px; text-align: center;"
                                                   >
                                                       <input
                                                           type="number"

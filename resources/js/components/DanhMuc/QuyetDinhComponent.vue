@@ -84,7 +84,7 @@
                                                 v-on:click="destroyV2(qd.qd_id)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <!-- T.Phong thêm nút xem chi tiết quyết định -->
+                                            <!-- T.Phong -->
                                             <a v-if="qd.qd_loai === 0 && qd.checklophoc === true" :href="'http://localhost/cea-2.0/public/lop-hoc?search=' + qd.qd_id">
                                                 <button type="button" class="btn bg-purple btn-sm">
                                                     <i class="fa fa-eye"></i>
